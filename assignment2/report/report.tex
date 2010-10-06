@@ -1,1 +1,77 @@
-Something to commit
+\documentclass[11pt]{article}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{amsmath}
+\renewcommand{\baselinestretch}{1.5}
+\title{Assignment 2}
+\author{Knut Halvor Skrede \& Ole Magnus Ruud}
+\begin{document}
+	\maketitle
+	\clearpage
+
+
+	\section*{Abstract/Summary}
+
+	% Lab-report presents documentation of your work which was done during the exercise. It is important
+	% that the reader can understand what the group has done and how it came to the solution.
+	% In short, abstract should contain overview of:
+	% – what the task of the exercise was
+	% – how it was solved
+	% – what works
+	% – what does not work
+	% – if something extra was done by the group
+	% – if something should have been done in another way
+
+	The task was to implement a multicycle cpu. A top level architecture was proposed in the assignment text, we chose to implement the cpu in this way. We could use the alu we made from the previous assignment, but we chose to use the one included in the support files. The cpu should load instructions into memory and execute them. A program counter will be used to walk through the instructions. A BNZ (branch if not zero) instruction can also be used, this instruction will load the program counter with a given address if the zero flag in the status register is not set. Otherwise the cpu should implement a LDI (load immediate) instruction that loads the the register with a value. The cpu should also implement the ALU functionality.
+
+We chose to use the instruction word layout proposed in the assignment text.
+
+The control unit implements a simple fetch-execute state machine.
+
+	\section*{Introduction}
+
+	% Present what the task within the exercise is and what challenges it gives. For example, which kind of
+	% program has to be written and which hardware has to be used.
+	% Short introduction to how the group has solved this task. It is important that what has been
+	% accomplished is clearly presented.
+	% If there is something in the exercise what has not been completed or what does not function as it should
+	% , it should also be described.
+	% If applicable, write on the motivation and solution(s) for extra functionality which the group has set in.
+
+	\section*{Suggested Solution}
+
+	% Present concisely an outline of how the task was solved. This is the place to write in greater detail
+	% about how the group was developing ideas for achieving solution.
+	% Add an outline of, for example, how hardware is built up and how it functions. It is advised to use
+	% concise and clear flow diagrams, UML or block diagram.
+	% All code should be delivered in a separate file. It is important that documentation contains enough
+	% description of the program so that the reader can understand how the program works and what files
+	% with the source code are attached.
+	% Write about how the group has come to the solution, what tests were used to ensure that the program
+	% runs as it should, for example, what documentation the group has used, possibly some additional
+	% sources which were helpful to do the exercise.
+	% Remember that documentation is a part of the grade. So, it is not enough to have a brilliant solution if
+	% the reader can't understand how it is meant to work.
+
+	\section*{Result}
+
+	% Present the result of the work. What works and what does not. What the problems were if there were
+	% any. Or even better: what was fantastic in the group's work.
+	% Here is the place to add some screen-shots, debug outputs or similar to support the documentation.
+	% It is also the place to praise or show more critique towards the presented work.
+
+	\section*{Evaluation}
+
+	% If there is something about the exercise what should be changed, mention it here – text in the
+	% compendium, support files, exercise itself or something else which us as teaching staff should see to.
+
+	\section*{Conclusion}
+
+	% Round up - what works, what does not work. Comment on the exercise. Write a bit about what was
+	% easy and what not so.
+
+
+
+\end{document}
+
+

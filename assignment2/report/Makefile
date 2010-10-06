@@ -25,9 +25,9 @@ DOT = dot
 	dot -Teps $< > $@
 
 .PHONY: all
-all: answers.pdf
+all: report.pdf
 
-answers.pdf: answers.tex Makefile
+report.pdf: report.tex Makefile
 
 .PHONY: clean
 clean:
@@ -39,5 +39,5 @@ clean:
 
 .PHONY: distclean
 distclean: clean
-	rm -rf answers.pdf
+	rm -rf report.pdf
 
