@@ -22,11 +22,13 @@
 	% – if something extra was done by the group
 	% – if something should have been done in another way
 
-	The task was to implement a multicycle cpu. A top level architecture was proposed in the assignment text, we chose to implement the cpu in this way. We could use the alu we made from the previous assignment, but we chose to use the one included in the support files. The cpu should load instructions into memory and execute them. A program counter will be used to walk through the instructions. A BNZ (branch if not zero) instruction can also be used, this instruction will load the program counter with a given address if the zero flag in the status register is not set. Otherwise the cpu should implement a LDI (load immediate) instruction that loads the the register with a value. The cpu should also implement the ALU functionality.
+	The task was to implement a simple multicycle cpu. A top level architecture was proposed in the assignment text, we chose to implement the cpu in this way. We could use the alu we made from the previous assignment, but we chose to use the one included in the support files. The cpu should load instructions into memory and execute them. A program counter will be used to walk through the instructions. A BNZ (branch if not zero) instruction can also be used, this instruction will load the program counter with a given address if the zero flag in the status register is not set. Otherwise the cpu should implement a LDI (load immediate) instruction that loads the the register with a value. The cpu should also implement the ALU functionality.
 
 We chose to use the instruction word layout proposed in the assignment text.
 
 The control unit implements a simple fetch-execute state machine.
+
+The assignment was also to write a simple program to run on the cpu, we chose to implement fibonacci.
 
 	\section*{Introduction}
 
@@ -37,6 +39,8 @@ The control unit implements a simple fetch-execute state machine.
 	% If there is something in the exercise what has not been completed or what does not function as it should
 	% , it should also be described.
 	% If applicable, write on the motivation and solution(s) for extra functionality which the group has set in.
+
+	The task was essentially to create the PC register, the status register, muxers for PC register and regfile and the unit controlling the write enable signals of the registers and select signals for the muxers. 
 
 	\section*{Suggested Solution}
 
@@ -59,6 +63,8 @@ The control unit implements a simple fetch-execute state machine.
 	% any. Or even better: what was fantastic in the group's work.
 	% Here is the place to add some screen-shots, debug outputs or similar to support the documentation.
 	% It is also the place to praise or show more critique towards the presented work.
+
+	Everything worked perfectly.
 
 	\section*{Evaluation}
 
