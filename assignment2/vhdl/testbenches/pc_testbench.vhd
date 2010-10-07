@@ -1,143 +1,142 @@
---------------------------------------------------------------------------------
--- Company: 
--- Engineer:
+-------------------------------------------------------------------------------
 --
--- Create Date:   12:44:55 09/30/2010
--- Design Name:   
--- Module Name:   C:/Users/khs/Documents/school/maskinvare/Oving 2/hardware/testbenches/pc_testbench.vhd
--- Project Name:  assignment2
--- Target Device:  
--- Tool versions:  
--- Description:   
+-- Program Counter Testbench
 -- 
--- VHDL Test Bench Created by ISE for module: pc
--- 
--- Dependencies:
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
+-- TDT4255 - Assignment 2 
 --
--- Notes: 
--- This testbench has been automatically generated using types std_logic and
--- std_logic_vector for the ports of the unit under test.  Xilinx recommends
--- that these types always be used for the top-level I/O of a design in order
--- to guarantee that the testbench will bind correctly to the post-implementation 
--- simulation model.
---------------------------------------------------------------------------------
+-- Knut Halvor Skrede
+-- Ole Magnus Ruud
+--
+-- Tests Program counter component. Produces warning if unexpected results.
+--
+-------------------------------------------------------------------------------
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
- 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---USE ieee.numeric_std.ALL;
- 
+
 ENTITY pc_testbench IS
 END pc_testbench;
- 
+
 ARCHITECTURE behavior OF pc_testbench IS 
- 
-    -- Component Declaration for the Unit Under Test (UUT)
- 
-    COMPONENT pc
+  
+  COMPONENT pc
     PORT(
-         pc_in : IN  std_logic_vector(7 downto 0);
-         pc_write_enable : IN  std_logic;
-         pc_mux_sel : IN  std_logic;
-         pc_out : OUT  std_logic_vector(7 downto 0);
-         core_rst : IN  std_logic;
-         core_clk : IN  std_logic
-        );
-    END COMPONENT;
-    
+      pc_in : IN  std_logic_vector(7 downto 0);
+      pc_write_enable : IN  std_logic;
+      pc_mux_sel : IN  std_logic;
+      pc_out : OUT  std_logic_vector(7 downto 0);
+      core_rst : IN  std_logic;
+      core_clk : IN  std_logic
+      );
+  END COMPONENT;
+  
 
-   --Inputs
-   signal pc_in : std_logic_vector(7 downto 0) := (others => '0');
-   signal pc_write_enable : std_logic := '0';
-   signal pc_mux_sel : std_logic := '0';
-   signal core_rst : std_logic := '0';
-   signal core_clk : std_logic := '0';
+  --Inputs
+  signal pc_in : std_logic_vector(7 downto 0) := (others => '0');
+  signal pc_write_enable : std_logic := '0';
+  signal pc_mux_sel : std_logic := '0';
+  signal core_rst : std_logic := '0';
+  signal core_clk : std_logic := '0';
 
- 	--Outputs
-   signal pc_out : std_logic_vector(7 downto 0);
+  --Outputs
+  signal pc_out : std_logic_vector(7 downto 0);
 
-   -- Clock period definitions
-   constant core_clk_period : time := 10 ns;
- 
+  -- Clock period definitions
+  constant core_clk_period : time := 10 ns;
+  
+  procedure assert_result (
+    -- Compares pc output with expected result
+    -- and produces a warning if not equal 
+    pc_output : in std_logic_vector(7 downto 0);
+    expected : in std_logic_vector(7 downto 0)
+    ) is
+  begin
+    assert pc_output = expected
+      report "Assert result failed" severity WARNING;
+  end assert_result;
+  
 BEGIN
- 
-	-- Instantiate the Unit Under Test (UUT)
-   uut: pc PORT MAP (
-          pc_in => pc_in,
-          pc_write_enable => pc_write_enable,
-          pc_mux_sel => pc_mux_sel,
-          pc_out => pc_out,
-          core_rst => core_rst,
-          core_clk => core_clk
-        );
+  
+  pc1: pc PORT MAP (
+    pc_in => pc_in,
+    pc_write_enable => pc_write_enable,
+    pc_mux_sel => pc_mux_sel,
+    pc_out => pc_out,
+    core_rst => core_rst,
+    core_clk => core_clk
+    );
 
-   -- Clock process definitions
-   core_clk_process :process
-   begin
-		core_clk <= '0';
-		wait for core_clk_period/2;
-		core_clk <= '1';
-		wait for core_clk_period/2;
-   end process;
- 
+  -- Clock process
+  core_clk_process :process
+  begin
+    core_clk <= '0';
+    wait for core_clk_period/2;
+    core_clk <= '1';
+    wait for core_clk_period/2;
+  end process;
+  
 
-   -- Stimulus process
-   stim_proc: process
-   begin		
-      -- hold reset state for 100 ns.
-      wait for 100 ns;	
+  -- Stimulus process
+  stim_proc: process
+  begin		
+    core_rst <= '0';
+    wait for core_clk_period*10;
+    
+    core_rst <= '1';
+    
+    wait for core_clk_period;
+    assert_result(pc_out, "00000000");
+    -- set register to +1 5 times 
+    pc_mux_sel <= '0';
+    pc_write_enable <= '1';
+    wait for core_clk_period;
+    assert_result(pc_out, "00000001");
+    pc_write_enable <= '0';
+    wait for core_clk_period;
+    pc_write_enable <= '1';
+    wait for core_clk_period;
+    assert_result(pc_out, "00000010");
+    pc_write_enable <= '0';
+    wait for core_clk_period;
+    pc_write_enable <= '1';
+    wait for core_clk_period;
+    assert_result(pc_out, "00000011");
+    pc_write_enable <= '0';
+    wait for core_clk_period;
+    pc_write_enable <= '1';
+    wait for core_clk_period;
+    assert_result(pc_out, "00000100");
+    pc_write_enable <= '0';
+    wait for core_clk_period;
+    pc_write_enable <= '1';
+    wait for core_clk_period;
+    assert_result(pc_out, "00000101");
+    pc_write_enable <= '0';
+    wait for core_clk_period;
+    
+    -- Load register with immediate value "01000000"
+    pc_in <= "01000000";
+    pc_write_enable <= '1';
+    pc_mux_sel <= '1';
+    wait for core_clk_period;
+    assert_result(pc_out, "01000000");
+    pc_write_enable <= '0';
+    wait for core_clk_period;
 
-      wait for core_clk_period*10;
-		core_rst <= '1';
-		
-      -- set register to +1 5 times 
-		pc_mux_sel <= '0';
-		pc_write_enable <= '1';
-      wait for core_clk_period;
-		pc_write_enable <= '0';
-      wait for core_clk_period;
-		pc_write_enable <= '1';
-      wait for core_clk_period;
-		pc_write_enable <= '0';
-      wait for core_clk_period;
-		pc_write_enable <= '1';
-      wait for core_clk_period;
-		pc_write_enable <= '0';
-      wait for core_clk_period;
-		pc_write_enable <= '1';
-      wait for core_clk_period;
-		pc_write_enable <= '0';
-      wait for core_clk_period;
-		pc_write_enable <= '1';
-      wait for core_clk_period;
-		pc_write_enable <= '0';
-      wait for core_clk_period;
-		
-		-- load register with info with "01000000"
-		pc_in <= "01000000";
-		pc_write_enable <= '1';
-		pc_mux_sel <= '1';
-      wait for core_clk_period;
-		pc_write_enable <= '0';
-      wait for core_clk_period;
+    -- Set register to +1 2 times
+    pc_mux_sel <= '0';
+    pc_write_enable <= '1';
+    wait for core_clk_period;
+    assert_result(pc_out, "01000001");
+    pc_write_enable <= '0';
+    wait for core_clk_period;
+    pc_write_enable <= '1';
+    wait for core_clk_period;
+    assert_result(pc_out, "01000010");
+    pc_write_enable <= '0';
+    wait for core_clk_period;
 
-		-- set register to +1 2 times
-		pc_mux_sel <= '0';
-		pc_write_enable <= '1';
-      wait for core_clk_period;
-		pc_write_enable <= '0';
-      wait for core_clk_period;
-		pc_write_enable <= '1';
-      wait for core_clk_period;
-		pc_write_enable <= '0';
-      wait for core_clk_period;
-
-      wait;
-   end process;
+    wait;
+  end process;
 
 END;

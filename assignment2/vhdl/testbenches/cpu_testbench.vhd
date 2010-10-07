@@ -94,7 +94,7 @@ ARCHITECTURE behavior OF cpu_testbench IS
   procedure assert_result (
     -- Compares register value with expected result
     -- and produces a warning if not equal 
-    reg_value : std_logic_vector(7 downto 0);
+    reg_value : in std_logic_vector(7 downto 0);
     expected : in integer
     ) is
   begin
@@ -174,12 +174,12 @@ BEGIN
     wait for 2*core_clk_period;		assert_result(reg_values(4), 3);
     wait for 2*core_clk_period;		assert_result(reg_values(1), 2);
     wait for 2*core_clk_period;		assert_result(reg_values(2), 3);
-    wait for 2*core_clk_period; 	-- Wait for jump instruction
+    wait for 2*core_clk_period; 		-- Wait for jump instruction
     wait for 2*core_clk_period;		assert_result(reg_values(3), 5);
     wait for 2*core_clk_period;		assert_result(reg_values(4), 8);
     wait for 2*core_clk_period;		assert_result(reg_values(1), 5);
     wait for 2*core_clk_period;		assert_result(reg_values(2), 8);
-    wait for 2*core_clk_period; 	-- Wait for jump instruction
+    wait for 2*core_clk_period; 		-- Wait for jump instruction
     wait for 2*core_clk_period;		assert_result(reg_values(3), 13);		
     wait for 2*core_clk_period;		assert_result(reg_values(4), 21);
     wait for 2*core_clk_period;		assert_result(reg_values(1), 13);
