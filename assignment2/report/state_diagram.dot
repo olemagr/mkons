@@ -1,0 +1,19 @@
+
+digraph state {
+	size=50;
+	resolution=300;
+	node [shape = circle];
+	N1 [label = "Wait for\nregisters to\nbe written."];
+	N2 [label = "Write immediate\nvalue to\nregister Rd\nand PC+1"];
+	N3 [label = "Write alu_out\nto register Rd\n and PC+1"];
+	N4 [label = "Write\nimmediate value\nto PC register"];
+
+	N1 -> N2 [label = "LDI"];
+	N2 -> N1;
+
+	N1 -> N3 [label = "ALU_INST"];
+	N3 -> N1;
+
+	N1 -> N4 [label = "BNZ"];
+	N4 -> N1;
+}
