@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[10pt]{article}
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{amsmath}
@@ -57,6 +57,29 @@ The assignment was also to write a simple program to run on the cpu, we chose to
 	% Remember that documentation is a part of the grade. So, it is not enough to have a brilliant solution if
 	% the reader can't understand how it is meant to work.
 
+	\subsection*{Implementation}
+
+	
+
+	\begin{center}
+	\includegraphics[width=.75\linewidth]{state_diagram.png} \\
+	\end{center}
+
+	\subsection*{Testing}
+
+	During the implementation process we wrote several simple testbenches for the various components. At the end we tested the entire design with a testbench for the cpu component (cpu\_testbench.vhd).
+
+	\subsection*{Synthesis}
+
+	From the synthesis report we see that 
+	\begin{enumerate}
+		\item the regfile muxer inferred 8 1-bit multiplexers, this was allitle strange as we expected 1 8-bit multiplexer. This does not matter to the functionality though.
+		\item the sr module inferred one D-type flip flop, this is exatly what we wanted.
+		\item the pc module inferred one 8-bit counter, this is also exactly what we wanted.
+		\item the control module inferred 1 D-type flip flop, this is used to hold the current status (fetch or execute), the rest is compinatorial, so this is also what we wanted.
+		\item the toplevel module did not infer anything, which was expected as it is simply mapping signals between the other modules.
+	\end{enumerate}
+
 	\section*{Result}
 
 	% Present the result of the work. What works and what does not. What the problems were if there were
@@ -64,7 +87,9 @@ The assignment was also to write a simple program to run on the cpu, we chose to
 	% Here is the place to add some screen-shots, debug outputs or similar to support the documentation.
 	% It is also the place to praise or show more critique towards the presented work.
 
-	Everything worked perfectly.
+	Everything worked perfectly after a couple of days work. This was allot earlier than expected.
+
+
 
 	\section*{Evaluation}
 
