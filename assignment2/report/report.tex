@@ -22,7 +22,7 @@
 	% – if something extra was done by the group
 	% – if something should have been done in another way
 
-	The task was to implement a simple multicycle cpu. A top level architecture was proposed in the assignment text, we chose to implement the cpu in this way. We could use the alu we made from the previous assignment, but we chose to use the one included in the support files. The cpu should load instructions into memory and execute them. A program counter will be used to walk through the instructions. A BNZ (branch if not zero) instruction can also be used, this instruction will load the program counter with a given address if the zero flag in the status register is not set. Otherwise the cpu should implement a LDI (load immediate) instruction that loads the the register with a value. The cpu should also implement the ALU functionality.
+	The task was to implement a simple multicycle cpu. A top level architecture was proposed in the assignment text, we chose to implement the cpu in this way. We could use the alu we made from the previous assignment, but we chose to use the one included in the support files. The cpu should load instructions into memory and execute them. A program counter will be used to walk through the instructions. A BNZ (branch if not zero) instruction can also be used, this instruction will load the program counter with a given address if the zero flag in the status register is not set. Additionally the CPU should implement a LDI (load immediate) instruction that loads the the register with a value. The cpu should also implement the ALU functionality.
 
 We chose to use the instruction word layout proposed in the assignment text.
 
@@ -40,7 +40,7 @@ The assignment was also to write a simple program to run on the cpu, we chose to
 	% , it should also be described.
 	% If applicable, write on the motivation and solution(s) for extra functionality which the group has set in.
 
-	The task was essentially to create the PC register, the status register, muxers for PC register and regfile and the unit controlling the write enable signals of the registers and select signals for the muxers. 
+	The task was essentially to create a CPU. We had to implement the PC register, the status register, muxers for PC register and regfile and the unit controlling the write enable signals of the registers and select signals for the muxers. The main register and memory was given to us.
 
 	\section*{Suggested Solution}
 
@@ -57,27 +57,51 @@ The assignment was also to write a simple program to run on the cpu, we chose to
 	% Remember that documentation is a part of the grade. So, it is not enough to have a brilliant solution if
 	% the reader can't understand how it is meant to work.
 
+	\subsection*{Approach}
+
+	We started by making skelleton modules for all the components, and then we mapped the signals between them. After that we implemented the simplest components. To make sure nothing was wrong before writing the more difficult components, we wrote simple testbenches for them. We then proceeded to implement the control unit, which we considered to be the most challenging component. We then wrote a more general testbench for the CPU, and after debugging and figuring out some timing issues, we tested it on nalle running a program calculating fibonacci numbers.
+
 	\subsection*{Implementation}
 
-	
+	Our implementation consists of the following components:
+	\begin{enumerate}
+		\item Muxer to select what should be written to regfil
+		\item Program counter
+		\item Status register
+		\item Control unit
+		\item CPU
+		\item Components given to us from the support files.
+	\end{enumerate}	
+	The program counter is originally 0 and counts upwards, it can also be loaded with a value. We discussed using a relative jump instead of just loading a value, but decided on loading absolute values as there is no need for relative jumps when the cpu will only be running a single program and we can be sure where the instructions are located in memory.
+	The status register and muxer modules are self explanatory.
+	The control unit sets the input signals to the muxer, the counter and the status register. The control unit is implemented as a state machine with one fetch and 3 execute states. It changes state at the rising edge of the clock. All the output signals are set in the executing states, and all the registers are written in the fetching state. See figure 1. 
+	The module named CPU simply maps signals between these units. We chose to implement the CPU exactly as the figure in the assignment text proposed. 
+
+	We used the following instruction set for the CPU:\\
+	ALU\_ISNT = 000\\
+	BNZ = 001\\
+	LDI = 010\\
+
+	And for the ALU we used the instruction set allready implemented
 
 	\begin{center}
 	\includegraphics[width=.75\linewidth]{state_diagram.png} \\
+	figure 1
 	\end{center}
 
 	\subsection*{Testing}
 
-	During the implementation process we wrote several simple testbenches for the various components. At the end we tested the entire design with a testbench for the cpu component (cpu\_testbench.vhd).
+	During the implementation process we wrote several simple testbenches for the various components. We did not write any testbenches for the components given to us. At the end, when all components was ready and connected, we tested the entire design with a testbench for the cpu component (cpu\_testbench.vhd). We wrote this to be the main testbench and implemented it using some procedures to create some abstraction from the gory details.
 
 	\subsection*{Synthesis}
 
 	From the synthesis report we see that 
 	\begin{enumerate}
-		\item the regfile muxer inferred 8 1-bit multiplexers, this was allitle strange as we expected 1 8-bit multiplexer. This does not matter to the functionality though.
+		\item the regfile muxer inferred 8 1-bit multiplexers, this was alittle strange as we expected 1 8-bit multiplexer. This does not matter to the functionality though.
 		\item the sr module inferred one D-type flip flop, this is exatly what we wanted.
 		\item the pc module inferred one 8-bit counter, this is also exactly what we wanted.
 		\item the control module inferred 1 D-type flip flop, this is used to hold the current status (fetch or execute), the rest is combinatorial, so this is also what we wanted.
-		\item the toplevel module did not infer anything, which was expected as it is simply mapping signals between the other modules.
+		\item the toplevel and cpu modules did not infer anything, which was expected as they are simply mapping signals between the other modules.
 	\end{enumerate}
 
 	\section*{Result}
@@ -87,8 +111,7 @@ The assignment was also to write a simple program to run on the cpu, we chose to
 	% Here is the place to add some screen-shots, debug outputs or similar to support the documentation.
 	% It is also the place to praise or show more critique towards the presented work.
 
-	Everything worked perfectly after a couple of days work. This was allot earlier than expected.
-
+	Everything worked perfectly after a couple of days work, both simulation and testing on nalle. This was allot earlier than expected, but this was probably due to an increase in knowledge about vhdl since the previous assignment, and the fact that we cooperated on it.
 
 
 	\section*{Evaluation}
@@ -101,7 +124,7 @@ The assignment was also to write a simple program to run on the cpu, we chose to
 	% Round up - what works, what does not work. Comment on the exercise. Write a bit about what was
 	% easy and what not so.
 
-
+	It was easy to map everything together and create most of the components. The most difficult part of this assignment was to figure out the timing and syncronization, when to write to the registers and when they where ready to be read.
 
 \end{document}
 
