@@ -1,3 +1,17 @@
+-------------------------------------------------------------------------------
+--
+-- Control Unit
+-- 
+-- TDT4255 - Assignment 2 
+--
+-- Knut Halvor Skrede
+-- Ole Magnus Ruud
+--
+-- Simple state machine controlling the cpu. State is kept in register and 
+-- switched each cycle, while all other logic is combinatorial.
+--
+-------------------------------------------------------------------------------
+
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
@@ -11,17 +25,20 @@ entity ctrl is
       opcode : in std_logic_vector(OPCODE_BUS - 1 downto 0);
       sr     : in std_logic_vector(STATUS_BUS - 1 downto 0);
 
-      -- Reggister control signals
+      -- Program counter control signals
       pc_mux_select : out std_logic;
       pc_write_enable : out std_logic;
-
+		
+		-- Register control signals
       regfile_mux_select : out std_logic;
-      regfile_write_enable : out std_logic;
-      sr_write_enable : out std_logic;
+		regfile_write_enable : out std_logic;
+		
+		-- Status register enable signal
+		sr_write_enable : out std_logic;
 
-      -- Clock used for cpu core
+      -- clock used for cpu core
       core_clk : in std_logic;	
-      -- Reset used for cpu core
+      -- reset used for cpu core
       core_rst : in std_logic);
 end ctrl;
 
@@ -32,9 +49,10 @@ architecture ctrl_arch of ctrl is
 	signal state : state_type; 
    
 begin
-        -- Change state on rising edge
+	
 	STATE_SELECT : process(core_clk, core_rst) is	
 	begin
+		-- Start in fetch state after reset.
 		if core_rst='0' then
 			state <= FETCH_STATE;
 		elsif rising_edge (core_clk) then
@@ -51,6 +69,11 @@ begin
 	OUTPUT_SELECT : process(opcode, sr, state) is	
 	begin
 		if state = execute_state then
+			
+			-- Pc register altered in all execute cases
+			pc_write_enable <= '1';
+			
+			-- Set control signals based on opcode and status register
 			case opcode is
 			
 				-- ALU instruction
@@ -60,52 +83,51 @@ begin
 					regfile_write_enable <= '1';
 					-- Set status register
 					sr_write_enable <= '1';
-							
 					-- Set pc to increment
 					pc_mux_select <= '0';
 				
 				-- Branch if not zero
 				when BNZ =>
-					-- If zero flag is 0 
+					-- if zero flag is 0 
 					if sr = "0" then
-						-- Select and write immediate signal to pc
+						-- select and write immediate signal to pc
 						pc_mux_select <= '1';
 					else
-						-- Else set pc to increment to next instruction
+						-- else set pc to increment to next instruction
 						pc_mux_select <= '0';
 					end if;
-                                        -- Reg is not written, so set mux to
-                                        -- don't care
+					-- Registers not written, so mux is don't care
 					regfile_mux_select <= '-';
 					regfile_write_enable <= '0';
 					sr_write_enable <= '0';
-					-- Load immediate
-					when LDI =>
-					-- Select and write the immediate signal to regfile
+					
+				-- Load immediate
+				when LDI =>
+					-- select and write the immediate signal to regfile
 					regfile_mux_select <= '1';
 					regfile_write_enable <= '1';
 					sr_write_enable <= '0';
 					pc_mux_select <= '0';
 						
 				when others =>
-                                        -- Set to don't care for other inputs
-                                        regfile_mux_select <= '-';
+					-- Set control signals to don't care when invalid input
+					regfile_mux_select <= '-';
 					regfile_write_enable <= '-';
 					sr_write_enable <= '-';
 					pc_mux_select <= '-';
 					
 			end case;
 		
-			-- Write to pc register in all cases
-			pc_write_enable <= '1';
 			
-		else -- State = FETCH_STATE
+			
+		else -- State = fetch_state
 		
-			pc_write_enable <= '0';
-			pc_mux_select <= '0';
+			-- Disable all writes in fetch state. Muxers set to don't care
+			pc_mux_select <= '-';		
+			pc_write_enable <= '0';		
+			regfile_mux_select <= '-';	
 			regfile_write_enable <= '0';
 			sr_write_enable <= '0';
-			regfile_mux_select <= '0';
 			
 		end if;
 	end process;
