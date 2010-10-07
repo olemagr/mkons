@@ -1,6 +1,7 @@
 
 digraph state {
-	size="10";
+	size=50;
+	resolution=300;
 	node [shape = circle];
 	N1 [label = "Wait for\nregisters to\nbe written."];
 	N2 [label = "Write immediate\nvalue to\nregister Rd\nand PC+1"];

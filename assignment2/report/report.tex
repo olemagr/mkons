@@ -1,4 +1,4 @@
-\documentclass[10pt]{article}
+\documentclass[10pt]{report}
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{amsmath}
@@ -76,7 +76,7 @@ The assignment was also to write a simple program to run on the cpu, we chose to
 		\item the regfile muxer inferred 8 1-bit multiplexers, this was allitle strange as we expected 1 8-bit multiplexer. This does not matter to the functionality though.
 		\item the sr module inferred one D-type flip flop, this is exatly what we wanted.
 		\item the pc module inferred one 8-bit counter, this is also exactly what we wanted.
-		\item the control module inferred 1 D-type flip flop, this is used to hold the current status (fetch or execute), the rest is compinatorial, so this is also what we wanted.
+		\item the control module inferred 1 D-type flip flop, this is used to hold the current status (fetch or execute), the rest is combinatorial, so this is also what we wanted.
 		\item the toplevel module did not infer anything, which was expected as it is simply mapping signals between the other modules.
 	\end{enumerate}
 
