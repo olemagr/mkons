@@ -27,7 +27,9 @@
 --------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
+use ieee.numeric_std.all;
 use work.dmkons_package.all;
+use work.control_const.all;
  
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -66,7 +68,57 @@ ARCHITECTURE behavior OF cpu_testbench IS
 
    -- Clock period definitions
    constant core_clk_period : time := 10 ns;
- 
+
+
+	-- procedure to abstract loading of instructions
+	procedure load_instruction (
+		-- input signals, used to set instruction and 
+		address : in integer;
+		opcode : in std_logic_vector(2 downto 0);
+		funct : in std_logic_vector(1 downto 0);
+		imm : in integer;
+		rd : in integer;
+		rb : in integer;
+		ra : in integer;
+		-- signals to be set
+		signal w_address : out std_logic_vector(7 downto 0);
+		signal w_data : out std_logic_vector(31 downto 0);
+		signal w_enable : out std_logic
+	) is
+	begin
+		-- prepare to write
+		w_enable <= '1';
+	
+		-- convert address from integer to std_logic_vector
+		w_address <= std_logic_vector(to_unsigned(address, 8));
+
+		-- create instruction to be loaded from meaningful parameters
+		w_data <= 
+			opcode & 
+			"00000" &
+			"00" & funct &
+			std_logic_vector(to_unsigned(imm, 8)) &
+			std_logic_vector(to_unsigned(rd, 4)) &
+			std_logic_vector(to_unsigned(rb, 4)) &
+			std_logic_vector(to_unsigned(ra, 4));
+			
+		wait for core_clk_period;
+		
+		-- do not write
+		w_enable <= '0';
+	end load_instruction;
+
+
+	procedure assert_result (
+		-- input signals, used to set instruction and 
+		reg_value : std_logic_vector(7 downto 0);
+		expected : in integer
+	) is
+	begin
+		assert to_integer(unsigned(reg_value)) = expected report "Assert result failed" severity WARNING;
+	end assert_result;
+
+
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
@@ -80,6 +132,7 @@ BEGIN
           led => led
         );
 
+
    -- Clock process definitions
    core_clk_process :process
    begin
@@ -89,57 +142,58 @@ BEGIN
 		wait for core_clk_period/2;
    end process;
  
-
    -- Stimulus process
    stim_proc: process
    begin		
-      -- hold reset state for 100 ns.
-      wait for 100 ns;	
 
       wait for core_clk_period*10;
 
 		-----------------------------
       -- Load program memory
+		-----------------------------
 
-		imem_w_enable <= '1';
-		
-		imem_w_address <= "00000000";
-		imem_w_data <= "01000000000000000001000100000000";
-
-		wait for core_clk_period;
-
-		imem_w_address <= "00000001";
-		imem_w_data <= "01000000000000000001001000000000";
-		
-		wait for core_clk_period;
-
-		imem_w_address <= "00000010";
-		imem_w_data <= "00000000001100000000000100010010";
-		
-		wait for core_clk_period;
-
-		imem_w_address <= "00000011";
-		imem_w_data <= "00000000001100000000001000010010";
-		
-		wait for core_clk_period;
-
-		imem_w_address <= "00000100";
-		imem_w_data <= "00100000000000000010000000000000";
-		
-		wait for core_clk_period;
-
-		imem_w_enable <= '0';
-		
-		wait for core_clk_period;
+		load_instruction (0,	LDI, 			ALU_MOVE, 	1, 1, 0, 0, 	imem_w_address, imem_w_data, imem_w_enable);
+		load_instruction (1, LDI, 			ALU_MOVE,	1, 2, 0, 0, 	imem_w_address, imem_w_data, imem_w_enable);
+		load_instruction (2, ALU_INST, 	ALU_ADD, 	0, 3, 1, 2, 	imem_w_address, imem_w_data, imem_w_enable);
+		load_instruction (3, ALU_INST, 	ALU_ADD, 	0, 4, 2, 3, 	imem_w_address, imem_w_data, imem_w_enable);
+		load_instruction (4, ALU_INST, 	ALU_MOVE, 	0, 1, 0, 3, 	imem_w_address, imem_w_data, imem_w_enable);
+		load_instruction (5, ALU_INST, 	ALU_MOVE, 	0, 2, 0, 4, 	imem_w_address, imem_w_data, imem_w_enable);
+		load_instruction (6, BNZ, 			ALU_MOVE, 	2, 0, 0, 0, 	imem_w_address, imem_w_data, imem_w_enable);
 		
 		-----------------------------
       -- Run program
+		-----------------------------
 		
 		-- this should run the fibonacci program, setting
-		-- registers 1 and 2 to the fibonacci values.
+		-- the move operations are not necessary, but we use them to test it.
 		
 		core_rst <= '1';
 
+		-----------------------------
+		-- Assert the result
+		-----------------------------
+
+		wait for core_clk_period;
+
+		-- it takes 2 clock periods for result to appear (fetch -> execute)
+
+		wait for 2*core_clk_period;		assert_result(reg_values(1), 1);
+		wait for 2*core_clk_period;		assert_result(reg_values(2), 1);
+		wait for 2*core_clk_period;		assert_result(reg_values(3), 2);
+		wait for 2*core_clk_period;		assert_result(reg_values(4), 3);
+		wait for 2*core_clk_period;		assert_result(reg_values(1), 2);
+		wait for 2*core_clk_period;		assert_result(reg_values(2), 3);
+		wait for 2*core_clk_period; 		-- wait for jump instruction
+		wait for 2*core_clk_period;		assert_result(reg_values(3), 5);
+		wait for 2*core_clk_period;		assert_result(reg_values(4), 8);
+		wait for 2*core_clk_period;		assert_result(reg_values(1), 5);
+		wait for 2*core_clk_period;		assert_result(reg_values(2), 8);
+		wait for 2*core_clk_period; 		-- wait for jump instruction
+		wait for 2*core_clk_period;		assert_result(reg_values(3), 13);		
+		wait for 2*core_clk_period;		assert_result(reg_values(4), 21);
+		wait for 2*core_clk_period;		assert_result(reg_values(1), 13);
+		wait for 2*core_clk_period;		assert_result(reg_values(2), 21);
+		
       wait;
    end process;
 
