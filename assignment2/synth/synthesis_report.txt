@@ -1,0 +1,1104 @@
+echo package.vhd control_const.vhd regfile_mux.vhd sr.vhd alu.vhd pc.vhd control.vhd cpu.vhd cpucom.vhd mem.vhd regfile.vhd toplevel.vhd  | xargs -n 1 > multicycle.prj 
+echo -n "run -ifn multicycle.prj -ofn multicycle.ngc " > multicycle.xst
+echo -n "-ofmt NGC -p xcv1000e-6-fg860 -top toplevel -ifmt VHDL " >> multicycle.xst
+echo "-opt_mode Speed -opt_level 1 -register_duplication no -hierarchy_separator / -keep_hierarchy yes" >> multicycle.xst
+xst -ifn multicycle.xst
+Release 6.1i - xst G.23
+Copyright (c) 1995-2003 Xilinx, Inc.  All rights reserved.
+--> 
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) HDL Analysis
+  4) HDL Synthesis
+     4.1) HDL Synthesis Report
+  5) Advanced HDL Synthesis
+  6) Low Level Synthesis
+  7) Final Report
+     7.1) Device utilization summary
+     7.2) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : multicycle.prj
+Input Format                       : VHDL
+
+---- Target Parameters
+Output File Name                   : multicycle.ngc
+Output Format                      : NGC
+Target Device                      : xcv1000e-6-fg860
+
+---- Source Options
+Top Module Name                    : toplevel
+
+---- Target Options
+Register Duplication               : no
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Hierarchy Separator                : /
+Keep Hierarchy                     : yes
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file /home/student/knuthask/assignment2/hardware/package.vhd in Library work.
+Compiling vhdl file /home/student/knuthask/assignment2/hardware/control_const.vhd in Library work.
+Compiling vhdl file /home/student/knuthask/assignment2/hardware/mem.vhd in Library work.
+Entity <mem> (Architecture <mem_arch>) compiled.
+Compiling vhdl file /home/student/knuthask/assignment2/hardware/regfile.vhd in Library work.
+Entity <regfile> (Architecture <regfile_arch>) compiled.
+Compiling vhdl file /home/student/knuthask/assignment2/hardware/alu.vhd in Library work.
+Entity <alu> (Architecture <alu_arch>) compiled.
+Compiling vhdl file /home/student/knuthask/assignment2/hardware/control.vhd in Library work.
+Entity <ctrl> (Architecture <ctrl_arch>) compiled.
+Compiling vhdl file /home/student/knuthask/assignment2/hardware/pc.vhd in Library work.
+Entity <pc> (Architecture <pc_arch>) compiled.
+Compiling vhdl file /home/student/knuthask/assignment2/hardware/sr.vhd in Library work.
+Entity <sr> (Architecture <Behavioral>) compiled.
+Compiling vhdl file /home/student/knuthask/assignment2/hardware/regfile_mux.vhd in Library work.
+Entity <regfile_mux> (Architecture <Behavioral>) compiled.
+Compiling vhdl file /home/student/knuthask/assignment2/hardware/cpu.vhd in Library work.
+Entity <cpu> (Architecture <cpu_arch>) compiled.
+Compiling vhdl file /home/student/knuthask/assignment2/hardware/cpucom.vhd in Library work.
+Entity <cpucom> (Architecture <cpucom_arch>) compiled.
+Compiling vhdl file /home/student/knuthask/assignment2/hardware/toplevel.vhd in Library work.
+Entity <toplevel> (Architecture <toplevel_arch>) compiled.
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing Entity <toplevel> (Architecture <toplevel_arch>).
+Entity <toplevel> analyzed. Unit <toplevel> generated.
+
+Analyzing Entity <cpu> (Architecture <cpu_arch>).
+Entity <cpu> analyzed. Unit <cpu> generated.
+
+Analyzing Entity <mem> (Architecture <mem_arch>).
+WARNING:Xst:819 - /home/student/knuthask/assignment2/hardware/mem.vhd line 56: The following signals are missing in the process sensitivity list:
+   mem_storage<$n0001>.
+Entity <mem> analyzed. Unit <mem> generated.
+
+Analyzing Entity <regfile> (Architecture <regfile_arch>).
+INFO:Xst:1304 - Contents of register <regs<0>> in unit <regfile> never changes during circuit operation. The register is replaced by logic.
+Entity <regfile> analyzed. Unit <regfile> generated.
+
+Analyzing Entity <alu> (Architecture <alu_arch>).
+Entity <alu> analyzed. Unit <alu> generated.
+
+Analyzing Entity <ctrl> (Architecture <ctrl_arch>).
+Entity <ctrl> analyzed. Unit <ctrl> generated.
+
+Analyzing Entity <pc> (Architecture <pc_arch>).
+Entity <pc> analyzed. Unit <pc> generated.
+
+Analyzing Entity <sr> (Architecture <behavioral>).
+Entity <sr> analyzed. Unit <sr> generated.
+
+Analyzing Entity <regfile_mux> (Architecture <behavioral>).
+Entity <regfile_mux> analyzed. Unit <regfile_mux> generated.
+
+Analyzing Entity <cpucom> (Architecture <cpucom_arch>).
+WARNING:Xst:766 - /home/student/knuthask/assignment2/hardware/cpucom.vhd line 107: Generating a Black Box for component <ibufg>.
+WARNING:Xst:753 - /home/student/knuthask/assignment2/hardware/cpucom.vhd line 112: Unconnected output port 'clk180' of component 'clkdllhf'.
+WARNING:Xst:753 - /home/student/knuthask/assignment2/hardware/cpucom.vhd line 112: Unconnected output port 'clkdv' of component 'clkdllhf'.
+WARNING:Xst:766 - /home/student/knuthask/assignment2/hardware/cpucom.vhd line 112: Generating a Black Box for component <clkdllhf>.
+WARNING:Xst:766 - /home/student/knuthask/assignment2/hardware/cpucom.vhd line 122: Generating a Black Box for component <bufg>.
+WARNING:Xst:766 - /home/student/knuthask/assignment2/hardware/cpucom.vhd line 127: Generating a Black Box for component <bufg>.
+INFO:Xst:1561 - /home/student/knuthask/assignment2/hardware/cpucom.vhd line 220: Mux is complete : default of case is discarded
+Entity <cpucom> analyzed. Unit <cpucom> generated.
+
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Synthesizing Unit <regfile_mux>.
+    Related source file is /home/student/knuthask/assignment2/hardware/regfile_mux.vhd.
+    Found 8 1-bit 2-to-1 multiplexers.
+    Summary:
+	inferred   8 Multiplexer(s).
+Unit <regfile_mux> synthesized.
+
+
+Synthesizing Unit <sr>.
+    Related source file is /home/student/knuthask/assignment2/hardware/sr.vhd.
+    Found 1-bit register for signal <sr<0>>.
+    Summary:
+	inferred   1 D-type flip-flop(s).
+Unit <sr> synthesized.
+
+
+Synthesizing Unit <pc>.
+    Related source file is /home/student/knuthask/assignment2/hardware/pc.vhd.
+    Found 8-bit up counter for signal <pc>.
+    Summary:
+	inferred   1 Counter(s).
+Unit <pc> synthesized.
+
+
+Synthesizing Unit <ctrl>.
+    Related source file is /home/student/knuthask/assignment2/hardware/control.vhd.
+    Found 1-bit register for signal <state<0>>.
+    Summary:
+	inferred   1 D-type flip-flop(s).
+Unit <ctrl> synthesized.
+
+
+Synthesizing Unit <alu>.
+    Related source file is /home/student/knuthask/assignment2/hardware/alu.vhd.
+    Found 8-bit adder for signal <$n0000> created at line 58.
+    Found 8-bit 4-to-1 multiplexer for signal <alu_out_i>.
+    Summary:
+	inferred   1 Adder/Subtracter(s).
+	inferred   8 Multiplexer(s).
+Unit <alu> synthesized.
+
+
+Synthesizing Unit <regfile>.
+    Related source file is /home/student/knuthask/assignment2/hardware/regfile.vhd.
+    Found 8-bit 16-to-1 multiplexer for signal <data_a>.
+    Found 8-bit 16-to-1 multiplexer for signal <data_b>.
+    Found 120-bit register for signal <regs<15:1>>.
+    Found 120 1-bit 2-to-1 multiplexers.
+    Summary:
+	inferred 120 D-type flip-flop(s).
+	inferred 136 Multiplexer(s).
+Unit <regfile> synthesized.
+
+
+Synthesizing Unit <mem>.
+    Related source file is /home/student/knuthask/assignment2/hardware/mem.vhd.
+    Found 256x32-bit dual-port block RAM for signal <mem_storage>.
+    -----------------------------------------------------------------------
+    | dual mode          | write-first                         |          |
+    | aspect ratio       | 256-word x 32-bit                   |          |
+    | clock              | connected to signal <core_clk>      | rise     |
+    | dual clock         | connected to signal <core_clk>      | rise     |
+    | write enable       | connected to signal <w_enable>      | high     |
+    | address            | connected to signal <w_address>     |          |
+    | dual address       | connected to signal <address>       |          |
+    | data in            | connected to signal <w_data>        |          |
+    | data out           | not connected                       |          |
+    | dual data out      | connected to signal <data>          |          |
+    | ram_style          | auto                                |          |
+    -----------------------------------------------------------------------
+WARNING:Xst:1868 - You have explicitly defined initial contents for this RAM, which are currently ignored when the RAM is dual-port, leading to incorrect circuit behavior.
+    Summary:
+	inferred   1 RAM(s).
+Unit <mem> synthesized.
+
+
+Synthesizing Unit <cpucom>.
+    Related source file is /home/student/knuthask/assignment2/hardware/cpucom.vhd.
+WARNING:Xst:646 - Signal <command<31:3>> is assigned but never used.
+    Found finite state machine <FSM_0> for signal <com_state>.
+    -----------------------------------------------------------------------
+    | States             | 11                                             |
+    | Transitions        | 21                                             |
+    | Inputs             | 9                                              |
+    | Outputs            | 10                                             |
+    | Clock              | com_clk (rising_edge)                          |
+    | Reset              | rst_i (negative)                               |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | idle                                           |
+    | Power Up State     | idle                                           |
+    | Encoding           | automatic                                      |
+    | Implementation     | automatic                                      |
+    -----------------------------------------------------------------------
+    Found 1-bit register for signal <imem_w_enable>.
+    Found 8-bit register for signal <imem_w_address>.
+    Found 32-bit register for signal <imem_w_data>.
+    Found 32-bit tristate buffer for signal <pciData>.
+    Found 8-bit 16-to-1 multiplexer for signal <$n0036> created at line 188.
+    Found 32-bit register for signal <command>.
+    Found 1-bit register for signal <core_clk_i>.
+    Found 1-bit register for signal <core_clk_value>.
+    Found 9-bit up counter for signal <count_reg>.
+    Found 8-bit register for signal <reg_value>.
+    Found 1-bit register for signal <run_core>.
+    Found 1 1-bit 2-to-1 multiplexers.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred   1 Counter(s).
+	inferred  84 D-type flip-flop(s).
+	inferred   9 Multiplexer(s).
+	inferred  32 Tristate(s).
+Unit <cpucom> synthesized.
+
+
+Synthesizing Unit <cpu>.
+    Related source file is /home/student/knuthask/assignment2/hardware/cpu.vhd.
+WARNING:Xst:646 - Signal <data_conn<28:22>> is assigned but never used.
+Unit <cpu> synthesized.
+
+
+Synthesizing Unit <toplevel>.
+    Related source file is /home/student/knuthask/assignment2/hardware/toplevel.vhd.
+Unit <toplevel> synthesized.
+
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# FSMs                             : 1
+# RAMs                             : 1
+  256x32-bit dual-port block RAM   : 1
+# Registers                        : 25
+  1-bit register                   : 6
+  8-bit register                   : 17
+  32-bit register                  : 2
+# Counters                         : 2
+  8-bit up counter                 : 1
+  9-bit up counter                 : 1
+# Multiplexers                     : 21
+  8-bit 16-to-1 multiplexer        : 3
+  2-to-1 multiplexer               : 17
+  8-bit 4-to-1 multiplexer         : 1
+# Tristates                        : 32
+  1-bit tristate buffer            : 32
+# Adders/Subtractors               : 1
+  8-bit adder                      : 1
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Selecting encoding for FSM_0 ...
+Optimizing FSM <FSM_0> on signal <com_state> with one-hot encoding.
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+WARNING:Xst:1291 - FF/Latch <command_31> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_3> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_4> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_5> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_6> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_7> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_8> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_9> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_10> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_11> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_12> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_13> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_14> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_15> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_16> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_17> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_18> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_19> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_20> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_21> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_22> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_23> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_24> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_25> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_26> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_27> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_28> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_29> is unconnected in block <cpucom>.
+WARNING:Xst:1291 - FF/Latch <command_30> is unconnected in block <cpucom>.
+
+Optimizing unit <toplevel> ...
+
+Optimizing unit <mem> ...
+
+Optimizing unit <regfile> ...
+
+Optimizing unit <alu> ...
+
+Optimizing unit <ctrl> ...
+
+Optimizing unit <pc> ...
+
+Optimizing unit <sr> ...
+
+Optimizing unit <regfile_mux> ...
+
+Optimizing unit <cpu> ...
+
+Optimizing unit <cpucom> ...
+Loading device for application Xst from file 'v1000e.nph' in environment /usr/local/xilinx.
+
+Mapping all equations...
+Building and optimizing final netlist ...
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+Top Level Output File Name         : multicycle.ngc
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : yes
+
+Design Statistics
+# IOs                              : 54
+
+Macro Statistics :
+# RAM                              : 1
+#      256x32-bit dual-port block RAM: 1
+# Registers                        : 26
+#      1-bit register              : 6
+#      32-bit register             : 2
+#      8-bit register              : 17
+#      9-bit register              : 1
+# Counters                         : 1
+#      8-bit up counter            : 1
+# Multiplexers                     : 21
+#      2-to-1 multiplexer          : 17
+#      8-bit 16-to-1 multiplexer   : 3
+#      8-bit 4-to-1 multiplexer    : 1
+# Tristates                        : 32
+#      1-bit tristate buffer       : 32
+# Adders/Subtractors               : 2
+#      8-bit adder                 : 1
+#      9-bit adder                 : 1
+
+Cell Usage :
+# BELS                             : 654
+#      BUF                         : 1
+#      GND                         : 6
+#      LUT1                        : 18
+#      LUT2                        : 11
+#      LUT2_L                      : 24
+#      LUT3                        : 94
+#      LUT3_D                      : 6
+#      LUT3_L                      : 258
+#      LUT4                        : 39
+#      LUT4_L                      : 4
+#      MUXCY                       : 23
+#      MUXF5                       : 96
+#      MUXF6                       : 48
+#      VCC                         : 3
+#      XORCY                       : 23
+# FlipFlops/Latches                : 205
+#      FDC                         : 23
+#      FDCE                        : 161
+#      FDCPE                       : 8
+#      FDE                         : 3
+#      FDP                         : 1
+#      FDRE                        : 9
+# RAMS                             : 2
+#      RAMB4_S16_S16               : 2
+# Clock Buffers                    : 2
+#      BUFG                        : 2
+# IO Buffers                       : 54
+#      IBUF                        : 3
+#      IBUFG                       : 1
+#      IOBUF                       : 32
+#      OBUF                        : 18
+# DLLs                             : 1
+#      CLKDLLHF                    : 1
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : v1000efg860-6 
+
+ Number of Slices:                     252  out of  12288     2%  
+ Number of Slice Flip Flops:           205  out of  24576     0%  
+ Number of 4 input LUTs:               454  out of  24576     1%  
+ Number of bonded IOBs:                 54  out of    664     8%  
+ Number of BRAMs:                        2  out of     16    12%  
+ Number of GCLKs:                        2  out of      4    50%  
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+clk                                | dll:CLK0               | 75    |
+cpucom1/core_clk_i:Q               | BUFG                   | 132   |
+-----------------------------------+------------------------+-------+
+
+Timing Summary:
+---------------
+Speed Grade: -6
+
+   Minimum period: 16.195ns (Maximum Frequency: 61.747MHz)
+   Minimum input arrival time before clock: 6.285ns
+   Maximum output required time after clock: 11.435ns
+   Maximum combinational path delay: No path found
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+-------------------------------------------------------------------------
+Timing constraint: Default period analysis for Clock 'clk'
+Delay:               9.516ns (Levels of Logic = 5)
+  Source:            cpucom1/count_reg_5 (FF)
+  Destination:       cpucom1/com_state_FFd11 (FF)
+  Source Clock:      clk rising
+  Destination Clock: clk rising
+
+  Data Path: cpucom1/count_reg_5 to cpucom1/com_state_FFd11
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDRE:C->Q             3   0.992   1.320  count_reg_5 (count_reg_5)
+     LUT4:I0->O            2   0.468   1.150  Ker70721 (N7074)
+     LUT3:I2->O            1   0.468   0.920  _n0018_SW0 (N8877)
+     LUT4:I3->O            2   0.468   1.150  _n0018 (_n0018)
+     LUT2:I0->O            1   0.468   0.920  com_state_FFd11-In0 (CHOICE27)
+     LUT4:I0->O            1   0.468   0.000  com_state_FFd11-In73 (com_state_FFd11-In)
+     FDP:D                     0.724          com_state_FFd11
+    ----------------------------------------
+    Total                      9.516ns (4.056ns logic, 5.460ns route)
+                                       (42.6% logic, 57.4% route)
+
+-------------------------------------------------------------------------
+Timing constraint: Default period analysis for Clock 'cpucom1/core_clk_i:Q'
+Delay:               16.195ns (Levels of Logic = 20)
+  Source:            cpu1/mem1/Mram_mem_storage_inst_ramb_0 (RAM)
+  Destination:       cpu1/regfile1/regs_1_7 (FF)
+  Source Clock:      cpucom1/core_clk_i:Q rising
+  Destination Clock: cpucom1/core_clk_i:Q rising
+
+  Data Path: cpu1/mem1/Mram_mem_storage_inst_ramb_0 to cpu1/regfile1/regs_1_7
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     RAMB4_S16_S16:CLKB->DOB4   64   3.220   4.100  Mram_mem_storage_inst_ramb_0 (data<4>)
+     end scope: 'mem1'
+     begin scope: 'regfile1'
+     LUT2_L:I0->LO         1   0.468   0.000  Mmux_data_b_inst_lut2_91 (Mmux_data_b__net64)
+     MUXF5:I0->O           1   0.422   0.000  Mmux_data_b_inst_mux_f5_0 (Mmux_data_b__net66)
+     MUXF6:I0->O           1   0.220   0.920  Mmux_data_b_inst_mux_f6_0 (Mmux_data_b__net70)
+     LUT3_L:I1->LO         4   0.468   0.100  Mmux_data_b_inst_lut3_71 (data_b<0>)
+     end scope: 'regfile1'
+     begin scope: 'alu1'
+     LUT2_L:I0->LO         1   0.468   0.000  Madd__n0000_inst_lut2_251 (Madd__n0000_inst_lut2_25)
+     MUXCY:S->O            1   0.515   0.000  Madd__n0000_inst_cy_9 (Madd__n0000_inst_cy_9)
+     MUXCY:CI->O           1   0.058   0.000  Madd__n0000_inst_cy_10 (Madd__n0000_inst_cy_10)
+     MUXCY:CI->O           1   0.058   0.000  Madd__n0000_inst_cy_11 (Madd__n0000_inst_cy_11)
+     MUXCY:CI->O           1   0.058   0.000  Madd__n0000_inst_cy_12 (Madd__n0000_inst_cy_12)
+     MUXCY:CI->O           1   0.058   0.000  Madd__n0000_inst_cy_13 (Madd__n0000_inst_cy_13)
+     MUXCY:CI->O           1   0.058   0.000  Madd__n0000_inst_cy_14 (Madd__n0000_inst_cy_14)
+     MUXCY:CI->O           0   0.058   0.000  Madd__n0000_inst_cy_15 (Madd__n0000_inst_cy_15)
+     XORCY:CI->O           1   0.648   0.920  Madd__n0000_inst_sum_16 (_n0003<31>)
+     LUT4:I0->O            2   0.468   1.150  Mmux_alu_out_i_inst_mux_f5_71 (alu_out<7>)
+     end scope: 'alu1'
+     begin scope: 'regmux1'
+     LUT3_L:I1->LO        15   0.468   0.100  Mmux_data_d_Result<7>1 (data_d<7>)
+     end scope: 'regmux1'
+     begin scope: 'regfile1'
+     LUT3_L:I2->LO         1   0.468   0.000  Mmux__n0002_Result<7>1 (_n0002<7>)
+     FDCE:D                    0.724          regs_13_7
+    ----------------------------------------
+    Total                     16.195ns (8.905ns logic, 7.290ns route)
+                                       (55.0% logic, 45.0% route)
+
+-------------------------------------------------------------------------
+Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
+Offset:              6.285ns (Levels of Logic = 5)
+  Source:            pciEmpty (PAD)
+  Destination:       cpucom1/com_state_FFd11 (FF)
+  Destination Clock: clk rising
+
+  Data Path: pciEmpty to cpucom1/com_state_FFd11
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             4   0.797   1.520  pciEmpty_IBUF (pciEmpty_IBUF)
+     begin scope: 'cpucom1'
+     LUT4:I3->O            1   0.468   0.920  com_state_FFd11-In43_SW0 (N9614)
+     LUT4:I0->O            1   0.468   0.920  com_state_FFd11-In43 (CHOICE43)
+     LUT4:I1->O            1   0.468   0.000  com_state_FFd11-In73 (com_state_FFd11-In)
+     FDP:D                     0.724          com_state_FFd11
+    ----------------------------------------
+    Total                      6.285ns (2.925ns logic, 3.360ns route)
+                                       (46.5% logic, 53.5% route)
+
+-------------------------------------------------------------------------
+Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
+Offset:              11.435ns (Levels of Logic = 3)
+  Source:            cpucom1/com_state_FFd3 (FF)
+  Destination:       pciData<0> (PAD)
+  Source Clock:      clk rising
+
+  Data Path: cpucom1/com_state_FFd3 to pciData<0>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              6   0.992   1.850  com_state_FFd3 (pciRW)
+     LUT1:I0->O           32   0.468   3.300  I45_N14251 (I45_N1425)
+     IOBUF:T->IO               4.825          pciData_26_IOBUF (pciData<26>)
+     end scope: 'cpucom1'
+    ----------------------------------------
+    Total                     11.435ns (6.285ns logic, 5.150ns route)
+                                       (55.0% logic, 45.0% route)
+
+=========================================================================
+CPU : 10.76 / 12.75 s | Elapsed : 11.00 / 11.00 s
+ 
+--> 
+
+
+Total memory usage is 82372 kilobytes
+
+
+xflow -p xcv1000e-6-fg860 -implement high_effort.opt multicycle.ngc
+Release 6.1i - Xflow G.23
+Copyright (c) 1995-2003 Xilinx, Inc.  All rights reserved.
+xflow -p xcv1000e-6-fg860 -implement high_effort.opt multicycle.ngc  
+.... Copying flowfile /usr/local/xilinx/xilinx/data/fpga.flw into working
+directory /home/student/knuthask/assignment2/hardware 
+.... Copying option file /usr/local/xilinx/virtex/data/high_effort.opt into
+working directory /home/student/knuthask/assignment2/hardware 
+
+Using Flow File: /home/student/knuthask/assignment2/hardware/fpga.flw 
+Using Option File(s): 
+ /home/student/knuthask/assignment2/hardware/high_effort.opt 
+
+Creating Script File ... 
+
+#----------------------------------------------#
+# Starting program ngdbuild
+# ngdbuild -p xcv1000e-6-fg860 -nt timestamp -intstyle xflow
+/home/student/knuthask/assignment2/hardware/multicycle.ngc multicycle.ngd 
+#----------------------------------------------#
+
+Command Line: ngdbuild -p xcv1000e-6-fg860 -nt timestamp -intstyle xflow
+/home/student/knuthask/assignment2/hardware/multicycle.ngc multicycle.ngd 
+
+Reading NGO file "/home/student/knuthask/assignment2/hardware/multicycle.ngc"
+...
+Reading component libraries for design expansion...
+
+Annotating constraints to design from file "multicycle.ucf" ...
+
+Checking timing specifications ...
+Checking expanded design ...
+WARNING:NgdBuild:483 - Attribute "INIT" on "pciRW_OBUF" is on the wrong type of
+   object.  Please see the Constraints Guide for more information on this
+   attribute.
+WARNING:NgdBuild:483 - Attribute "INIT" on "cpucom1/com_state_FFd11" is on the
+   wrong type of object.  Please see the Constraints Guide for more information
+   on this attribute.
+WARNING:NgdBuild:483 - Attribute "INIT" on "cpucom1/com_state_FFd2" is on the
+   wrong type of object.  Please see the Constraints Guide for more information
+   on this attribute.
+WARNING:NgdBuild:483 - Attribute "INIT" on "cpucom1/com_state_FFd5" is on the
+   wrong type of object.  Please see the Constraints Guide for more information
+   on this attribute.
+WARNING:NgdBuild:483 - Attribute "INIT" on "cpucom1/com_state_FFd4" is on the
+   wrong type of object.  Please see the Constraints Guide for more information
+   on this attribute.
+WARNING:NgdBuild:483 - Attribute "INIT" on "cpucom1/com_state_FFd10" is on the
+   wrong type of object.  Please see the Constraints Guide for more information
+   on this attribute.
+WARNING:NgdBuild:483 - Attribute "INIT" on "cpucom1/com_state_FFd1" is on the
+   wrong type of object.  Please see the Constraints Guide for more information
+   on this attribute.
+WARNING:NgdBuild:483 - Attribute "INIT" on "cpucom1/com_state_FFd6" is on the
+   wrong type of object.  Please see the Constraints Guide for more information
+   on this attribute.
+WARNING:NgdBuild:483 - Attribute "INIT" on "cpucom1/com_state_FFd7" is on the
+   wrong type of object.  Please see the Constraints Guide for more information
+   on this attribute.
+WARNING:NgdBuild:483 - Attribute "INIT" on "cpucom1/com_state_FFd8" is on the
+   wrong type of object.  Please see the Constraints Guide for more information
+   on this attribute.
+WARNING:NgdBuild:483 - Attribute "INIT" on "cpucom1/com_state_FFd9" is on the
+   wrong type of object.  Please see the Constraints Guide for more information
+   on this attribute.
+WARNING:NgdBuild:454 - logical net 'cpu1/data_conn<31>' has no load
+WARNING:NgdBuild:454 - logical net 'cpu1/mem1/data<28>' has no load
+WARNING:NgdBuild:454 - logical net 'cpu1/mem1/data<27>' has no load
+WARNING:NgdBuild:454 - logical net 'cpu1/mem1/data<26>' has no load
+WARNING:NgdBuild:454 - logical net 'cpu1/mem1/data<25>' has no load
+WARNING:NgdBuild:454 - logical net 'cpu1/mem1/data<24>' has no load
+WARNING:NgdBuild:454 - logical net 'cpu1/mem1/data<23>' has no load
+WARNING:NgdBuild:454 - logical net 'cpu1/mem1/data<22>' has no load
+
+NGDBUILD Design Results Summary:
+  Number of errors:     0
+  Number of warnings:  19
+
+Total memory usage is 24428 kilobytes
+
+Writing NGD file "multicycle.ngd" ...
+
+Writing NGDBUILD log file "multicycle.bld"...
+
+NGDBUILD done.
+
+
+
+#----------------------------------------------#
+# Starting program map
+# map -o multicycle_map.ncd -intstyle xflow multicycle.ngd multicycle.pcf 
+#----------------------------------------------#
+Using target part "v1000efg860-6".
+Removing unused or disabled logic...
+Running cover...
+Running directed packing...
+Running delay-based LUT packing...
+Running related packing...
+
+Design Summary:
+Number of errors:      0
+Number of warnings:    8
+Logic Utilization:
+  Number of Slice Flip Flops:       176 out of 24,576    1%
+  Number of 4 input LUTs:           437 out of 24,576    1%
+Logic Distribution:
+    Number of occupied Slices:                         238 out of 12,288    1%
+    Number of Slices containing only related logic:    238 out of    238  100%
+    Number of Slices containing unrelated logic:         0 out of    238    0%
+        *See NOTES below for an explanation of the effects of unrelated logic
+Total Number 4 input LUTs:          446 out of 24,576    1%
+      Number used as logic:                       437
+      Number used as a route-thru:                  9
+   Number of bonded IOBs:            53 out of    660    8%
+      IOB Flip Flops:                              29
+   Number of Block RAMs:              2 out of     96    2%
+   Number of GCLKs:                   2 out of      4   50%
+   Number of GCLKIOBs:                1 out of      4   25%
+   Number of DLLs:                    1 out of      8   12%
+
+Total equivalent gate count for design:  44,696
+Additional JTAG gate count for IOBs:  2,592
+Peak Memory Usage:  77 MB
+
+NOTES:
+
+   Related logic is defined as being logic that shares connectivity -
+   e.g. two LUTs are "related" if they share common inputs.
+   When assembling slices, Map gives priority to combine logic that
+   is related.  Doing so results in the best timing performance.
+
+   Unrelated logic shares no connectivity.  Map will only begin
+   packing unrelated logic into a slice once 99% of the slices are
+   occupied through related logic packing.
+
+   Note that once logic distribution reaches the 99% level through
+   related logic packing, this does not mean the device is completely
+   utilized.  Unrelated logic packing will then begin, continuing until
+   all usable LUTs and FFs are occupied.  Depending on your timing
+   budget, increased levels of unrelated logic packing may adversely
+   affect the overall timing performance of your design.
+
+
+Mapping completed.
+See MAP report file "multicycle_map.mrp" for details.
+
+
+
+#----------------------------------------------#
+# Starting program par
+# par -w -ol med -intstyle xflow multicycle_map.ncd multicycle.ncd
+multicycle.pcf 
+#----------------------------------------------#
+
+
+
+
+Constraints file: multicycle.pcf
+
+Loading device database for application Par from file "multicycle_map.ncd".
+   "toplevel" is an NCD, version 2.38, device xcv1000e, package fg860, speed -6
+Loading device for application Par from file 'v1000e.nph' in environment
+/usr/local/xilinx.
+Device speed data version:  PRODUCTION 1.68 2003-06-19.
+
+
+Resolving physical constraints.
+Finished resolving physical constraints.
+
+Device utilization summary:
+
+   Number of External GCLKIOBs         1 out of 4      25%
+   Number of External IOBs            53 out of 660     8%
+      Number of LOCed External IOBs   53 out of 53    100%
+
+   Number of BLOCKRAMs                 2 out of 96      2%
+   Number of SLICEs                  238 out of 12288   1%
+
+   Number of DLLs                      1 out of 8      12%
+   Number of GCLKs                     2 out of 4      50%
+
+
+
+Overall effort level (-ol):   Medium (set by user)
+Placer effort level (-pl):    Medium (set by user)
+Placer cost table entry (-t): 1
+Router effort level (-rl):    Medium (set by user)
+
+Starting initial Timing Analysis.  REAL time: 2 secs 
+Finished initial Timing Analysis.  REAL time: 4 secs 
+
+
+Phase 1.1
+Phase 1.1 (Checksum:989edd) REAL time: 5 secs 
+
+Phase 2.23
+Phase 2.23 (Checksum:1312cfe) REAL time: 5 secs 
+
+Phase 3.3
+Phase 3.3 (Checksum:1c9c37d) REAL time: 5 secs 
+
+Phase 4.5
+Phase 4.5 (Checksum:26259fc) REAL time: 5 secs 
+
+Phase 5.8
+..............
+..........
+..........
+.........
+Phase 5.8 (Checksum:a4b78e) REAL time: 6 secs 
+
+Phase 6.5
+Phase 6.5 (Checksum:39386fa) REAL time: 6 secs 
+
+Phase 7.18
+Phase 7.18 (Checksum:42c1d79) REAL time: 8 secs 
+
+Writing design to file multicycle.ncd.
+
+Total REAL time to Placer completion: 9 secs 
+Total CPU time to Placer completion: 9 secs 
+
+
+Phase 1: 2068 unrouted;       REAL time: 9 secs 
+
+Phase 2: 1898 unrouted;       REAL time: 1 mins 10 secs 
+
+Phase 3: 566 unrouted;       REAL time: 1 mins 12 secs 
+
+Phase 4: 566 unrouted; (1917)      REAL time: 1 mins 12 secs 
+
+Phase 5: 566 unrouted; (0)      REAL time: 1 mins 13 secs 
+
+Phase 6: 566 unrouted; (0)      REAL time: 1 mins 13 secs 
+
+Phase 7: 0 unrouted; (0)      REAL time: 1 mins 14 secs 
+
+Total REAL time to Router completion: 1 mins 16 secs 
+Total CPU time to Router completion: 1 mins 16 secs 
+
+Generating "par" statistics.
+
+**************************
+Generating Clock Report
+**************************
+
++----------------------------+----------+--------+------------+-------------+
+|         Clock Net          | Resource | Fanout |Net Skew(ns)|Max Delay(ns)|
++----------------------------+----------+--------+------------+-------------+
+|   cpucom1/com_clk          |  Global  |   57   |  0.312     |  1.037      |
++----------------------------+----------+--------+------------+-------------+
+|     core_clk_conn          |  Global  |   79   |  0.180     |  0.793      |
++----------------------------+----------+--------+------------+-------------+
+
+Timing Score: 0
+
+Asterisk (*) preceding a constraint indicates it was not met.
+   This may be due to a setup or hold violation.
+
+--------------------------------------------------------------------------------
+  Constraint                                | Requested  | Actual     | Logic 
+                                            |            |            | Levels
+--------------------------------------------------------------------------------
+  NET "cpucom1/clk_i1" PERIOD =  25 nS   HI | N/A        | N/A        | N/A  
+  GH 50.000000 %                            |            |            |      
+--------------------------------------------------------------------------------
+  PERIOD analysis for net "cpucom1/clk_i2"  | 25.000ns   | 9.669ns    | 2    
+  derived from  NET "cpucom1/clk_i1" PERIOD |            |            |      
+   =  25 nS   HIGH 50.000000 %              |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<0>" OFFSET = OUT 12.500 nS  | 12.500ns   | 9.652ns    | 1    
+   AFTER COMP "clk"                         |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<0>" OFFSET = IN 5 nS  BEFOR | 5.000ns    | 4.225ns    | 1    
+  E COMP "clk"                              |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<10>" OFFSET = OUT 12.500 nS | 12.500ns   | 12.087ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<10>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<11>" OFFSET = OUT 12.500 nS | 12.500ns   | 11.919ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<11>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<12>" OFFSET = OUT 12.500 nS | 12.500ns   | 12.093ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<12>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<13>" OFFSET = OUT 12.500 nS | 12.500ns   | 12.093ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<13>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<14>" OFFSET = OUT 12.500 nS | 12.500ns   | 11.940ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<14>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<15>" OFFSET = OUT 12.500 nS | 12.500ns   | 10.424ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<15>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<16>" OFFSET = OUT 12.500 nS | 12.500ns   | 10.787ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<16>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<17>" OFFSET = OUT 12.500 nS | 12.500ns   | 10.787ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<17>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<18>" OFFSET = OUT 12.500 nS | 12.500ns   | 10.787ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<18>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<19>" OFFSET = OUT 12.500 nS | 12.500ns   | 10.919ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<19>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<1>" OFFSET = OUT 12.500 nS  | 12.500ns   | 10.424ns   | 1    
+   AFTER COMP "clk"                         |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<1>" OFFSET = IN 5 nS  BEFOR | 5.000ns    | 4.556ns    | 1    
+  E COMP "clk"                              |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<20>" OFFSET = OUT 12.500 nS | 12.500ns   | 10.919ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<20>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<21>" OFFSET = OUT 12.500 nS | 12.500ns   | 10.919ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<21>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<22>" OFFSET = OUT 12.500 nS | 12.500ns   | 10.509ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<22>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<23>" OFFSET = OUT 12.500 nS | 12.500ns   | 10.509ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<23>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<24>" OFFSET = OUT 12.500 nS | 12.500ns   | 10.509ns   | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<24>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<25>" OFFSET = OUT 12.500 nS | 12.500ns   | 9.682ns    | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<25>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<26>" OFFSET = OUT 12.500 nS | 12.500ns   | 9.682ns    | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<26>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<27>" OFFSET = OUT 12.500 nS | 12.500ns   | 8.931ns    | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<27>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<28>" OFFSET = OUT 12.500 nS | 12.500ns   | 7.990ns    | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<28>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<29>" OFFSET = OUT 12.500 nS | 12.500ns   | 8.801ns    | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<29>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<2>" OFFSET = OUT 12.500 nS  | 12.500ns   | 9.760ns    | 1    
+   AFTER COMP "clk"                         |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<2>" OFFSET = IN 5 nS  BEFOR | 5.000ns    | 4.747ns    | 1    
+  E COMP "clk"                              |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<30>" OFFSET = OUT 12.500 nS | 12.500ns   | 9.493ns    | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<30>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<31>" OFFSET = OUT 12.500 nS | 12.500ns   | 9.019ns    | 1    
+    AFTER COMP "clk"                        |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<31>" OFFSET = IN 5 nS  BEFO | 5.000ns    | 1.700ns    | 1    
+  RE COMP "clk"                             |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<3>" OFFSET = OUT 12.500 nS  | 12.500ns   | 9.635ns    | 1    
+   AFTER COMP "clk"                         |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<3>" OFFSET = IN 5 nS  BEFOR | 5.000ns    | 1.700ns    | 1    
+  E COMP "clk"                              |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<4>" OFFSET = OUT 12.500 nS  | 12.500ns   | 9.419ns    | 1    
+   AFTER COMP "clk"                         |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<4>" OFFSET = IN 5 nS  BEFOR | 5.000ns    | 1.700ns    | 1    
+  E COMP "clk"                              |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<5>" OFFSET = OUT 12.500 nS  | 12.500ns   | 9.383ns    | 1    
+   AFTER COMP "clk"                         |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<5>" OFFSET = IN 5 nS  BEFOR | 5.000ns    | 1.700ns    | 1    
+  E COMP "clk"                              |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<6>" OFFSET = OUT 12.500 nS  | 12.500ns   | 10.674ns   | 1    
+   AFTER COMP "clk"                         |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<6>" OFFSET = IN 5 nS  BEFOR | 5.000ns    | 1.700ns    | 1    
+  E COMP "clk"                              |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<7>" OFFSET = OUT 12.500 nS  | 12.500ns   | 10.677ns   | 1    
+   AFTER COMP "clk"                         |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<7>" OFFSET = IN 5 nS  BEFOR | 5.000ns    | 1.700ns    | 1    
+  E COMP "clk"                              |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<8>" OFFSET = OUT 12.500 nS  | 12.500ns   | 11.638ns   | 1    
+   AFTER COMP "clk"                         |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<8>" OFFSET = IN 5 nS  BEFOR | 5.000ns    | 1.700ns    | 1    
+  E COMP "clk"                              |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<9>" OFFSET = OUT 12.500 nS  | 12.500ns   | 12.006ns   | 1    
+   AFTER COMP "clk"                         |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciData<9>" OFFSET = IN 5 nS  BEFOR | 5.000ns    | 1.700ns    | 1    
+  E COMP "clk"                              |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciBusy" OFFSET = IN 9 nS  BEFORE C | 9.000ns    | 5.959ns    | 3    
+  OMP "clk"                                 |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciEmpty" OFFSET = IN 9 nS  BEFORE  | 9.000ns    | 8.142ns    | 4    
+  COMP "clk"                                |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciEnable" OFFSET = OUT 11 nS  AFTE | 11.000ns   | 10.677ns   | 2    
+  R COMP "clk"                              |            |            |      
+--------------------------------------------------------------------------------
+  COMP "pciRW" OFFSET = OUT 11 nS  AFTER CO | 11.000ns   | 9.513ns    | 1    
+  MP "clk"                                  |            |            |      
+--------------------------------------------------------------------------------
+
+
+All constraints were met.
+INFO:Timing:2761 - N/A entries in the Constraints list may indicate that the
+   constraint does not cover any paths or that it has no requested value.
+Generating Pad Report.
+
+All signals are completely routed.
+
+Total REAL time to PAR completion: 1 mins 25 secs 
+Total CPU time to PAR completion: 1 mins 18 secs 
+
+Peak Memory Usage:  156 MB
+
+Placement: Completed - No errors found.
+Routing: Completed - No errors found.
+Timing: Completed - No errors found.
+
+Writing design to file multicycle.ncd.
+
+
+PAR done.
+
+
+
+#----------------------------------------------#
+# Starting program post_par_trce
+# trce -e 3 -intstyle xflow -xml multicycle.twx multicycle.ncd multicycle.pcf 
+#----------------------------------------------#
+
+Analysis completed Fri Oct  8 19:20:18 2010
+--------------------------------------------------------------------------------
+
+Generating Report ...
+
+
+
+xflow done!
+bitgen -l -w -m -intstyle xflow -g ConfigRate:4 -g DriveDone:No -g StartUpClk:JTAGCLK -g DONE_cycle:4 -g GTS_cycle:5 -g GSR_cycle:6 -g DonePipe:No -g GWE_cycle:6 -g LCK_cycle:NoWait -g Security:NONE multicycle.ncd
+xflow -p xcv1000e-6-fg860 -tsim modelsim_vhdl.opt multicycle.ncd
+Release 6.1i - Xflow G.23
+Copyright (c) 1995-2003 Xilinx, Inc.  All rights reserved.
+xflow -p xcv1000e-6-fg860 -tsim modelsim_vhdl.opt multicycle.ncd  
+.... Copying option file /usr/local/xilinx/xilinx/data/modelsim_vhdl.opt into
+working directory /home/student/knuthask/assignment2/hardware 
+
+Using Flow File: /home/student/knuthask/assignment2/hardware/fpga.flw 
+Using Option File(s): 
+ /home/student/knuthask/assignment2/hardware/modelsim_vhdl.opt 
+
+Creating Script File ... 
+
+#----------------------------------------------#
+# Starting program netgen
+# netgen -dir /home/student/knuthask/assignment2/hardware -ofmt vhdl -sim -w
+-intstyle xflow -ngm
+/home/student/knuthask/assignment2/hardware/multicycle_map.ngm -pcf
+/home/student/knuthask/assignment2/hardware/multicycle.pcf
+/home/student/knuthask/assignment2/hardware/multicycle.ncd time_sim.vhd 
+#----------------------------------------------#
+WARNING:NetListWriters:306 - Signal bus NlwRenamedSig_OI_alu_out( 7 downto 1 )
+   on block alu is not reconstructed, because there are some missing bus
+   signals.
+WARNING:NetListWriters:306 - Signal bus data_conn( 31 downto 0 ) on block cpu is
+   not reconstructed, because there are some missing bus signals.
+
+
+xflow done!
