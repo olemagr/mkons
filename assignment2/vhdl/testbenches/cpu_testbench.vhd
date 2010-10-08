@@ -102,7 +102,9 @@ ARCHITECTURE behavior OF cpu_testbench IS
       report "Assert result failed" severity WARNING;
   end assert_result;
 
-
+  constant alu_move	:  std_logic_vector(1 downto 0) := "00";
+  constant alu_add	:  std_logic_vector(1 downto 0) := "11";
+  constant alu_and	:  std_logic_vector(1 downto 0) := "01";
 BEGIN
   
   -- Instantiate the CPU
