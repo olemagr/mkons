@@ -114,11 +114,11 @@ multiplexer is just a mux placed in a component to clean up our CPU code.
 The control unit sets the control signals to the register mux, the program counter 
 and the status register. It is implemented as a Mealey state machine [1]
 with a fetch and an execute state. State control is simply switching between theese two
-each rising edge of the clock. All the output signals are combinatorialy set based 
-on current state, input from the current instruction and the status register. For the 
-fetch state all write signals are set to 0, as the instruction register in the memory is 
-all that is updated while fetching. For the execute state we set output with a case 
-statement based on the current instruction and the status register. 
+each rising edge of the clock. All the output signals are combinatorialy set based on current
+state, input from the current instruction and the status register. For the fetch state all
+write signals are set to 0, as the instruction register in the memory is all that is updated
+while fetching. For the execute state we set output with a case statement based on the current 
+instruction and the status register. See table 1 for control outputs.
 
 \begin{table}[h]
   \centering
@@ -130,7 +130,7 @@ statement based on the current instruction and the status register.
     sr\_write\_enable&1&0&0&0  \\
     \hline
   \end{tabular}
-  \caption{Outputs in execute state on given input.
+  \caption{Table 1: Outputs in execute state on given input.
   pc\_write\_enable is always 1 in execute state. Dashes represent don't care values}
 \end{table}
 
@@ -167,11 +167,15 @@ bottom is the execute state with different opcodes.}
 
 During the implementation process we wrote several testbenches
 for the various components. We did not write any testbenches for the
-components given to us, except the ALU. At the end, when all components were ready and
+components given to us, except the ALU. The testbenches are written to test
+that expected values are outputted on different inputs. If somthing is wrong, 
+assertions generates warnings when running the test. 
+When all components were ready and
 connected, we tested the entire design with a testbench for the cpu
 component (cpu\_testbench.vhd).  We wrote this to be the main
-testbench and implemented it using some procedures to create some
-abstraction from the gory details.
+testbench and implemented it using procedures to fill the memory and check 
+the register values. The cpu testbench loads the fibonacci program, runs and 
+checks for correct register values.
 
 \subsection*{Synthesis}
 
