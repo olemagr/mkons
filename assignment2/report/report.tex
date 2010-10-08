@@ -112,8 +112,7 @@ The status register is just a register with a write enable, and the register mul
 just a mux placed in a component to clean up our CPU code.  
 
 The control unit sets the control signals to the register mux, the program counter 
-and the status register. It is implemented as a % Find reference
-Mealey state machine 
+and the status register. It is implemented as a Mealey state machine [1]
 with a fetch and an execute state. State control is simply switching between theese two
 each rising edge of the clock. All the output signals are combinatorialy set based on current
 state, input from the current instruction and the status register. For the fetch state all
@@ -133,10 +132,13 @@ LDI = 010\\
 
 And for the ALU we used the instruction set implemented in delivered module
 
-\begin{center}
-  \includegraphics[width=.75\linewidth]{state_diagram.png} \\
-  figure 1
-\end{center}
+\begin{figure}
+\includegraphics[width=.75\linewidth]{state_diagram.png} \\
+\caption{This figure shows a state-machine with 4 states. However, in reality there 
+are only 2 states (fetch and execute), but this figure shows what is going on in some 
+better detail. The topmost state is the fetch state, and the three states at the 
+bottom is the execute state with different opcodes.}
+\end{figure}
 
 \subsection*{Testing}
 
@@ -167,6 +169,9 @@ From the synthesis report we see that
   modules.
 \end{enumerate}
 
+We got no errors from the place and route report, all constraints met,
+and all signals routed.
+
 \section*{Result}
 
 % Present the result of the work. What works and what does not. 
@@ -189,6 +194,11 @@ vhdl from the previous assignment, and the fact that we cooperated on it.
 % compendium, support files, exercise itself or something else which
 % us as teaching staff should see to.
 
+This assignment was very well defined compared to the previous. There was
+allot less guesswork involved during the design process. We found this to
+be allot more educational as we could focus on the tasks, in contrast to
+making tasks up.
+
 \section*{Conclusion}
 
 % Round up - what works, what does not work. Comment on the exercise. 
@@ -198,6 +208,10 @@ It was easy to map everything together and create most of the components.
 The most difficult part of this assignment was to figure out the timing 
 and syncronization, when to write to the registers and when they where 
 ready to be read.
+
+\section*{References}
+
+[1] http://en.wikipedia.org/wiki/Mealy\_machine
 
 \end{document}
 
