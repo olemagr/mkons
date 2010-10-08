@@ -121,6 +121,21 @@ write signals are set to 0, as the instruction register in the memory is all tha
 while fetching. For the execute state we set output with a case statement based on the current 
 instruction and the status register. 
 
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|} \hline
+    Outputs&\emph{ALU}&\emph{LDI}&\emph{BNZ, SR = 1}&\emph{BNZ, SR = 0}\\ \hline
+    pc\_mux\_select&0&0&0&1  \\
+    reg\_mux\_select&0&1&-&-  \\
+    reg\_write\_enable&1&1&0&0  \\
+    sr\_write\_enable&1&0&0&0  \\
+    \hline
+  \end{tabular}
+  \caption{Outputs in execute state on given input.
+  pc\_write\_enable is always 1 in execute state. Dashes represent don't care values}
+\end{table}
+
+
 Lage tabell med control outputs
 
 The module named CPU simply maps signals between all components.  
