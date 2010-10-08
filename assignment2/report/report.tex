@@ -23,10 +23,10 @@
 % – if something extra was done by the group
 % – if something should have been done in another way
 
-The task was to implement a simple multicycle cpu. A top level architecture 
-was proposed in the assignment text, we chose to implement the cpu in this way. 
-We could use the alu we made from the previous assignment, but we chose to use
-the one included in the support files. The cpu should load instructions into 
+The task was to implement a simple multicycle CPU. A top level architecture 
+was proposed in the assignment text, we chose to implement the CPU in this way. 
+We could use the ALU we made from the previous assignment, but we chose to use
+the one included in the support files. The CPU should load instructions into 
 memory and execute them. A program counter will be used to walk through the 
 instructions. A BNZ (branch if not zero) instruction can also be used, this 
 instruction will load the program counter with a given address if the zero flag
@@ -38,7 +38,7 @@ We chose to use the instruction word layout proposed in the assignment text.
 
 The control unit implements a simple fetch-execute state machine.
 
-The assignment was also to write a simple program to run on the cpu, 
+The assignment was also to write a simple program to run on the CPU, 
 we chose to implement fibonacci.
 
 \section*{Introduction}
@@ -81,7 +81,7 @@ to us.
 
 We started by making skeleton modules for all the components, mapping
 the signals between them. After that we implemented the simplest
-components.  To make sure nothing was wrong before writing the more
+components. To make sure nothing was wrong before writing the more
 difficult components, we wrote simple testbenches for them. We then
 proceeded to implement the control unit, which we considered to be the
 most challenging component. We then wrote a more general testbench for
@@ -104,11 +104,11 @@ Our implementation consists of the following components:
 The program counter is initiated to 0 on reset and is updated every control cycle
 with either an increment or an immediate value from the instruction. 
 We discussed using a relative jump instead of just loading a value, 
-but decided to drop this as there is no need for relative jumps when running single programs
-and we have full control of memory.
+but decided to drop this as there is no need for relative jumps when running 
+single programs and we have full control of memory.
   
-The status register is just a register with a write enable, and the register multiplexer is 
-just a mux placed in a component to clean up our CPU code.  
+The status register is just a register with a write enable, and the register 
+multiplexer is just a mux placed in a component to clean up our CPU code.  
 
 The control unit sets the control signals to the register mux, the program counter 
 and the status register. It is implemented as a Mealey state machine [1]
@@ -136,14 +136,25 @@ instruction and the status register. See table 1 for control outputs.
 The module named CPU simply maps signals between all components.  
 We chose to implement the CPU exactly as the figure in the assignment text proposed.
 
-We used the following instruction set for the CPU:\\
-ALU\_INST = 000\\
-BNZ = 001\\
-LDI = 010\\
+We used the instruction set for the CPU as described by table 2, and for the ALU we
+used the instruction set implemented in the delivered module.
 
-And for the ALU we used the instruction set implemented in delivered module
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Name&Opcode&Comment \\
+    \hline
+    ALU\_INST&000&Writes alu result to register\\
+    BNZ&001&Loads pc register if zero flag is set\\
+    LDI&010&Loads register with value\\
+    \hline
+  \end{tabular}
+  \caption{Instruction set for the cpu, not including the alu functionality}
+\end{table}
 
 \begin{figure}
+\centering
 \includegraphics[width=.75\linewidth]{state_diagram.png} \\
 \caption{This figure shows a state-machine with 4 states. However, in reality there 
 are only 2 states (fetch and execute), but this figure shows what is going on in some 
@@ -195,11 +206,19 @@ and all signals routed.
 % support the documentation. It is also the place to praise or show more
 % critique towards the presented work.
 
-Everything worked perfectly after a couple of days work, 
-both simulation and testing on nalle. This was earlier than expected, 
-but was probably due to increased knowledge and understanding of  
-vhdl from the previous assignment, and the fact that we cooperated on it.
+Everything seemed to work after a couple of days work, 
+both simulation and testing on nalle.
 
+However, we had previously tried some different solutions
+which did not work, and we realized that we did not understand why they did 
+not work. We first tried to write to the registers on the rising edge of the clock, 
+but this did not work. We then used the write enable signal as the clock 
+on the registers and everything worked great.
+However, we changed this later, when we discovered what we did wrong earlier,
+which was having registers on the output of the control unit. After that
+we removed the registers on the control unit and set the registers to be
+written on the rising edge of the clock, and everything worked the way we
+intended it to.
 
 \section*{Evaluation}
 
