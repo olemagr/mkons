@@ -1,10 +1,9 @@
 
-\documentclass[10pt]{report}
+\documentclass[11pt]{report}
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{amsmath}
-\renewcommand{\baselinestretch}{1.5}
-\title{Assignment 2}
+\title{TDT4255 Assignment 2}
 \author{Knut Halvor Skrede \& Ole Magnus Ruud}
 \begin{document}
 \maketitle
@@ -155,16 +154,15 @@ bottom is the execute state with different opcodes.}
 \subsection*{Testing}
 
 During the implementation process we wrote several testbenches
-for the various components. We did not write any testbenches for the
-components given to us, except the ALU. The testbenches are written to test
-that expected values are outputted on different inputs. If somthing is wrong, 
+for the various components. Of the delivered components we only wrote a testbench
+for the ALU. The testbenches are written to test
+that expected values are outputted on different inputs. If something is wrong, 
 assertions generates warnings when running the test. 
-When all components were ready and
-connected, we tested the entire design with a testbench for the cpu
-component (cpu\_testbench.vhd).  We wrote this to be the main
-testbench and implemented it using procedures to fill the memory and check 
-the register values. The cpu testbench loads the fibonacci program, runs and 
-checks for correct register values.
+When all components were ready and connected, we tested the entire 
+design with a testbench for the cpu component (cpu\_testbench.vhd).  
+We wrote this to be the main testbench and implemented it using procedures 
+to fill the memory and check the register values. The cpu testbench loads the 
+fibonacci program, runs and checks for correct register values.
 
 \subsection*{Synthesis}
 
