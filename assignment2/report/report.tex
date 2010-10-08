@@ -118,7 +118,7 @@ each rising edge of the clock. All the output signals are combinatorialy set bas
 state, input from the current instruction and the status register. For the fetch state all
 write signals are set to 0, as the instruction register in the memory is all that is updated
 while fetching. For the execute state we set output with a case statement based on the current 
-instruction and the status register. 
+instruction and the status register. See table 1 for control outputs.
 
 \begin{table}[h]
   \centering
@@ -130,12 +130,9 @@ instruction and the status register.
     sr\_write\_enable&1&0&0&0  \\
     \hline
   \end{tabular}
-  \caption{Outputs in execute state on given input.
+  \caption{Table 1: Outputs in execute state on given input.
   pc\_write\_enable is always 1 in execute state. Dashes represent don't care values}
 \end{table}
-
-
-Lage tabell med control outputs
 
 The module named CPU simply maps signals between all components.  
 We chose to implement the CPU exactly as the figure in the assignment text proposed.
