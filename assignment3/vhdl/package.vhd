@@ -35,7 +35,9 @@ package dmkons_package is
   -- total number of bits in funct bus
   constant STATUS_BUS : integer := 1 ;
   -- total number of bits in funct bus
-  constant OPCODE_BUS : integer := 4 ;
+  constant OPCODE_BUS : integer := 3 ;
+  -- total number of bits in funct bus
+  constant IMM_BUS : integer := 3 ;
 
   -- number of words in instruction memory
   constant IMEM_SIZE : integer := 2 ** IADDR_BUS;     -- do not change this
@@ -46,6 +48,18 @@ package dmkons_package is
 
   -----------------------------------------------------------------------------
   -- types
+
+  type if_id is
+    record
+		opcode : std_logic_vector( OPCODE_BUS - 1 downto 0 );
+		rd     : std_logic_vector( REG_ADDR_BUS - 1 downto 0 );
+		imm    : std_logic_vector( DDATA_BUS - 1 downto 0 );
+		ra     : std_logic_vector( REG_ADDR_BUS - 1 downto 0 );
+		rb     : std_logic_vector( REG_ADDR_BUS - 1 downto 0 );
+		funct  : std_logic_vector( FUNCT_BUS - 1 downto 0 );
+    end record;
+
+
 
   -- datatype used for an array containing all register values
   type regfile_type is

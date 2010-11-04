@@ -33,23 +33,44 @@ use work.dmkons_package.all;
 entity if_id_reg is
 
    port(
-	   ctrl   : in std_logic;
-		ir     : in std_logic_vector( IDATA_BUS - 1 downto 0 );
-		
-		opcode : out std_logic_vector( OPCODE_BUS - 1 downto 0 );
-		rd     : out std_logic_vector( REG_ADDR_BUS - 1 downto 0 );
-		imm    : out std_logic_vector( DDATA_BUS - 1 downto 0 );
-		ra     : out std_logic_vector( REG_ADDR_BUS - 1 downto 0 );
-		rb     : out std_logic_vector( REG_ADDR_BUS - 1 downto 0 );
-		funct  : out std_logic_vector( FUNCT_BUS - 1 downto 0 );
+      core_rst      : in std_logic;
+      core_clk      : in std_logic;
+      write_enable  : in std_logic;
+      ctrl          : in std_logic;
+   	ir            : in std_logic_vector( IDATA_BUS - 1 downto 0 );
+
+   	reg_out       : out if_id
 	);
 
 end if_id_reg;
 
 architecture Behavioral of if_id_reg is
-
+   signal reg : if_id;
 begin
 
+  process (core_rst, core_clk)
+  begin
+    
+    if core_rst = '0' then
+      reg <= (others => (others => '0'));
+
+    elsif rising_edge (core_clk) then
+      if write_enable = '1' then
+		  
+		  reg.opcode <= std_logic_vector( 31 downto 29 );
+		  reg.funct  <= std_logic_vector( 23 downto 20 );
+		  
+		  reg.imm    <= std_logic_vector( 19 downto 12 );
+		  
+		  reg.rd     <= std_logic_vector( 11 downto 8 );
+		  reg.ra     <= std_logic_vector( 7 downto 4 );
+		  reg.rb     <= std_logic_vector( 3 downto 0 );
+		  
+      end if;
+    end if;
+  end process;
+  
+  reg_out <= reg;
 
 end Behavioral;
 
