@@ -29,6 +29,13 @@ package dmkons_package is
   constant IDATA_BUS : integer := 32;                 -- do not change this
   -- number of bits in databus and registers
   constant DDATA_BUS : integer := 8;                  -- max 32
+  
+  -- total number of bits in funct bus
+  constant FUNCT_BUS : integer := 4 ;
+  -- total number of bits in funct bus
+  constant STATUS_BUS : integer := 1 ;
+  -- total number of bits in funct bus
+  constant OPCODE_BUS : integer := 4 ;
 
   -- number of words in instruction memory
   constant IMEM_SIZE : integer := 2 ** IADDR_BUS;     -- do not change this
