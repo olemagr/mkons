@@ -58,6 +58,17 @@ package dmkons_package is
 		rb     : std_logic_vector( REG_ADDR_BUS - 1 downto 0 );
 		funct  : std_logic_vector( FUNCT_BUS - 1 downto 0 );
     end record;
+	 
+	type id_ex is
+		record
+			wb		:	std_logic_vector	(0 downto 0); --N number of control bits
+			ex		:	std_logic_vector	(0 downto 0); --N number of control bits
+			rd		:	std_logic_vector	(REG_ADDR_BUS - 1 downto 0);
+			imm	:	std_logic_vector	(IMM_BUS - 1 downto 0);
+			a		:	std_logic_vector 	(DDATA_BUS - 1 downto 0);
+			b		:	std_logic_vector	(DDATA_BUS - 1 downto 0);
+			funct : 	std_logic_vector	(FUNCT_BUS - 1 downto 0);
+	end record;
 
 
 
