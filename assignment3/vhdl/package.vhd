@@ -5,7 +5,7 @@
 -- File       : package.vhd
 -- Author     : DM
 -- Company    : 
--- Last update: 2008-06-13
+-- Last update: 2010-11-06
 -- Platform   : BenERA, Virtex 1000E
 -------------------------------------------------------------------------------
 -- Description: 
@@ -22,7 +22,7 @@ package dmkons_package is
 
   -----------------------------------------------------------------------------
   -- constants
-
+  
   -- number of bits in instruction memory address bus
   constant IADDR_BUS : integer := 8;                  -- do not change this
   -- number of bits in instruction memory data bus (= instr. word size)
@@ -36,8 +36,6 @@ package dmkons_package is
   constant STATUS_BUS : integer := 1 ;
   -- total number of bits in funct bus
   constant OPCODE_BUS : integer := 3 ;
-  -- total number of bits in funct bus
-  constant IMM_BUS : integer := 3 ;
 
   -- number of words in instruction memory
   constant IMEM_SIZE : integer := 2 ** IADDR_BUS;     -- do not change this
@@ -58,17 +56,47 @@ package dmkons_package is
 		rb     : std_logic_vector( REG_ADDR_BUS - 1 downto 0 );
 		funct  : std_logic_vector( FUNCT_BUS - 1 downto 0 );
     end record;
-	 
-	type id_ex is
-		record
-			wb		:	std_logic_vector	(0 downto 0); --N number of control bits
-			ex		:	std_logic_vector	(0 downto 0); --N number of control bits
-			rd		:	std_logic_vector	(REG_ADDR_BUS - 1 downto 0);
-			imm	:	std_logic_vector	(IMM_BUS - 1 downto 0);
-			a		:	std_logic_vector 	(DDATA_BUS - 1 downto 0);
-			b		:	std_logic_vector	(DDATA_BUS - 1 downto 0);
-			funct : 	std_logic_vector	(FUNCT_BUS - 1 downto 0);
-	end record;
+
+  type ex_control is
+  record
+    mem_write   :	std_logic;
+    alu_a_mux   :       std_logic;
+    alu_b_mux 	:	std_logic;
+    status_mux  :       std_logic;
+  end record;
+
+  subtype wb_mux_type is std_logic_vector(1 downto 0);
+
+  constant WB_IMMEDIATE : wb_mux_type := "00" ;
+  constant WB_ALU       : wb_mux_type := "01" ;
+  constant WB_MEMORY    : wb_mux_type := "11" ;
+
+  type wb_control is
+  record
+    wb_source   :	wb_mux_type;
+    reg_write 	:	std_logic;
+  end record;
+
+  
+  type id_ex is
+  record
+    wb          :	wb_control;
+    ex	       	:	ex_signals;
+    rd		:	std_logic_vector(REG_ADDR_BUS - 1 downto 0);
+    imm	        :	std_logic_vector(DDATA_BUS - 1 downto 0);
+    a		:	std_logic_vector(DDATA_BUS - 1 downto 0);
+    b	        :	std_logic_vector(DDATA_BUS - 1 downto 0);
+    funct       : 	std_logic_vector(FUNCT_BUS - 1 downto 0);
+  end record;
+
+  type ex_wb is
+  record
+    wb          :	wb_control;
+    rd		:	std_logic_vector(REG_ADDR_BUS - 1 downto 0);
+    imm	        :	std_logic_vector(DDATA_BUS - 1 downto 0);
+    alu		:	std_logic_vector(DDATA_BUS - 1 downto 0);
+    mem	        :	std_logic_vector(DDATA_BUS - 1 downto 0);
+  end record;
 
 
 
