@@ -81,7 +81,7 @@ package dmkons_package is
   type id_ex is
   record
     wb          :	wb_control;
-    ex	       	:	ex_signals;
+    ex	       	:	ex_control;
     rd		:	std_logic_vector(REG_ADDR_BUS - 1 downto 0);
     imm	        :	std_logic_vector(DDATA_BUS - 1 downto 0);
     a		:	std_logic_vector(DDATA_BUS - 1 downto 0);
