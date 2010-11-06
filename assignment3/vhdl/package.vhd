@@ -30,11 +30,11 @@ package dmkons_package is
   -- number of bits in databus and registers
   constant DDATA_BUS : integer := 8;                  -- max 32
   
-  -- total number of bits in funct bus
+  -- total number of bits in funct field
   constant FUNCT_BUS : integer := 4 ;
-  -- total number of bits in funct bus
+  -- total number of bits in status field
   constant STATUS_BUS : integer := 1 ;
-  -- total number of bits in funct bus
+  -- total number of bits in opcode field
   constant OPCODE_BUS : integer := 3 ;
 
   -- number of words in instruction memory
