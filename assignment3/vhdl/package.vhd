@@ -43,13 +43,22 @@ package dmkons_package is
   constant REG_ADDR_BUS   : integer := 4;             -- do not change this
   -- total number of registers in register file
   constant REGISTERS : integer := 2 ** REG_ADDR_BUS;  -- do not change this
+  
+  -- Instructions
+  subtype op_type is std_logic_vector(OPCODE_BUS-1 downto 0);
+  constant ALU_INST 		: op_type := "001";
+  constant BNZ				: op_type := "011";
+  constant LDI				: op_type := "010";
+  constant LOAD			: op_type := "110";
+  constant STORE 			: op_type := "100";
 
   -----------------------------------------------------------------------------
   -- types
 
   type if_id is
     record
-		opcode : std_logic_vector( OPCODE_BUS - 1 downto 0 );
+		valid	 : std_logic;
+		opcode : op_type;
 		rd     : std_logic_vector( REG_ADDR_BUS - 1 downto 0 );
 		imm    : std_logic_vector( DDATA_BUS - 1 downto 0 );
 		ra     : std_logic_vector( REG_ADDR_BUS - 1 downto 0 );
@@ -62,7 +71,8 @@ package dmkons_package is
     mem_write   :	std_logic;
     alu_a_mux   :       std_logic;
     alu_b_mux 	:	std_logic;
-    status_mux  :       std_logic;
+    --status_mux  :       std_logic;
+    status_write:	std_logic;
   end record;
 
   subtype wb_mux_type is std_logic_vector(1 downto 0);
