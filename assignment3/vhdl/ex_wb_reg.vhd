@@ -18,7 +18,7 @@ begin
   process (core_rst, core_clk)
   begin
     if core_rst = '0' then
-      reg <= (others => (others => '0'));
+      reg <= (("00",'0'),(others => '0'),(others => '0'), (others => '0'), (others => '0'));
     elsif rising_edge (core_clk) then
       reg <= reg_in;		  
     end if;
