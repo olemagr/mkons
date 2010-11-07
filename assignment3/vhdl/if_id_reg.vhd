@@ -35,42 +35,32 @@ entity if_id_reg is
    port(
       core_rst      : in std_logic;
       core_clk      : in std_logic;
-      write_enable  : in std_logic;
-      ctrl          : in std_logic;
-   	ir            : in std_logic_vector( IDATA_BUS - 1 downto 0 );
-
-   	reg_out       : out if_id
+      valid			  : in std_logic;
+		ir            : in std_logic_vector( IDATA_BUS - 1 downto 0 );
+		if_id_out     : out if_id
 	);
 
 end if_id_reg;
 
 architecture Behavioral of if_id_reg is
-   signal reg : if_id;
+   signal valid_reg : std_logic;
 begin
 
-  process (core_rst, core_clk)
-  begin
-    
-    if core_rst = '0' then
-      reg <= (others => (others => '0'));
-
-    elsif rising_edge (core_clk) then
-      if write_enable = '1' then
-		  
-		  reg.opcode <= std_logic_vector( 31 downto 29 );
-		  reg.funct  <= std_logic_vector( 23 downto 20 );
-		  
-		  reg.imm    <= std_logic_vector( 19 downto 12 );
-		  
-		  reg.rd     <= std_logic_vector( 11 downto 8 );
-		  reg.ra     <= std_logic_vector( 7 downto 4 );
-		  reg.rb     <= std_logic_vector( 3 downto 0 );
-		  
-      end if;
-    end if;
-  end process;
-  
-  reg_out <= reg;
-
+	process (core_rst, core_clk)
+	begin
+		if core_rst = '0' then
+			valid_reg <= '1';
+		elsif rising_edge (core_clk) then
+			valid_reg <= valid;
+		end if;
+	end process;
+	if_id_out.valid		<= valid_reg;
+	if_id_out.opcode 		<= ir( 31 downto 29 );
+	if_id_out.funct  		<= ir( 23 downto 20 );
+	if_id_out.imm    		<= ir( 19 downto 12 );
+	if_id_out.rd     		<= ir( 11 downto 8 );
+	if_id_out.ra     		<= ir( 7 downto 4 );
+	if_id_out.rb     		<= ir( 3 downto 0 );
+   
 end Behavioral;
 
