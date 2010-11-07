@@ -10,7 +10,7 @@ entity id_operand_mux is
       reg_data_a    : in std_logic_vector(DDATA_BUS - 1 downto 0); 
       reg_data_b    : in std_logic_vector(DDATA_BUS - 1 downto 0); 
       op_a          : out std_logic_vector(DDATA_BUS - 1 downto 0); 
-      op_b          : out std_logic_vector(DDATA_BUS - 1 downto 0); 
+      op_b          : out std_logic_vector(DDATA_BUS - 1 downto 0)
 	);
 end id_operand_mux;
 

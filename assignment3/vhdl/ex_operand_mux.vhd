@@ -10,7 +10,7 @@ entity ex_operand_mux is
       idex_data_a    : in std_logic_vector(DDATA_BUS - 1 downto 0); 
       idex_data_b    : in std_logic_vector(DDATA_BUS - 1 downto 0); 
       op_a          : out std_logic_vector(DDATA_BUS - 1 downto 0); 
-      op_b          : out std_logic_vector(DDATA_BUS - 1 downto 0); 
+      op_b          : out std_logic_vector(DDATA_BUS - 1 downto 0)
 	);
 end ex_operand_mux;
 
