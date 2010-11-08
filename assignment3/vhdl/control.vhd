@@ -46,7 +46,8 @@ architecture cont of control is
   
 begin
 -- Set default outputs. Change when applicable
-process (IF_ID_valid)
+process (IF_ID_valid, IF_ID_opcode, zf_post_mux, ID_EX_write_reg, IF_ID_Ra, ID_EX_Rd, 
+			IF_ID_Rb, EX_WB_write_reg, EX_WB_Rd)
 	variable pc_mux_var 				: std_logic;
    variable pc_enable_var			: std_logic;
    variable set_IF_ID_valid_var	: std_logic;
