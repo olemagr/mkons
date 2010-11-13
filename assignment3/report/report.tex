@@ -218,7 +218,7 @@ register file.
 %The status register is just a register with a write enable, and the register 
 %multiplexer is just a mux placed in a component to clean up our CPU code.  
 
-\begin{comment}
+
 The control unit sets the control signals to the register mux, the program counter 
 and the status register. It is implemented as a Mealey state machine [1]
 with a fetch and an execute state. State control is simply switching between theese two
@@ -262,29 +262,111 @@ used the instruction set implemented in the delivered module.
   \caption{Instruction set for the cpu, not including the alu functionality}
 \end{table}
 
-\begin{figure}
-\centering
-\includegraphics[width=.75\linewidth]{state_diagram.png} \\
-\caption{This figure shows a state-machine with 4 states. However, in reality there 
-are only 2 states (fetch and execute), but this figure shows what is going on in some 
-better detail. The topmost state is the fetch state, and the three states at the 
-bottom is the execute state with different opcodes.}
-\end{figure}
-
-\end{comment}
-
 \subsection*{Testing}
 
-During the implementation process we wrote several testbenches
-for the various components. Of the delivered components we only wrote a testbench
-for the ALU. The testbenches are written to test
-that expected values are outputted on different inputs. If something is wrong, 
-assertions generates warnings when running the test. 
-When all components were ready and connected, we tested the entire 
-design with a testbench for the cpu component (cpu\_testbench.vhd).  
-We wrote this to be the main testbench and implemented it using procedures 
-to fill the memory and check the register values. The cpu testbench loads the 
-fibonacci program, runs and checks for correct register values.
+%During the implementation process we wrote several testbenches
+%for the various components. Of the delivered components we only wrote a testbench
+%for the ALU. The testbenches are written to test
+%that expected values are outputted on different inputs. If something is wrong, 
+%assertions generates warnings when running the test. 
+%When all components were ready and connected, we tested the entire 
+%design with a testbench for the cpu component (cpu\_testbench.vhd).  
+%We wrote this to be the main testbench and implemented it using procedures 
+%to fill the memory and check the register values. The cpu testbench loads the 
+%fibonacci program, runs and checks for correct register values.
+
+
+For testing we wrote the following programs:
+
+\subsubsection*{Instruction flush test}
+
+This program tests if the instruction after a branch is successfully flushed.
+The program segment loads two values, 246 and 1. It then adds 1 to 246 and
+branches back to the add instruction until it reaches 255 and then overflows
+to 0. After the overflow add the branch should not be taken and the next instruction
+should be executed. If it fails, the register holding 1 will be loaded with 10
+and the program will net perform as expected.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    Line Nr &	Opcode		&	funct	&	Imm	&	Rd	&	Ra	&	Rb	\\\hline
+    	0	&	LDI			&			&	246	&	1	&		&		\\\hline
+    	1	&	LDI			&			&	1	&	2	&		&		\\\hline
+    	2	&	ALU\_INST	&	ADD		&		&	1	&	2	&	1	\\\hline
+    	3	&	BNZ			&			&	2	&		&		&		\\\hline
+    	4	&	LDI			&			&	10	&	2	&		&		\\\hline
+  \end{tabular}
+  \caption{Program to test branching}
+\end{table}
+
+\begin{figure}
+\centering
+\includegraphics[width=.95\linewidth]{test1.png} \\
+\caption{This figure shows the waveform from the testbench, 
+most of the register signals has been removed, this is because they are not beeing used.}
+\end{figure}
+
+
+\subsubsection*{Datadependency test}
+
+This program test if the dataforwarding is successfull.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    Line Nr &	Opcode		&	funct	&	Imm	&	Rd	&	Ra	&	Rb	\\\hline
+    	0	&	LDI			&			&	18	&	1	&		&		\\\hline
+    	1	&	LDI			&			&	2	&	2	&		&		\\\hline
+	\multicolumn{7}{|c|}{Test 1: Dataforwarding from writeback- to execute-stage (one-stage forwarding)}\\\hline
+    	2	&	ALU\_INST	&	ADD		&		&	1	&	2	&	1	\\\hline
+    	3	&	ALU\_INST	&	ADD		&		&	1	&	2	&	1	\\\hline
+    	4	&	ALU\_INST	&	ADD		&		&	1	&	2	&	1	\\\hline
+	\multicolumn{7}{|c|}{Test 2: Dataforwarding from writeback- to decode-stage (two-stage forwarding)}\\\hline
+    	5	&	ALU\_INST	&	ADD		&		&	1	&	2	&	1	\\\hline
+    	6	&	ALU\_INST	&	ADD		&		&	1	&	2	&	2	\\\hline
+    	7	&	ALU\_INST	&	ADD		&		&	1	&	2	&	1	\\\hline
+  \end{tabular}
+  \caption{Program to test data forwarding}
+\end{table}
+
+\subsubsection*{Status register test}
+
+This program test if the statusregister is successfully forwarded.
+It first loads 254 to register 1, 2 to register 2 and 1 to register 3.
+It then adds 254 and 1 and writes it to register 4, the result should because
+255. It then adds 2 to 254, this operations should overflow and result in zero,
+resulting in the following branch instruction not to be taken. The instructions
+following this test should count upwards in the power of 2 until it overflows
+and stops. This test is located in file 'cpu\_testbench3.vhd'.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    Line Nr &	Opcode		&	funct	&	Imm	&	Rd	&	Ra	&	Rb	\\\hline
+    	0	&	LDI			&			&	254	&	1	&		&		\\\hline
+    	1	&	LDI			&			&	2	&	2	&		&		\\\hline
+    	2	&	LDI			&			&	1	&	3	&		&		\\\hline
+    	3	&	ALU\_INST	&	ADD		&		&	4	&	3	&	1	\\\hline
+    	4	&	ALU\_INST	&	ADD		&		&	1	&	2	&	1	\\\hline
+    	5	&	BNZ			&			&	0	&		&		&		\\\hline
+    	6	&	ALU\_INST	&	ADD		&		&	3	&	3	&	3	\\\hline
+    	7	&	BNZ			&			&	6	&		&		&		\\\hline
+
+		\end{tabular}
+  \caption{Program to test data forwarding}
+\end{table}
+
+\begin{figure}
+\centering
+\includegraphics[width=.95\linewidth]{test3.png} \\
+\caption{This figure shows the waveform from the testbench, 
+most of the register signals has been removed, this is because they are not beeing used.}
+\end{figure}
+
 
 \subsection*{Synthesis}
 
