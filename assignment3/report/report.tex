@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{amsmath}
+\usepackage{verbatim}
 \title{TDT4255 Assignment 3}
 \author{Knut Halvor Skrede \& Ole Magnus Ruud}
 \begin{document}
@@ -81,6 +82,14 @@ We used the suggested solution as a starting point. %Meeeeeeer!
 % grade. So, it is not enough to have a brilliant solution if the
 % reader can't understand how it is meant to work.
 
+\subsection*{Design}
+
+% Write somthing about instruction format, implemented functions. Data sizes and so on.
+% Describe computation flow, what happens at each stage
+As our instruction format we decided to use a slightly modified version of the
+ suggested format from assignment 2, shown in 
+
+
 \subsection*{Approach}
 
 %We started by making skeleton modules for all the components, mapping
@@ -110,11 +119,6 @@ module setting all the control signals. When we thought we had it right
 everything was sewed together and we could test it with a testbench
 from the previous assignment. After some debugging in Modelsim we had 
 a working architecture.
-
-\subsection*{Design}
-
-% Write somthing about instruction format, implemented functions. Data sizes and so on.
-% Describe computation flow, what happens at each stage
 
 \subsection*{Implementation}
 
@@ -187,11 +191,27 @@ This component works the same way as the Register to ID/EX mux, but the source o
 mux control signals is the ex field of the ID/EX register, and the ouput is connected
 to the ALU and Data memory data input.
 
-\subsubsection*{}
-
+\subsubsection*{ALU}
+The alu is the simple handed out component.
+\subsubsection*{Status Register}
+We use our Status Register implementation from the previous assignment, but have
+built in the writeback mux to be controlled by the write status register signal.
+When the status write signal is asserted, the mux will also choose the current 
+status signal from the ALU, even before it is written to the register.
+\subsubsection*{Data Memory}
+As with the Instruction memory, this is an instantiation of the handed out memory
+module, only used for data. This implies an 8-bit width. Because it needs the read address
+on the rising edge, we had to connect the read address port to the immediate value of the
+if/id register.
+\subsubsection*{EX/WB pipeline register}
+As with ID/EX this is just a simple register. Fields are described in the design section.
+\subsubsection*{Register input mux}
+Our last component is the muxer choosing what value of the EX/WB register to send to the
+register file. 
 %The status register is just a register with a write enable, and the register 
 %multiplexer is just a mux placed in a component to clean up our CPU code.  
 
+\begin{comment}
 The control unit sets the control signals to the register mux, the program counter 
 and the status register. It is implemented as a Mealey state machine [1]
 with a fetch and an execute state. State control is simply switching between theese two
@@ -243,6 +263,8 @@ are only 2 states (fetch and execute), but this figure shows what is going on in
 better detail. The topmost state is the fetch state, and the three states at the 
 bottom is the execute state with different opcodes.}
 \end{figure}
+
+\end{comment}
 
 \subsection*{Testing}
 
