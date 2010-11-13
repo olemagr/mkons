@@ -88,7 +88,58 @@ We used the suggested solution as a starting point. %Meeeeeeer!
 % Describe computation flow, what happens at each stage
 \subsubsection*{Instruction format}
 As our instruction format we decided to use a slightly modified version of the
-suggested format from assignment 2, shown in figure blabla %FIGUUUUR!!!!
+suggested format from assignment 2, shown in figure 1.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|l|l|l|l|l|l|l|}
+    \hline
+    Name: 		&	Opcode		&	unused	&	funct	&	Imm		&	Rd		&	Ra	&	Rb	\\\hline
+    Bits: 		&	31-29		&	28-24	&	23-20	&	19-12	&	11-8	&	7-4	&	3-0	\\\hline
+  \end{tabular}
+  \caption{Instruction set format}
+\end{table}
+
+ \begin{itemize}
+\item Opcode: used to determine the control signals in the cpu given different instructions.	
+\item Funct: used for choosing the ALU instruction.
+\item Immediate: used for Load Immediate, load the register with the given value and for branch instruction to set the new value in the programme counter
+\item Rd : number of the register which will be written
+\item Ra : number of register A
+\item Rb : number of register B
+\end{itemize}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    Name&Opcode&Comment \\
+    \hline
+    ALU\_INST	&001	&Writes alu result to register\\
+    BNZ			&011	&Loads pc register if zero flag is set\\
+    LDI			&010	&Loads register with value\\
+    LOAD		&110	&Writes register Ra to memory at address given by immediate\\
+    STORE		&100	&Loads register Rd with memory at address given by immediate\\
+    \hline
+  \end{tabular}
+  \caption{Instruction set for the ALU, not including the alu functionality}
+\end{table}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    Name&Funct&Comment \\
+    \hline
+    MOVE	&0000	& sets output of ALU out to input A\\
+    AND		&0001	& Bitwise AND\\
+    ADD		&0111	& Arithmetic ADD\\
+    \hline
+  \end{tabular}
+  \caption{Function set for the ALU}
+\end{table}
+
+
 \subsubsection*{Implemented functions}
 \subsubsection*{Instruction flow}
 We will here describe the basic flow of operations for an instruction
@@ -245,35 +296,6 @@ register file.
 %The status register is just a register with a write enable, and the register 
 %multiplexer is just a mux placed in a component to clean up our CPU code.  
 
-
-The control unit sets the control signals to the register mux, the program counter 
-and the status register. It is implemented as a Mealey state machine [1]
-with a fetch and an execute state. State control is simply switching between theese two
-each rising edge of the clock. All the output signals are combinatorialy set based on current
-state, input from the current instruction and the status register. For the fetch state all
-write signals are set to 0, as the instruction register in the memory is all that is updated
-while fetching. For the execute state we set output with a case statement based on the current 
-instruction and the status register. See table 1 for control outputs.
-
-\begin{table}[h]
-  \centering
-  \begin{tabular}{|c|c|c|c|c|} \hline
-    Outputs&\emph{ALU}&\emph{LDI}&\emph{BNZ, SR = 1}&\emph{BNZ, SR = 0}\\ \hline
-    pc\_mux\_select&0&0&0&1  \\
-    reg\_mux\_select&0&1&-&-  \\
-    reg\_write\_enable&1&1&0&0  \\
-    sr\_write\_enable&1&0&0&0  \\
-    \hline
-  \end{tabular}
-  \caption{Table 1: Outputs in execute state on given input.
-  pc\_write\_enable is always 1 in execute state. Dashes represent don't care values}
-\end{table}
-
-The module named CPU simply maps signals between all components.  
-We chose to implement the CPU exactly as the figure in the assignment text proposed.
-
-We used the instruction set for the CPU as described by table 2, and for the ALU we
-used the instruction set implemented in the delivered module.
 
 \begin{table}[h]
   \centering
