@@ -64,7 +64,7 @@ to where it is needed in the earlier pipelining stages.
 
 We used the suggested solution as a starting point. %Meeeeeeer!
 
-\section*{Suggested Solution}
+
 
 % Present concisely an outline of how the task was solved.  This is
 % the place to write in greater detail about how the group was
@@ -82,11 +82,11 @@ We used the suggested solution as a starting point. %Meeeeeeer!
 % grade. So, it is not enough to have a brilliant solution if the
 % reader can't understand how it is meant to work.
 
-\subsection*{Design}
+\section*{Design}
 
 % Write somthing about instruction format, implemented functions. Data sizes and so on.
 % Describe computation flow, what happens at each stage
-\subsubsection*{Instruction format}
+\subsection*{Instruction format}
 As our instruction format we decided to use a slightly modified version of the
 suggested format from assignment 2, shown in figure 1.
 
@@ -140,18 +140,18 @@ suggested format from assignment 2, shown in figure 1.
 \end{table}
 
 
-\subsubsection*{Implemented functions}
-\subsubsection*{Instruction flow}
+\subsection*{Implemented functions}
+\subsection*{Instruction flow}
 We will here describe the basic flow of operations for an instruction
 through our processor architecture stage by stage without hazards handling.
-\begin{description}
 
-\item[Instruction fetch]
+\subsubsection*{Instruction fetch}
+
 
 Instructions starts out by being fetched based on the program counter from the
 instruction memory to the IF/ID register. This is the complete basic operation of the 
 instruction fetch stage.
-\item[Decode]
+\subsubsection*{Decode}
 
 In the decode stage the most basic action is the forwarding of the Rd, Immediate and
 the function field to the ID/EX register. The Ra and Rb fields are sent to the regfile, 
@@ -172,7 +172,7 @@ which is set to alu output for alu operations, memory output
 for load instructions and immediate for load immediate. 
 The register write enable is set for all instructions resulting in a register write.
 
-\item[Execute]
+\subsubsection*{Execute}
 
 In the execute stage the Rd, immediate and writeback control signal fields are 
 forwarded from ID/EX to EX/WB. 
@@ -189,7 +189,7 @@ of the EX/WB register. The immediate, A and memory write enable fields of the ID
 are sent to the write address, write data and write enable inputs of the data memory,
 respectively. If the write enable is asserted, the data is written.
 
-\item[Writeback]
+\subsubsection*{Writeback}
 
 In the writeback stage the register file is written if the register write enable
 signal of the EX/WB register is asserted. The value written is selected with a register
@@ -197,13 +197,13 @@ input mux based on the source select signal in the EX/WB register with all the d
 of EX/WB as inputs. The register destination is decided by the propagated Rd field of the
 EX/WB register.
 
-\end{description}
 
-\subsubsection{Hazards handling}
+
+\subsection{Hazards handling}
 
 A big part of this assignment was the Hazards handling
 
-\subsection*{Approach}
+\section*{Approach}
 
 %We started by making skeleton modules for all the components, mapping
 %the signals between them. After that we implemented the simplest
