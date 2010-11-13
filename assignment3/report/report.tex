@@ -207,15 +207,25 @@ types of hazards, data hazards and control hazards. The data hazards occur when 
 are data dependencies between closely following instructions, resulting in the
 early instructions not being able to write their result before the same result is 
 supposed to be read by a following register. The control hazard occur when a branch
-is being taken, but the instruction following the branch is already inserted in the pipeline.
+is being taken, but the instruction following the branch is already inserted in the pipeline,
+even though it is not supposed to be executed.
+
 We will now describe how both of these hazards are being handled in our architecture.
 
 \subsubsection*{Control hazard handling}
 
 To handle the control hazards we have done as the assignment text proposes, and included
 a valid bit for the IF/ID register. This valid bit is written by the control unit as the 
-instruction is being fetched from the instruction memory. Whether the bit is set to invalid
-depends on if the branch
+instruction is being fetched from the instruction memory. Checking the current opcode and the 
+status register is enough to know if the branch is being taken or not. 
+When the control unit checks the valid bit the next cycle, it knows it is dealing with an 
+invalid operation and can resolve this by deasserting all write enable signals in the 
+ID/EX register.
+
+\subsubsection*{Data hazard handling}
+
+blablabla
+
 
 \section*{Approach}
 
