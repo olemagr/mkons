@@ -194,9 +194,23 @@ EX/WB register.
 
 
 
-\subsection{Hazards handling}
+\subsection*{Hazards handling}
 
-A big part of this assignment was the Hazards handling
+A big part of this assignment was handling the various forms of Hazards 
+encountered in pipelining processors. In our architecture there are two potential
+types of hazards, data hazards and control hazards. The data hazards occur when there 
+are data dependencies between closely following instructions, resulting in the
+early instructions not being able to write their result before the same result is 
+supposed to be read by a following register. The control hazard occur when a branch
+is being taken, but the instruction following the branch is already inserted in the pipeline.
+We will now describe how both of these hazards are being handled in our architecture.
+
+\subsubsection*{Control hazard handling}
+
+To handle the control hazards we have done as the assignment text proposes, and included
+a valid bit for the IF/ID register. This valid bit is written by the control unit as the 
+instruction is being fetched from the instruction memory. Whether the bit is set to invalid
+depends on if the branch
 
 \section*{Approach}
 
