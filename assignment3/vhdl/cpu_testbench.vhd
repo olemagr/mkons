@@ -168,26 +168,41 @@ BEGIN
     -- Assert the result
     -----------------------------
 
-
     -- It takes 4 clock periods for result to appear (due to depth of pipeline)
     Wait for 3*core_clk_period;
 
---    wait for 2*core_clk_period;		assert_result(reg_values(1), 1);
---    wait for 2*core_clk_period;		assert_result(reg_values(2), 1);
---    wait for 2*core_clk_period;		assert_result(reg_values(3), 2);
---    wait for 2*core_clk_period;		assert_result(reg_values(4), 3);
---    wait for 2*core_clk_period;		assert_result(reg_values(1), 2);
---    wait for 2*core_clk_period;		assert_result(reg_values(2), 3);
---    wait for 2*core_clk_period; 		-- Wait for jump instruction
---    wait for 2*core_clk_period;		assert_result(reg_values(3), 5);
---    wait for 2*core_clk_period;		assert_result(reg_values(4), 8);
---    wait for 2*core_clk_period;		assert_result(reg_values(1), 5);
---    wait for 2*core_clk_period;		assert_result(reg_values(2), 8);
---    wait for 2*core_clk_period; 		-- Wait for jump instruction
---    wait for 2*core_clk_period;		assert_result(reg_values(3), 13);		
---    wait for 2*core_clk_period;		assert_result(reg_values(4), 21);
---    wait for 2*core_clk_period;		assert_result(reg_values(1), 13);
---    wait for 2*core_clk_period;		assert_result(reg_values(2), 21);
+    wait for core_clk_period;		assert_result(reg_values(1), 246);
+    wait for core_clk_period;		assert_result(reg_values(2), 1);
+    wait for core_clk_period;		assert_result(reg_values(1), 247);
+    wait for core_clk_period; 
+    wait for core_clk_period; 		-- Wait for jump instruction
+    wait for core_clk_period;		assert_result(reg_values(1), 248);
+    wait for core_clk_period; 
+    wait for core_clk_period; 		-- Wait for jump instruction
+    wait for core_clk_period;		assert_result(reg_values(1), 249);
+    wait for core_clk_period; 
+    wait for core_clk_period; 		-- Wait for jump instruction
+    wait for core_clk_period;		assert_result(reg_values(1), 250);
+    wait for core_clk_period; 
+    wait for core_clk_period; 		-- Wait for jump instruction
+    wait for core_clk_period;		assert_result(reg_values(1), 251);
+    wait for core_clk_period; 
+    wait for core_clk_period; 		-- Wait for jump instruction
+    wait for core_clk_period;		assert_result(reg_values(1), 252);
+    wait for core_clk_period; 
+    wait for core_clk_period; 		-- Wait for jump instruction
+    wait for core_clk_period;		assert_result(reg_values(1), 253);
+    wait for core_clk_period; 
+    wait for core_clk_period; 		-- Wait for jump instruction
+    wait for core_clk_period;		assert_result(reg_values(1), 254);
+    wait for core_clk_period; 
+    wait for core_clk_period; 		-- Wait for jump instruction
+    wait for core_clk_period;		assert_result(reg_values(1), 255);
+    wait for core_clk_period; 
+    wait for core_clk_period; 		-- Wait for jump instruction
+    wait for core_clk_period;		assert_result(reg_values(1), 0);
+    wait for core_clk_period; 		-- Wait for jump instruction, not taken
+    wait for core_clk_period;		assert_result(reg_values(1), 10);
     
     wait;
   end process;
