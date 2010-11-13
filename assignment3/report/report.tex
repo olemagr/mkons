@@ -24,23 +24,18 @@
 % – if something extra was done by the group
 % – if something should have been done in another way
 
-The task was to implement a simple multicycle CPU. A top level architecture 
+The task was to implement a simple pipelined CPU. A top level architecture 
 was proposed in the assignment text, we chose to implement the CPU in this way. 
-We could use the ALU we made from the previous assignment, but we chose to use
-the one included in the support files. The CPU should load instructions into 
-memory and execute them. A program counter will be used to walk through the 
+The CPU should load instructions into memory and execute them. 
+A program counter will be used to walk through the 
 instructions. A BNZ (branch if not zero) instruction can also be used, this 
 instruction will load the program counter with a given address if the zero flag
-in the status register is not set. Additionally the CPU should implement a 
+was set from the previous instruction. Additionally the CPU should implement a 
 LDI (load immediate) instruction that loads the the register with a value. 
-The cpu should also implement the ALU functionality.
-
-We chose to use the instruction word layout proposed in the assignment text.
-
-The control unit implements a simple fetch-execute state machine.
-
-The assignment was also to write a simple program to run on the CPU, 
-we chose to implement fibonacci.
+The CPU should also implement LOAD and STORE instructions to operate on memory.
+We implemented 3 seperate test programs to be simulated and run on the implemented
+fpga. These programs were made to test if the CPU operated correctly under different
+situations.
 
 \section*{Introduction}
 
@@ -235,6 +230,13 @@ a working architecture.
 
 \subsection*{Implementation}
 
+\begin{figure}
+  \centering
+  \includegraphics[width=.95\linewidth]{toplevel.png} \\
+  \caption{Pipelined cpu}
+  \label{fig:pipelinedcpu}
+\end{figure}
+
 Our implementation consists of the following components
 ordered by their appearance in the pipelining stages:
 	
@@ -325,34 +327,21 @@ register file.
 %multiplexer is just a mux placed in a component to clean up our CPU code.  
 
 
-\begin{table}[h]
-  \centering
-  \begin{tabular}{|c|c|c|}
-    \hline
-    Name&Opcode&Comment \\
-    \hline
-    ALU\_INST&000&Writes alu result to register\\
-    BNZ&001&Loads pc register if zero flag is set\\
-    LDI&010&Loads register with value\\
-    \hline
-  \end{tabular}
-  \caption{Instruction set for the cpu, not including the alu functionality}
-\end{table}
-
 \subsection*{Testing}
 
-For testing we wrote the following programs:
-
-\subsubsection*{Instruction flush test}
+\subsubsection*{Pipeline flushing test}
 
 This program tests if the instruction after a branch is successfully flushed.
 The program segment loads two values, 246 and 1. It then adds 1 to 246 and
 branches back to the add instruction until it reaches 255 and then overflows
 to 0. After the overflow add the branch should not be taken and the next instruction
 should be executed. If it fails, the register holding 1 will be loaded with 10
-and the program will net perform as expected.
+and the program will net perform as expected. This program is included as a bitfile
+('test\_program\_1.txt') and explained in table \ref{tab:program1table}. It is also the 
+program being run in 'cpu\_testbench.vhd'.
+The waveform of this test can be seen in figure \ref{fig:program1wave}
 
-\begin{table}[h]
+\begin{table}[htbp]
   \centering
   \begin{tabular}{|c|c|c|c|c|c|c|}
     \hline
@@ -364,21 +353,27 @@ and the program will net perform as expected.
     	4	&	LDI			&			&	10	&	2	&		&		\\\hline
   \end{tabular}
   \caption{Program to test branching}
+  \label{tab:program1table}
 \end{table}
 
 \begin{figure}
-\centering
-\includegraphics[width=.95\linewidth]{test1.png} \\
-\caption{This figure shows the waveform from the testbench, 
-most of the register signals has been removed, this is because they are not beeing used.}
+  \centering
+  \includegraphics[width=.95\linewidth]{test1.png} \\
+  \caption{This figure shows the waveform from the testbench, 
+  most of the register signals has been removed, this is because they are not beeing used.}
+  \label{fig:program1wave}
 \end{figure}
 
 
 \subsubsection*{Datadependency test}
 
-This program test if the dataforwarding is successfull.
+This program tests if the dataforwarding is successfull. The part after 'Test 1' tests data forwarding
+from the writeback- to the execute-stage. The part after 'Test 2' tests data forwarding from the
+writeback- to the decode-stage. It is included as a bitfile ('test\_program\_2.txt') and explained
+in table \ref{tab:program2table}. It is also the program being run in 'cpu\_testbench2.vhd'.
+The waveform of this test can be seen in figure \ref{fig:program2wave}
 
-\begin{table}[h]
+\begin{table}[htbp]
   \centering
   \begin{tabular}{|c|c|c|c|c|c|c|}
     \hline
@@ -395,13 +390,15 @@ This program test if the dataforwarding is successfull.
     	7	&	ALU\_INST	&	ADD		&		&	1	&	2	&	1	\\\hline
   \end{tabular}
   \caption{Program to test data forwarding}
+  \label{tab:program2table}
 \end{table}
 
 \begin{figure}
-\centering
-\includegraphics[width=.95\linewidth]{test3.png} \\
-\caption{This figure shows the waveform from the testbench, 
-most of the register signals has been removed, this is because they are not beeing used.}
+  \centering
+  \includegraphics[width=.95\linewidth]{test3.png} \\
+  \caption{This figure shows the waveform from the testbench, 
+  most of the register signals has been removed, this is because they are not beeing used.}
+  \label{fig:program2wave}
 \end{figure}
 
 \subsubsection*{Status register test}
@@ -412,9 +409,11 @@ It then adds 254 and 1 and writes it to register 4, the result should because
 255. It then adds 2 to 254, this operations should overflow and result in zero,
 resulting in the following branch instruction not to be taken. The instructions
 following this test should count upwards in the power of 2 until it overflows
-and stops. This test is located in file 'cpu\_testbench3.vhd'.
+and stops. This program is included as a bitfile ('test\_program\_3.vhd') and
+explained in table \ref{tab:program3table}. It is also the program being run in 'cpu\_testbench3.vhd'.
+The waveform of this test can be seen in figure \ref{fig:program3wave}
 
-\begin{table}[h]
+\begin{table}[htbp]
   \centering
   \begin{tabular}{|c|c|c|c|c|c|c|}
     \hline
@@ -428,15 +427,17 @@ and stops. This test is located in file 'cpu\_testbench3.vhd'.
     	6	&	ALU\_INST	&	ADD		&		&	3	&	3	&	3	\\\hline
     	7	&	BNZ			&			&	6	&		&		&		\\\hline
 
-		\end{tabular}
+  \end{tabular}
   \caption{Program to test data forwarding}
+  \label{tab:program3table}
 \end{table}
 
 \begin{figure}
-\centering
-\includegraphics[width=.95\linewidth]{test3.png} \\
-\caption{This figure shows the waveform from the testbench, 
-most of the register signals has been removed, this is because they are not beeing used.}
+  \centering
+  \includegraphics[width=.95\linewidth]{test3.png} \\
+  \caption{This figure shows the waveform from the testbench, 
+  most of the register signals has been removed, this is because they are not beeing used.}
+  \label{fig:program3wave}
 \end{figure}
 
 
