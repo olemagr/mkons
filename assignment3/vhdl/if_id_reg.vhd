@@ -49,7 +49,7 @@ begin
 	process (core_rst, core_clk)
 	begin
 		if core_rst = '0' then
-			valid_reg <= '1';
+			valid_reg <= '0';
 		elsif rising_edge (core_clk) then
 			valid_reg <= valid;
 		end if;
