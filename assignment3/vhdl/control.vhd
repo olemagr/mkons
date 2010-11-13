@@ -12,6 +12,7 @@
 
 library IEEE;
 use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
 use work.dmkons_package.all;
 
 entity control is
@@ -96,7 +97,7 @@ begin
 		
 		-- Check for data hazards, enable writeback if necessary.
 		-- Common, as we only have one instruction format.
-		if ID_EX_write_reg = '1' then
+		if ID_EX_write_reg = '1' and to_integer(unsigned(ID_EX_Rd)) /= 0 then
 			if IF_ID_Ra = ID_EX_Rd then
 				EX_var.alu_a_mux := '1';
 			end if;
@@ -105,7 +106,7 @@ begin
 			end if;
 		end if;
 		
-		if EX_WB_write_reg = '1' then
+		if EX_WB_write_reg = '1' and to_integer(unsigned(EX_WB_Rd)) /= 0 then
 			if IF_ID_Ra = EX_WB_Rd then
 				id_op_a_mux_var := '1';
 			end if;
