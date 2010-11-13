@@ -96,13 +96,17 @@ through our processor architecture stage by stage without hazards handling.
 \begin{description}
 
 \item[Instruction fetch]
+
 Instructions starts out by being fetched based on the program counter from the
 instruction memory to the IF/ID register. This is the complete basic operation of the 
 instruction fetch stage.
 \item[Decode]
+
 In the decode stage the most basic action is the forwarding of the Rd, Immediate and
 the function field to the ID/EX register. The Ra and Rb fields are sent to the regfile, 
 and the corresponding outputs are written to the ID/EX A and B field. 
+The immediate field is also connected to the data memory read address, as this value
+needs to be read on a rising edge because of the memory implementation.
 
 Based on the opcode of the instruction, control has to write several control signals 
 to the ID/EX register. These are divided into control signals for the Execute stage
@@ -112,13 +116,35 @@ The execute control signals are memory write enable, which is set for memory wri
 and status write enable, which is set for ALU instructions.
 
 The writeback control signals are source select and register write enable. 
-The source select is is the control signal for the register input selector. 
-This is set to alu output for alu operations, memory output 
-for load instructions and immediate for load immediate. The register write enable is set for all instructions
-resulting in a register write.
+The source select is the control signal for the register input selector,
+which is set to alu output for alu operations, memory output 
+for load instructions and immediate for load immediate. 
+The register write enable is set for all instructions resulting in a register write.
 
 \item[Execute]
+
+In the execute stage the Rd, immediate and writeback control signal fields are 
+forwarded from ID/EX to EX/WB. 
+
+The ALU combinatorially computes an output value based on
+the A, B and function fields of the ID/EX register, and stores it in an ALU field in
+the EX/WB register. The output from the ALU status is sent to the Status register along
+with the status register write signal from the ID/EX register which decides if the 
+register is written.
+
+The immediate value from the Decode stage has now been caught 
+by the Data memory, and the value stored at this address is written to the memory field
+of the EX/WB register. The immediate, A and memory write enable fields of the ID/EX register
+are sent to the write address, write data and write enable inputs of the data memory,
+respectively. If the write enable is asserted, the data is written.
+
 \item[Writeback]
+
+In the writeback stage the register file is written if the register write enable
+signal of the EX/WB register is asserted. The value written is selected with a register
+input mux based on the source select signal in the EX/WB register with all the data fields
+of EX/WB as inputs. The register destination is decided by the propagated Rd field of the
+EX/WB register.
 
 \end{description}
 
