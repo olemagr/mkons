@@ -86,9 +86,43 @@ We used the suggested solution as a starting point. %Meeeeeeer!
 
 % Write somthing about instruction format, implemented functions. Data sizes and so on.
 % Describe computation flow, what happens at each stage
+\subsubsection*{Instruction format}
 As our instruction format we decided to use a slightly modified version of the
- suggested format from assignment 2, shown in 
+suggested format from assignment 2, shown in figure blabla %FIGUUUUR!!!!
+\subsubsection*{Implemented functions}
+\subsubsection*{Instruction flow}
+We will here describe the basic flow of operations for an instruction
+through our processor architecture stage by stage without hazards handling.
+\begin{description}
 
+\item[Instruction fetch]
+Instructions starts out by being fetched based on the program counter from the
+instruction memory to the IF/ID register. This is the complete basic operation of the 
+instruction fetch stage.
+\item[Decode]
+In the decode stage the most basic action is the forwarding of the Rd, Immediate and
+the function field to the ID/EX register. The Ra and Rb fields are sent to the regfile, 
+and the corresponding outputs are written to the ID/EX A and B field. 
+
+Based on the opcode of the instruction, control has to write several control signals 
+to the ID/EX register. These are divided into control signals for the Execute stage
+and control signals for the writeback stage.
+
+The execute control signals are memory write enable, which is set for memory write instructions,
+and status write enable, which is set for ALU instructions.
+
+The writeback control signals are source select and register write enable. 
+The source select is is the control signal for the register input selector. 
+This is set to alu output for alu operations, memory output 
+for load instructions and immediate for load immediate. The register write enable is set for all instructions
+resulting in a register write.
+
+\item[Execute]
+\item[Writeback]
+
+\end{description}
+
+\subsubsection{Hazards handling}
 
 \subsection*{Approach}
 
