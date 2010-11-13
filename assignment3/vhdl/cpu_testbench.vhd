@@ -133,22 +133,28 @@ BEGIN
     -----------------------------
     -- Load program memory
     -----------------------------
-
-    load_instruction (0, LDI,      ALU_MOVE, 1, 1, 0, 0,
+	 
+	 
+--	     Line Nr &	Opcode	&	funct	&	Imm	&	Rd	&	Ra	&	Rb	\\\hline
+--    	0	&	LDI			&			&	254	&	1	&		&		\\\hline
+--    	1	&	LDI			&			&	2		&	2	&		&		\\\hline
+--    	1	&	LDI			&			&	1		&	3	&		&		\\\hline
+--    	2	&	ALU\_INST	&	ADD	&			&	4	&	3	&	1	\\\hline
+--    	2	&	ALU\_INST	&	ADD	&			&	1	&	2	&	1	\\\hline
+--    	3	&	BNZ			&			&	0		&		&		&		\\\hline
+--    	4	&	ALU\_INST	&	ADD	&			&	1	&	3	&	3	\\\hline
+--    	5	&	BNZ			&			&	4		&		&		&		\\\hline
+	 
+    load_instruction (0, LDI,      ALU_MOVE, 246, 1, 0, 0,
                       imem_w_address, imem_w_data, imem_w_enable);
     load_instruction (1, LDI,      ALU_MOVE, 1, 2, 0, 0,
                       imem_w_address, imem_w_data, imem_w_enable);
-    load_instruction (2, ALU_INST, ALU_ADD,  0, 3, 1, 2,
+    load_instruction (2, ALU_INST, ALU_ADD,  0, 1, 2, 1,
                       imem_w_address, imem_w_data, imem_w_enable);
-    load_instruction (3, ALU_INST, ALU_ADD,  0, 4, 2, 3,
+    load_instruction (3, BNZ, 	  ALU_MOVE, 2, 0, 0, 0,
                       imem_w_address, imem_w_data, imem_w_enable);
-    load_instruction (4, ALU_INST, ALU_MOVE, 0, 1, 3, 0,
-                      imem_w_address, imem_w_data, imem_w_enable);
-    load_instruction (5, ALU_INST, ALU_MOVE, 0, 2, 4, 0,
-                      imem_w_address, imem_w_data, imem_w_enable);
-    load_instruction (6, BNZ, 	   ALU_MOVE, 2, 0, 0, 0,
-                      imem_w_address, imem_w_data, imem_w_enable);
-    
+    load_instruction (4, LDI,      ALU_MOVE, 10, 2, 0, 0,
+                      imem_w_address, imem_w_data, imem_w_enable);			 
     -----------------------------
     -- Run program
     -----------------------------
@@ -162,9 +168,9 @@ BEGIN
     -- Assert the result
     -----------------------------
 
-    wait for core_clk_period;
 
-    -- It takes 2 clock periods for result to appear (fetch -> execute)
+    -- It takes 4 clock periods for result to appear (due to depth of pipeline)
+    Wait for 3*core_clk_period;
 
 --    wait for 2*core_clk_period;		assert_result(reg_values(1), 1);
 --    wait for 2*core_clk_period;		assert_result(reg_values(2), 1);
