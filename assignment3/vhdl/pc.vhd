@@ -43,12 +43,14 @@ begin
   process (core_rst, core_clk)
   begin
     
-    if core_rst = '0' then
-      pc <= (others => '0');
       
     -- Update on rising edge to value based on control input
-    elsif rising_edge (core_clk) then
-      if pc_write_enable = '1' then
+    if rising_edge (core_clk) then
+	 
+		if core_rst = '0' then
+			pc <= (others => '0');
+			
+      elsif pc_write_enable = '1' then
         if pc_mux_sel = '1' then
           -- Set program counter to given immediate value
           pc <= pc_in;
@@ -57,6 +59,7 @@ begin
           pc <= std_logic_vector(unsigned(pc)+1);
         end if;
       end if;
+		
     end if;
   end process;
   
