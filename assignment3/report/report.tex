@@ -257,18 +257,6 @@ used the instruction set implemented in the delivered module.
 
 \subsection*{Testing}
 
-%During the implementation process we wrote several testbenches
-%for the various components. Of the delivered components we only wrote a testbench
-%for the ALU. The testbenches are written to test
-%that expected values are outputted on different inputs. If something is wrong, 
-%assertions generates warnings when running the test. 
-%When all components were ready and connected, we tested the entire 
-%design with a testbench for the cpu component (cpu\_testbench.vhd).  
-%We wrote this to be the main testbench and implemented it using procedures 
-%to fill the memory and check the register values. The cpu testbench loads the 
-%fibonacci program, runs and checks for correct register values.
-
-
 For testing we wrote the following programs:
 
 \subsubsection*{Instruction flush test}
@@ -324,6 +312,13 @@ This program test if the dataforwarding is successfull.
   \end{tabular}
   \caption{Program to test data forwarding}
 \end{table}
+
+\begin{figure}
+\centering
+\includegraphics[width=.95\linewidth]{test3.png} \\
+\caption{This figure shows the waveform from the testbench, 
+most of the register signals has been removed, this is because they are not beeing used.}
+\end{figure}
 
 \subsubsection*{Status register test}
 
