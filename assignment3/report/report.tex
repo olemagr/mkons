@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{amsmath}
+\usepackage{verbatim}
 \title{TDT4255 Assignment 3}
 \author{Knut Halvor Skrede \& Ole Magnus Ruud}
 \begin{document}
@@ -53,11 +54,15 @@ we chose to implement fibonacci.
 % motivation and solution(s) for extra functionality which the group
 % has set in.
 
-The task was essentially to create a CPU. We had to implement the PC
-register, the status register, muxers for PC register and regfile and
-the unit controlling the write enable signals of the registers and
-select signals for the muxers.  The main register and memory was given
-to us.
+The task of this assignment was to expand the design from the previous
+assignment with pipelining and a data storage memory, and make it work
+on Nalle. To do this, it
+was necessary to add registers between each pipelining stage containing
+all information and control signals needed for later stages. It was also
+necessary to take dependancy hazards into account by writing back results
+to where it is needed in the earlier pipelining stages. 
+
+We used the suggested solution as a starting point. %Meeeeeeer!
 
 \section*{Suggested Solution}
 
@@ -77,38 +82,135 @@ to us.
 % grade. So, it is not enough to have a brilliant solution if the
 % reader can't understand how it is meant to work.
 
+\subsection*{Design}
+
+% Write somthing about instruction format, implemented functions. Data sizes and so on.
+% Describe computation flow, what happens at each stage
+As our instruction format we decided to use a slightly modified version of the
+ suggested format from assignment 2, shown in 
+
+
 \subsection*{Approach}
 
-We started by making skeleton modules for all the components, mapping
-the signals between them. After that we implemented the simplest
-components. To make sure nothing was wrong before writing the more
-difficult components, we wrote simple testbenches for them. We then
-proceeded to implement the control unit, which we considered to be the
-most challenging component. We then wrote a more general testbench for
-the CPU, and after debugging and figuring out some timing issues, we
-tested it on nalle running a program calculating fibonacci numbers.
+%We started by making skeleton modules for all the components, mapping
+%the signals between them. After that we implemented the simplest
+%components. To make sure nothing was wrong before writing the more
+%difficult components, we wrote simple testbenches for them. We then
+%proceeded to implement the control unit, which we considered to be the
+%most challenging component. We then wrote a more general testbench for
+%the CPU, and after debugging and figuring out some timing issues, we
+%tested it on nalle running a program calculating fibonacci numbers.
+
+Our approach to the problem in this excercise was to construct all the 
+modules described in the architecture diagram, starting with the simplest.  %DIAGRAM!
+This included the writeback muxes between the register file and the id/ex
+pipeline register, and the writeback muxes between the id/ex pipeline 
+register and the ALU and data memory as we felt confident we were going 
+to get the hazards handling working. 
+Some of the modules like the program counter and status register 
+we reused from the previous assignments.
+
+When the muxes were finished, we had a good indication on what control
+signals would be needed for all the pipelining stages, and so we could 
+implement the pipelining registers with all of these control signals.
+
+The final and most difficult component we implemented was the control
+module setting all the control signals. When we thought we had it right
+everything was sewed together and we could test it with a testbench
+from the previous assignment. After some debugging in Modelsim we had 
+a working architecture.
 
 \subsection*{Implementation}
 
-Our implementation consists of the following components:
+Our implementation consists of the following components
+ordered by their appearance in the pipelining stages:
 	
 \begin{enumerate}
-\item Multiplexer to select register input
-\item Program counter
-\item Status register
-\item Control unit
-\item CPU
-\item Components given to us from the support files.
+\item Program counter.
+\item Instruction memory.
+\item IF/ID pipeline register.
+\item Control unit.
+\item Register file.
+\item Register to ID/EX muxes.
+\item ID/EX pipeline register.
+\item ID/EX to ALU and data memory muxes.
+\item ALU.
+\item Status Register
+\item Data memory.
+\item EX/WB pipeline register.
+\item Register input mux.
 \end{enumerate}
 	
-The program counter is initiated to 0 on reset and is updated every control cycle
-with either an increment or an immediate value from the instruction. 
-We discussed using a relative jump instead of just loading a value, 
-but decided to drop this as there is no need for relative jumps when running 
-single programs and we have full control of memory.
-  
-The status register is just a register with a write enable, and the register 
-multiplexer is just a mux placed in a component to clean up our CPU code.  
+We will now describe the components.
+\subsubsection*{Program Counter}
+%The program counter is initiated to 0 on reset and is updated every control cycle
+%with either an increment or an immediate value from the instruction. 
+%We discussed using a relative jump instead of just loading a value, 
+%but decided to drop this as there is no need for relative jumps when running 
+%single programs and we have full control of memory.
+The program counter is the same one used in the previous assignment. 
+It is a counter with an initial value of 0 after reset, with a built in
+mux choosing between a provided immediate value, and the incrementation of
+the current value. It also takes in a write enable that is not needed in
+the current architecture, but that would be if we decided to expand the 
+instruction set in the future.
+
+\subsubsection*{Instruction memory}
+The instruction memory is an instantiation of the provided memory component taking in
+output from the program counter and providing the instruction at the provided
+address.
+\subsubsection*{IF/ID pipeline register}
+Since the instruction is stored on the output register of the instruction memory,
+the IF/ID pipeline register component is actually just an abstraction of this, sending 
+most of its input straight through, and only registering the valid bit, provided by
+the control module.
+
+\subsubsection*{Control Unit}
+
+The control unit is the most complex component in our design, as all the control
+signals in the decode stage is set here, as well as the future control signals for
+the execute and writeback stage that must be written to the ID/EX pipeline register.
+The component is purely combinatorial, with outputs based on the current instruction in the
+IF/ID register and some fields in the other pipeline registers to handle hazards as
+described in the design section. %OBS!
+
+\subsubsection*{Register file}
+The register file is an instantiation of the delivered register file, with 
+2 combinatorial read adresses with corresponding outputs, and one sequential
+write address and data port.
+
+\subsubsection*{Register to ID/EX muxes}
+Based on two control signals from the control unit, this double mux combinatorially
+decides the input of the two operand fields of the ID/EX register. It can 
+either be from the register or the writeback signal from the writeback stage.
+\subsubsection*{ID/EX pipeline register}
+This is a simple sequentially written register. The contents are described in the 
+design section. %OBS!! Make it so!
+\subsubsection*{ID/EX to ALU and data memory muxes}
+This component works the same way as the Register to ID/EX mux, but the source of the 
+mux control signals is the ex field of the ID/EX register, and the ouput is connected
+to the ALU and Data memory data input.
+
+\subsubsection*{ALU}
+The alu is the simple handed out component.
+\subsubsection*{Status Register}
+We use our Status Register implementation from the previous assignment, but have
+built in the writeback mux to be controlled by the write status register signal.
+When the status write signal is asserted, the mux will also choose the current 
+status signal from the ALU, even before it is written to the register.
+\subsubsection*{Data Memory}
+As with the Instruction memory, this is an instantiation of the handed out memory
+module, only used for data. This implies an 8-bit width. Because it needs the read address
+on the rising edge, we had to connect the read address port to the immediate value of the
+if/id register.
+\subsubsection*{EX/WB pipeline register}
+As with ID/EX this is just a simple register. Fields are described in the design section.
+\subsubsection*{Register input mux}
+Our last component is the muxer choosing what value of the EX/WB register to send to the
+register file. 
+%The status register is just a register with a write enable, and the register 
+%multiplexer is just a mux placed in a component to clean up our CPU code.  
+
 
 The control unit sets the control signals to the register mux, the program counter 
 and the status register. It is implemented as a Mealey state machine [1]
@@ -198,6 +300,7 @@ and the program will net perform as expected.
 \caption{This figure shows the waveform from the testbench, 
 most of the register signals has been removed, this is because they are not beeing used.}
 \end{figure}
+
 
 \subsubsection*{Datadependency test}
 
