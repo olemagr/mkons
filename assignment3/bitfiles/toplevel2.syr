@@ -1,0 +1,844 @@
+Release 9.2.04i - xst J.40
+Copyright (c) 1995-2007 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to ./xst/projnav.tmp
+CPU : 0.00 / 0.36 s | Elapsed : 0.00 / 0.00 s
+ 
+--> Parameter xsthdpdir set to ./xst
+CPU : 0.00 / 0.36 s | Elapsed : 0.00 / 0.00 s
+ 
+--> Reading design: toplevel.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+     9.1) Device utilization summary
+     9.2) Partition Resource Summary
+     9.3) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "toplevel.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "toplevel"
+Output Format                      : NGC
+Target Device                      : xcv1000e-6-fg860
+
+---- Source Options
+Top Module Name                    : toplevel
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : lut
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : YES
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+ROM Style                          : Auto
+Mux Extraction                     : YES
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Multiplier Style                   : lut
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 100
+Add Generic Clock Buffer(BUFG)     : 4
+Register Duplication               : YES
+Slice Packing                      : YES
+Optimize Instantiated Primitives   : NO
+Convert Tristates To Logic         : Yes
+Use Clock Enable                   : Yes
+Use Synchronous Set                : Yes
+Use Synchronous Reset              : Yes
+Pack IO Registers into IOBs        : auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Library Search Order               : toplevel.lso
+Keep Hierarchy                     : NO
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+Verilog 2001                       : YES
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/package.vhd" in Library work.
+Package <dmkons_package> compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/control.vhd" in Library work.
+Entity <control> compiled.
+Entity <control> (Architecture <cont>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/pc.vhd" in Library work.
+Entity <pc> compiled.
+Entity <pc> (Architecture <pc_arch>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/mem.vhd" in Library work.
+Entity <mem> compiled.
+Entity <mem> (Architecture <mem_arch>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/if_id_reg.vhd" in Library work.
+Entity <if_id_reg> compiled.
+Entity <if_id_reg> (Architecture <Behavioral>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/regfile.vhd" in Library work.
+Entity <regfile> compiled.
+Entity <regfile> (Architecture <regfile_arch>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/id_operand_mux.vhd" in Library work.
+Entity <id_operand_mux> compiled.
+Entity <id_operand_mux> (Architecture <Behavioral>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/id_ex_reg.vhd" in Library work.
+Entity <id_ex_reg> compiled.
+Entity <id_ex_reg> (Architecture <Behavioral>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/ex_operand_mux.vhd" in Library work.
+Entity <ex_operand_mux> compiled.
+Entity <ex_operand_mux> (Architecture <Behavioral>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/alu.vhd" in Library work.
+Entity <alu> compiled.
+Entity <alu> (Architecture <alu_arch>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/sr.vhd" in Library work.
+Entity <sr> compiled.
+Entity <sr> (Architecture <Behavioral>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/ex_wb_reg.vhd" in Library work.
+Entity <ex_wb_reg> compiled.
+Entity <ex_wb_reg> (Architecture <Behavioral>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/regfile_mux.vhd" in Library work.
+Entity <regfile_mux> compiled.
+Entity <regfile_mux> (Architecture <Behavioral>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/cpu.vhd" in Library work.
+Entity <cpu> compiled.
+Entity <cpu> (Architecture <Behavioral>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/cpucom.vhd" in Library work.
+Entity <cpucom> compiled.
+Entity <cpucom> (Architecture <cpucom_arch>) compiled.
+Compiling vhdl file "C:/Xilinx/olemagrmkons3/toplevel.vhd" in Library work.
+Entity <toplevel> compiled.
+Entity <toplevel> (Architecture <toplevel_arch>) compiled.
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for entity <toplevel> in library <work> (architecture <toplevel_arch>).
+
+Analyzing hierarchy for entity <cpu> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <cpucom> in library <work> (architecture <cpucom_arch>).
+
+Analyzing hierarchy for entity <control> in library <work> (architecture <cont>).
+
+Analyzing hierarchy for entity <pc> in library <work> (architecture <pc_arch>).
+
+Analyzing hierarchy for entity <mem> in library <work> (architecture <mem_arch>) with generics.
+	MEM_ADDR_BUS = 8
+	MEM_DATA_BUS = 32
+
+Analyzing hierarchy for entity <if_id_reg> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <regfile> in library <work> (architecture <regfile_arch>).
+
+Analyzing hierarchy for entity <id_operand_mux> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <id_ex_reg> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <ex_operand_mux> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <alu> in library <work> (architecture <alu_arch>).
+
+Analyzing hierarchy for entity <sr> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <mem> in library <work> (architecture <mem_arch>) with generics.
+	MEM_ADDR_BUS = 8
+	MEM_DATA_BUS = 8
+
+Analyzing hierarchy for entity <ex_wb_reg> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <regfile_mux> in library <work> (architecture <Behavioral>).
+
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing Entity <toplevel> in library <work> (Architecture <toplevel_arch>).
+Entity <toplevel> analyzed. Unit <toplevel> generated.
+
+Analyzing Entity <cpu> in library <work> (Architecture <Behavioral>).
+Entity <cpu> analyzed. Unit <cpu> generated.
+
+Analyzing Entity <control> in library <work> (Architecture <cont>).
+Entity <control> analyzed. Unit <control> generated.
+
+Analyzing Entity <pc> in library <work> (Architecture <pc_arch>).
+Entity <pc> analyzed. Unit <pc> generated.
+
+Analyzing generic Entity <mem.1> in library <work> (Architecture <mem_arch>).
+	MEM_ADDR_BUS = 8
+	MEM_DATA_BUS = 32
+WARNING:Xst:819 - "C:/Xilinx/olemagrmkons3/mem.vhd" line 60: The following signals are missing in the process sensitivity list:
+   mem_storage.
+Entity <mem.1> analyzed. Unit <mem.1> generated.
+
+Analyzing Entity <if_id_reg> in library <work> (Architecture <Behavioral>).
+Entity <if_id_reg> analyzed. Unit <if_id_reg> generated.
+
+Analyzing Entity <regfile> in library <work> (Architecture <regfile_arch>).
+INFO:Xst:2679 - Register <regs<0>> in unit <regfile> has a constant value of 00000000 during circuit operation. The register is replaced by logic.
+Entity <regfile> analyzed. Unit <regfile> generated.
+
+Analyzing Entity <id_operand_mux> in library <work> (Architecture <Behavioral>).
+Entity <id_operand_mux> analyzed. Unit <id_operand_mux> generated.
+
+Analyzing Entity <id_ex_reg> in library <work> (Architecture <Behavioral>).
+Entity <id_ex_reg> analyzed. Unit <id_ex_reg> generated.
+
+Analyzing Entity <ex_operand_mux> in library <work> (Architecture <Behavioral>).
+Entity <ex_operand_mux> analyzed. Unit <ex_operand_mux> generated.
+
+Analyzing Entity <alu> in library <work> (Architecture <alu_arch>).
+Entity <alu> analyzed. Unit <alu> generated.
+
+Analyzing Entity <sr> in library <work> (Architecture <Behavioral>).
+Entity <sr> analyzed. Unit <sr> generated.
+
+Analyzing generic Entity <mem.2> in library <work> (Architecture <mem_arch>).
+	MEM_ADDR_BUS = 8
+	MEM_DATA_BUS = 8
+WARNING:Xst:819 - "C:/Xilinx/olemagrmkons3/mem.vhd" line 60: The following signals are missing in the process sensitivity list:
+   mem_storage.
+Entity <mem.2> analyzed. Unit <mem.2> generated.
+
+Analyzing Entity <ex_wb_reg> in library <work> (Architecture <Behavioral>).
+Entity <ex_wb_reg> analyzed. Unit <ex_wb_reg> generated.
+
+Analyzing Entity <regfile_mux> in library <work> (Architecture <Behavioral>).
+Entity <regfile_mux> analyzed. Unit <regfile_mux> generated.
+
+Analyzing Entity <cpucom> in library <work> (Architecture <cpucom_arch>).
+WARNING:Xst:2211 - "C:/Xilinx/olemagrmkons3/cpucom.vhd" line 107: Instantiating black box module <ibufg>.
+WARNING:Xst:753 - "C:/Xilinx/olemagrmkons3/cpucom.vhd" line 112: Unconnected output port 'clk180' of component 'clkdllhf'.
+WARNING:Xst:753 - "C:/Xilinx/olemagrmkons3/cpucom.vhd" line 112: Unconnected output port 'clkdv' of component 'clkdllhf'.
+WARNING:Xst:2211 - "C:/Xilinx/olemagrmkons3/cpucom.vhd" line 112: Instantiating black box module <clkdllhf>.
+WARNING:Xst:2211 - "C:/Xilinx/olemagrmkons3/cpucom.vhd" line 122: Instantiating black box module <bufg>.
+WARNING:Xst:2211 - "C:/Xilinx/olemagrmkons3/cpucom.vhd" line 127: Instantiating black box module <bufg>.
+INFO:Xst:1561 - "C:/Xilinx/olemagrmkons3/cpucom.vhd" line 220: Mux is complete : default of case is discarded
+Entity <cpucom> analyzed. Unit <cpucom> generated.
+
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Performing bidirectional port resolution...
+
+Synthesizing Unit <control>.
+    Related source file is "C:/Xilinx/olemagrmkons3/control.vhd".
+    Found 4-bit comparator equal for signal <EX.alu_a_mux$cmp_eq0000> created at line 101.
+    Found 4-bit comparator equal for signal <EX.alu_b_mux$cmp_eq0000> created at line 104.
+    Found 4-bit comparator equal for signal <id_op_a_mux$cmp_eq0000> created at line 110.
+    Found 4-bit comparator equal for signal <id_op_b_mux$cmp_eq0000> created at line 113.
+    Summary:
+	inferred   4 Comparator(s).
+Unit <control> synthesized.
+
+
+Synthesizing Unit <pc>.
+    Related source file is "C:/Xilinx/olemagrmkons3/pc.vhd".
+    Found 8-bit up counter for signal <pc>.
+    Summary:
+	inferred   1 Counter(s).
+Unit <pc> synthesized.
+
+
+Synthesizing Unit <mem_1>.
+    Related source file is "C:/Xilinx/olemagrmkons3/mem.vhd".
+    Found 256x32-bit dual-port RAM <Mram_mem_storage> for signal <mem_storage>.
+    Found 8-bit register for signal <address_reg>.
+    Summary:
+	inferred   1 RAM(s).
+	inferred   8 D-type flip-flop(s).
+Unit <mem_1> synthesized.
+
+
+Synthesizing Unit <if_id_reg>.
+    Related source file is "C:/Xilinx/olemagrmkons3/if_id_reg.vhd".
+WARNING:Xst:647 - Input <ir<28:24>> is never used.
+    Found 1-bit register for signal <valid_reg>.
+    Summary:
+	inferred   1 D-type flip-flop(s).
+Unit <if_id_reg> synthesized.
+
+
+Synthesizing Unit <regfile>.
+    Related source file is "C:/Xilinx/olemagrmkons3/regfile.vhd".
+    Found 8-bit 16-to-1 multiplexer for signal <data_a>.
+    Found 8-bit 16-to-1 multiplexer for signal <data_b>.
+    Found 120-bit register for signal <regs<15:1>>.
+    Summary:
+	inferred 120 D-type flip-flop(s).
+	inferred  16 Multiplexer(s).
+Unit <regfile> synthesized.
+
+
+Synthesizing Unit <id_operand_mux>.
+    Related source file is "C:/Xilinx/olemagrmkons3/id_operand_mux.vhd".
+Unit <id_operand_mux> synthesized.
+
+
+Synthesizing Unit <id_ex_reg>.
+    Related source file is "C:/Xilinx/olemagrmkons3/id_ex_reg.vhd".
+    Found 8-bit register for signal <reg.a>.
+    Found 8-bit register for signal <reg.b>.
+    Found 1-bit register for signal <reg.ex.alu_a_mux>.
+    Found 1-bit register for signal <reg.ex.alu_b_mux>.
+    Found 1-bit register for signal <reg.ex.mem_write>.
+    Found 1-bit register for signal <reg.ex.status_write>.
+    Found 4-bit register for signal <reg.funct>.
+    Found 8-bit register for signal <reg.imm>.
+    Found 4-bit register for signal <reg.rd>.
+    Found 1-bit register for signal <reg.wb.reg_write>.
+    Found 2-bit register for signal <reg.wb.wb_source>.
+    Summary:
+	inferred  39 D-type flip-flop(s).
+Unit <id_ex_reg> synthesized.
+
+
+Synthesizing Unit <ex_operand_mux>.
+    Related source file is "C:/Xilinx/olemagrmkons3/ex_operand_mux.vhd".
+Unit <ex_operand_mux> synthesized.
+
+
+Synthesizing Unit <alu>.
+    Related source file is "C:/Xilinx/olemagrmkons3/alu.vhd".
+WARNING:Xst:2734 - Property "use_dsp48" is not applicable for this technology.
+    Found 8-bit adder for signal <alu_out_i$addsub0000> created at line 58.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+Unit <alu> synthesized.
+
+
+Synthesizing Unit <sr>.
+    Related source file is "C:/Xilinx/olemagrmkons3/sr.vhd".
+    Found 1-bit register for signal <sr<0>>.
+    Summary:
+	inferred   1 D-type flip-flop(s).
+Unit <sr> synthesized.
+
+
+Synthesizing Unit <mem_2>.
+    Related source file is "C:/Xilinx/olemagrmkons3/mem.vhd".
+    Found 256x8-bit dual-port RAM <Mram_mem_storage> for signal <mem_storage>.
+    Found 8-bit register for signal <address_reg>.
+    Summary:
+	inferred   1 RAM(s).
+	inferred   8 D-type flip-flop(s).
+Unit <mem_2> synthesized.
+
+
+Synthesizing Unit <ex_wb_reg>.
+    Related source file is "C:/Xilinx/olemagrmkons3/ex_wb_reg.vhd".
+    Found 8-bit register for signal <reg.alu>.
+    Found 8-bit register for signal <reg.imm>.
+    Found 8-bit register for signal <reg.mem>.
+    Found 4-bit register for signal <reg.rd>.
+    Found 1-bit register for signal <reg.wb.reg_write>.
+    Found 2-bit register for signal <reg.wb.wb_source>.
+    Summary:
+	inferred  31 D-type flip-flop(s).
+Unit <ex_wb_reg> synthesized.
+
+
+Synthesizing Unit <regfile_mux>.
+    Related source file is "C:/Xilinx/olemagrmkons3/regfile_mux.vhd".
+    Found 8-bit 4-to-1 multiplexer for signal <data_d>.
+    Summary:
+	inferred   8 Multiplexer(s).
+Unit <regfile_mux> synthesized.
+
+
+Synthesizing Unit <cpu>.
+    Related source file is "C:/Xilinx/olemagrmkons3/cpu.vhd".
+Unit <cpu> synthesized.
+
+
+Synthesizing Unit <cpucom>.
+    Related source file is "C:/Xilinx/olemagrmkons3/cpucom.vhd".
+WARNING:Xst:646 - Signal <command<31:3>> is assigned but never used.
+    Found finite state machine <FSM_0> for signal <com_state>.
+    -----------------------------------------------------------------------
+    | States             | 11                                             |
+    | Transitions        | 21                                             |
+    | Inputs             | 9                                              |
+    | Outputs            | 10                                             |
+    | Clock              | com_clk (rising_edge)                          |
+    | Reset              | rst_i (negative)                               |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | idle                                           |
+    | Power Up State     | idle                                           |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 1-bit register for signal <imem_w_enable>.
+    Found 8-bit register for signal <imem_w_address>.
+    Found 32-bit register for signal <imem_w_data>.
+    Found 32-bit tristate buffer for signal <pciData>.
+    Found 32-bit register for signal <command>.
+    Found 1-bit register for signal <core_clk_i>.
+    Found 1-bit register for signal <core_clk_value>.
+    Found 9-bit up counter for signal <count_reg>.
+    Found 8-bit register for signal <reg_value>.
+    Found 8-bit 16-to-1 multiplexer for signal <reg_value$mux0001> created at line 188.
+    Found 1-bit register for signal <run_core>.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred   1 Counter(s).
+	inferred  84 D-type flip-flop(s).
+	inferred   8 Multiplexer(s).
+	inferred  32 Tristate(s).
+Unit <cpucom> synthesized.
+
+
+Synthesizing Unit <toplevel>.
+    Related source file is "C:/Xilinx/olemagrmkons3/toplevel.vhd".
+Unit <toplevel> synthesized.
+
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# RAMs                                                 : 2
+ 256x32-bit dual-port RAM                              : 1
+ 256x8-bit dual-port RAM                               : 1
+# Adders/Subtractors                                   : 1
+ 8-bit adder                                           : 1
+# Counters                                             : 2
+ 8-bit up counter                                      : 1
+ 9-bit up counter                                      : 1
+# Registers                                            : 44
+ 1-bit register                                        : 12
+ 2-bit register                                        : 2
+ 32-bit register                                       : 2
+ 4-bit register                                        : 3
+ 8-bit register                                        : 25
+# Comparators                                          : 4
+ 4-bit comparator equal                                : 4
+# Multiplexers                                         : 4
+ 8-bit 16-to-1 multiplexer                             : 3
+ 8-bit 4-to-1 multiplexer                              : 1
+# Tristates                                            : 32
+ 1-bit tristate buffer                                 : 32
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Analyzing FSM <FSM_0> for best encoding.
+Optimizing FSM <cpucom1/com_state> on signal <com_state[1:4]> with gray encoding.
+-------------------------------
+ State             | Encoding
+-------------------------------
+ idle              | 0000
+ receive_cmd       | 0001
+ interpret_command | 0011
+ send_registers    | 0010
+ send_register     | 1100
+ receive_program   | 0110
+ receive_getword   | 1101
+ receive_storeword | 1111
+ step              | 0111
+ run               | 0101
+ stop              | 0100
+-------------------------------
+Loading device for application Rf_Device from file 'v1000e.nph' in environment C:\Xilinx.
+INFO:Xst:2691 - Unit <mem_1> : The RAM <Mram_mem_storage> will be implemented as a BLOCK RAM, absorbing the following register(s): <address_reg>.
+    -----------------------------------------------------------------------
+    | ram_type           | Block                               |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 256-word x 32-bit                   |          |
+    |     mode           | write-first                         |          |
+    |     clkA           | connected to signal <core_clk>      | rise     |
+    |     weA            | connected to signal <w_enable>      | high     |
+    |     addrA          | connected to signal <w_address>     |          |
+    |     diA            | connected to signal <w_data>        |          |
+    -----------------------------------------------------------------------
+    | optimisation       | speed                               |          |
+    -----------------------------------------------------------------------
+    | Port B                                                              |
+    |     aspect ratio   | 256-word x 32-bit                   |          |
+    |     mode           | write-first                         |          |
+    |     clkB           | connected to signal <core_clk>      | rise     |
+    |     addrB          | connected to signal <address>       |          |
+    |     doB            | connected to signal <data>          |          |
+    -----------------------------------------------------------------------
+    | optimisation       | speed                               |          |
+    -----------------------------------------------------------------------
+INFO:Xst:2691 - Unit <mem_2> : The RAM <Mram_mem_storage> will be implemented as a BLOCK RAM, absorbing the following register(s): <address_reg>.
+    -----------------------------------------------------------------------
+    | ram_type           | Block                               |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 256-word x 8-bit                    |          |
+    |     mode           | write-first                         |          |
+    |     clkA           | connected to signal <core_clk>      | rise     |
+    |     weA            | connected to signal <w_enable>      | high     |
+    |     addrA          | connected to signal <w_address>     |          |
+    |     diA            | connected to signal <w_data>        |          |
+    -----------------------------------------------------------------------
+    | optimisation       | speed                               |          |
+    -----------------------------------------------------------------------
+    | Port B                                                              |
+    |     aspect ratio   | 256-word x 8-bit                    |          |
+    |     mode           | write-first                         |          |
+    |     clkB           | connected to signal <core_clk>      | rise     |
+    |     addrB          | connected to signal <address>       |          |
+    |     doB            | connected to signal <data>          |          |
+    -----------------------------------------------------------------------
+    | optimisation       | speed                               |          |
+    -----------------------------------------------------------------------
+WARNING:Xst:2677 - Node <command_3> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_4> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_5> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_6> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_7> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_8> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_9> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_10> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_11> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_12> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_13> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_14> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_15> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_16> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_17> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_18> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_19> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_20> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_21> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_22> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_23> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_24> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_25> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_26> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_27> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_28> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_29> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_30> of sequential type is unconnected in block <cpucom>.
+WARNING:Xst:2677 - Node <command_31> of sequential type is unconnected in block <cpucom>.
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# FSMs                                                 : 1
+# RAMs                                                 : 2
+ 256x32-bit dual-port block RAM                        : 1
+ 256x8-bit dual-port block RAM                         : 1
+# Adders/Subtractors                                   : 1
+ 8-bit adder                                           : 1
+# Counters                                             : 2
+ 8-bit up counter                                      : 1
+ 9-bit up counter                                      : 1
+# Registers                                            : 251
+ Flip-Flops                                            : 251
+# Comparators                                          : 4
+ 4-bit comparator equal                                : 4
+# Multiplexers                                         : 4
+ 8-bit 16-to-1 multiplexer                             : 3
+ 8-bit 4-to-1 multiplexer                              : 1
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+
+Optimizing unit <toplevel> ...
+
+Optimizing unit <regfile> ...
+
+Optimizing unit <id_ex_reg> ...
+
+Optimizing unit <alu> ...
+
+Optimizing unit <ex_wb_reg> ...
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block toplevel, actual ratio is 2.
+FlipFlop pipeline_cpu/exwbreg/reg.wb.wb_source_0 has been replicated 1 time(s)
+
+Final Macro Processing ...
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 269
+ Flip-Flops                                            : 269
+
+=========================================================================
+
+=========================================================================
+*                          Partition Report                             *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : toplevel.ngr
+Top Level Output File Name         : toplevel
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : NO
+
+Design Statistics
+# IOs                              : 54
+
+Cell Usage :
+# BELS                             : 649
+#      GND                         : 1
+#      INV                         : 6
+#      LUT1                        : 15
+#      LUT2                        : 35
+#      LUT3                        : 241
+#      LUT3_D                      : 9
+#      LUT3_L                      : 6
+#      LUT4                        : 93
+#      LUT4_D                      : 7
+#      LUT4_L                      : 22
+#      MUXCY                       : 22
+#      MUXF5                       : 121
+#      MUXF6                       : 48
+#      VCC                         : 1
+#      XORCY                       : 22
+# FlipFlops/Latches                : 269
+#      FDC                         : 88
+#      FDCE                        : 161
+#      FDE                         : 3
+#      FDRE                        : 17
+# RAMS                             : 3
+#      RAMB4_S16_S16               : 3
+# Clock Buffers                    : 2
+#      BUFG                        : 2
+# IO Buffers                       : 54
+#      IBUF                        : 3
+#      IBUFG                       : 1
+#      IOBUF                       : 32
+#      OBUF                        : 18
+# DLLs                             : 1
+#      CLKDLLHF                    : 1
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : v1000efg860-6 
+
+ Number of Slices:                     317  out of  12288     2%  
+ Number of Slice Flip Flops:           240  out of  24576     0%  
+ Number of 4 input LUTs:               434  out of  24576     1%  
+ Number of IOs:                         54
+ Number of bonded IOBs:                 54  out of    660     8%  
+    IOB Flip Flops:                     29
+ Number of BRAMs:                        3  out of     96     3%  
+ Number of GCLKs:                        2  out of      4    50%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+cpucom1/core_clk_i                 | BUFG                   | 204   |
+clk                                | cpucom1/dll:CLK0       | 68    |
+-----------------------------------+------------------------+-------+
+
+Asynchronous Control Signals Information:
+----------------------------------------
+------------------------------------------------------------------------------------+--------------------------------------------+-------+
+Control Signal                                                                      | Buffer(FF name)                            | Load  |
+------------------------------------------------------------------------------------+--------------------------------------------+-------+
+pipeline_cpu/registers0/rst_inv1_INV_0_2(pipeline_cpu/registers0/rst_inv1_INV_0_2:O)| NONE(pipeline_cpu/registers0/regs_12_6)    | 86    |
+core_rst_conn_inv(pipeline_cpu/registers0/rst_inv1_INV_0:O)                         | NONE(pipeline_cpu/registers0/regs_4_7)     | 86    |
+pipeline_cpu/registers0/rst_inv1_INV_0_1(pipeline_cpu/registers0/rst_inv1_INV_0_1:O)| NONE(pipeline_cpu/exwbreg/reg.wb.reg_write)| 77    |
+------------------------------------------------------------------------------------+--------------------------------------------+-------+
+
+Timing Summary:
+---------------
+Speed Grade: -6
+
+   Minimum period: 17.388ns (Maximum Frequency: 57.511MHz)
+   Minimum input arrival time before clock: 6.085ns
+   Maximum output required time after clock: 12.535ns
+   Maximum combinational path delay: No path found
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'cpucom1/core_clk_i'
+  Clock period: 17.388ns (frequency: 57.511MHz)
+  Total number of paths / destination ports: 13997 / 363
+-------------------------------------------------------------------------
+Delay:               17.388ns (Levels of Logic = 10)
+  Source:            pipeline_cpu/exwbreg/reg.wb.wb_source_0 (FF)
+  Destination:       pipeline_cpu/ifidreg/valid_reg (FF)
+  Source Clock:      cpucom1/core_clk_i rising
+  Destination Clock: cpucom1/core_clk_i rising
+
+  Data Path: pipeline_cpu/exwbreg/reg.wb.wb_source_0 to pipeline_cpu/ifidreg/valid_reg
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q             14   0.992   2.650  pipeline_cpu/exwbreg/reg.wb.wb_source_0 (pipeline_cpu/exwbreg/reg.wb.wb_source_0)
+     LUT2:I1->O            1   0.468   0.000  pipeline_cpu/regmux1/Mmux_data_d61 (N814)
+     MUXF5:I1->O          19   0.403   2.950  pipeline_cpu/regmux1/Mmux_data_d6_f5 (pipeline_cpu/regmux_out<5>)
+     LUT3:I2->O            3   0.468   1.320  pipeline_cpu/exmux/op_a<5>1 (pipeline_cpu/alu_a<5>)
+     LUT2:I0->O            1   0.468   0.000  pipeline_cpu/alu1/Madd_alu_out_i_addsub0000_lut<5> (pipeline_cpu/alu1/N10)
+     MUXCY:S->O            1   0.515   0.000  pipeline_cpu/alu1/Madd_alu_out_i_addsub0000_cy<5> (pipeline_cpu/alu1/Madd_alu_out_i_addsub0000_cy<5>)
+     MUXCY:CI->O           0   0.058   0.000  pipeline_cpu/alu1/Madd_alu_out_i_addsub0000_cy<6> (pipeline_cpu/alu1/Madd_alu_out_i_addsub0000_cy<6>)
+     XORCY:CI->O           1   0.648   0.920  pipeline_cpu/alu1/Madd_alu_out_i_addsub0000_xor<7> (pipeline_cpu/alu1/alu_out_i_addsub0000<7>)
+     LUT4:I0->O           10   0.468   2.250  pipeline_cpu/alu1/alu_out_i<7> (pipeline_cpu/exwb_input_alu<7>)
+     LUT4:I0->O            2   0.468   1.150  pipeline_cpu/alu1/alu_status_0_cmp_eq000032 (pipeline_cpu/alu_status_out)
+     LUT4:I0->O            1   0.468   0.000  pipeline_cpu/control_unit/set_IF_ID_valid1 (pipeline_cpu/set_ifid_valid)
+     FDC:D                     0.724          pipeline_cpu/ifidreg/valid_reg
+    ----------------------------------------
+    Total                     17.388ns (6.148ns logic, 11.240ns route)
+                                       (35.4% logic, 64.6% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'clk'
+  Clock period: 9.978ns (frequency: 100.220MHz)
+  Total number of paths / destination ports: 439 / 94
+-------------------------------------------------------------------------
+Delay:               9.978ns (Levels of Logic = 4)
+  Source:            cpucom1/count_reg_1 (FF)
+  Destination:       cpucom1/com_state_FFd3 (FF)
+  Source Clock:      clk rising
+  Destination Clock: clk rising
+
+  Data Path: cpucom1/count_reg_1 to cpucom1/com_state_FFd3
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDRE:C->Q            36   0.992   3.400  cpucom1/count_reg_1 (cpucom1/count_reg_1)
+     LUT3:I2->O            1   0.468   0.920  cpucom1/com_state_cmp_eq0006_SW0 (N137)
+     LUT4:I3->O            2   0.468   1.150  cpucom1/com_state_cmp_eq0006 (cpucom1/com_state_cmp_eq0006)
+     LUT4:I1->O            1   0.468   0.920  cpucom1/com_state_FFd3-In99 (cpucom1/com_state_FFd3-In_map31)
+     LUT3:I2->O            1   0.468   0.000  cpucom1/com_state_FFd3-In132 (cpucom1/com_state_FFd3-In)
+     FDC:D                     0.724          cpucom1/com_state_FFd3
+    ----------------------------------------
+    Total                      9.978ns (3.588ns logic, 6.390ns route)
+                                       (36.0% logic, 64.0% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
+  Total number of paths / destination ports: 41 / 39
+-------------------------------------------------------------------------
+Offset:              6.085ns (Levels of Logic = 4)
+  Source:            pciBusy (PAD)
+  Destination:       cpucom1/com_state_FFd3 (FF)
+  Destination Clock: clk rising
+
+  Data Path: pciBusy to cpucom1/com_state_FFd3
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             3   0.797   1.320  pciBusy_IBUF (pciBusy_IBUF)
+     LUT4:I1->O            1   0.468   0.920  cpucom1/com_state_FFd3-In35_SW1 (N745)
+     LUT4:I3->O            1   0.468   0.920  cpucom1/com_state_FFd3-In35 (cpucom1/com_state_FFd3-In_map13)
+     LUT3:I0->O            1   0.468   0.000  cpucom1/com_state_FFd3-In132 (cpucom1/com_state_FFd3-In)
+     FDC:D                     0.724          cpucom1/com_state_FFd3
+    ----------------------------------------
+    Total                      6.085ns (2.925ns logic, 3.160ns route)
+                                       (48.1% logic, 51.9% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
+  Total number of paths / destination ports: 78 / 34
+-------------------------------------------------------------------------
+Offset:              12.535ns (Levels of Logic = 2)
+  Source:            cpucom1/com_state_FFd4 (FF)
+  Destination:       pciData<31> (PAD)
+  Source Clock:      clk rising
+
+  Data Path: cpucom1/com_state_FFd4 to pciData<31>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q             19   0.992   2.950  cpucom1/com_state_FFd4 (cpucom1/com_state_FFd4)
+     LUT2:I1->O           32   0.468   3.300  cpucom1/pciRW_inv1 (cpucom1/pciRW_inv)
+     IOBUF:T->IO               4.825          pciData_31_IOBUF (pciData<31>)
+    ----------------------------------------
+    Total                     12.535ns (6.285ns logic, 6.250ns route)
+                                       (50.1% logic, 49.9% route)
+
+=========================================================================
+CPU : 9.39 / 9.84 s | Elapsed : 10.00 / 10.00 s
+ 
+--> 
+
+Total memory usage is 171748 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :   40 (   0 filtered)
+Number of infos    :    4 (   0 filtered)
+
