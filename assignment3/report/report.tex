@@ -60,13 +60,14 @@ to where it is needed in the earlier pipelining stages.
 We used the suggested solution in the exercise as a starting point, 
 especially the architecture illustration which we have included in 
 Figure \ref{fig:architecture}.
-
+  
 \begin{figure}[htbp]
-  \centering
-  \includegraphics[width=.95\linewidth]{toplevel.png} \\
-  \caption{Pipelined CPU architecture from the assignment text}
-  \label{fig:architecture}
-\end{figure}
+    \centering
+    \includegraphics[width=.95\linewidth]{toplevel.png} 
+    \caption{Pipelined CPU architecture from the assignment text}
+    \label{fig:architecture}
+  \end{figure}
+
 
 
 % Present concisely an outline of how the task was solved.  This is
@@ -335,7 +336,7 @@ a working architecture.
 
 Our implementation consists of a cpu component composed of
 the following components ordered by their appearance 
-in the pipelining stages:
+in the pipelining stages as shown in figure \ref{fig:archnumbered}:
 	
 \begin{enumerate}
 \item Program counter.
@@ -352,6 +353,13 @@ in the pipelining stages:
 \item EX/WB pipeline register.
 \item Register input mux.
 \end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\linewidth]{toplevelmarked.png} \\
+  \caption{Architecture with numbered components}
+  \label{fig:archnumbered}
+\end{figure}
 	
 We will now describe the implementations of these components.
 \subsubsection*{Program Counter (pc.vhd)}
@@ -372,7 +380,7 @@ The instruction memory is an instantiation of the provided memory component
 with word size generic set to 32(our instruction size). It takes in
 output from the program counter and fetches the instruction at the provided
 address for the rest of the cpu.
-\subsubsection*{IF/ID pipeline register (if_id_reg.vhd)}
+\subsubsection*{IF/ID pipeline register (if\_id\_reg.vhd)}
 Since the instruction is stored on the output register of the instruction memory,
 the IF/ID pipeline register component is actually just an abstraction of this, sending 
 most of its input straight through, and only registering the valid bit, provided by
@@ -395,15 +403,15 @@ The register file is an instantiation of the delivered register file, with
 2 combinatorial read adresses with corresponding 8 bit outputs, and one sequential
 write address and 8 bit data port.
 
-\subsubsection*{Register to ID/EX muxes (id_operand_mux.vhd)}
+\subsubsection*{Register to ID/EX muxes (id\_operand\_mux.vhd)}
 Based on two control signals from the control unit, this double mux combinatorially
 decides the input of the two operand fields of the ID/EX register. It can 
 either be from the register or the writeback signal from the writeback stage.
 
-\subsubsection*{ID/EX pipeline register (id_ex_reg.vhd)}
+\subsubsection*{ID/EX pipeline register (id\_ex\_reg.vhd)}
 This is a simple sequentially written register. The contents are described in the 
 processor operation and hazards handling sections, and is defined as a record in package.vhd. 
-\subsubsection*{ID/EX to ALU and data memory muxes (ex_operand_mux.vhd)}
+\subsubsection*{ID/EX to ALU and data memory muxes (ex\_operand\_mux.vhd)}
 This component works the same way as the Register to ID/EX mux, but the source of the 
 mux control signals is the ex field of the ID/EX register, and the ouput is connected
 to the ALU and Data memory data input.
@@ -420,9 +428,9 @@ As with the Instruction memory, this is an instantiation of the handed out memor
 module, only used for data. This implies an 8-bit width. Because it needs the read address
 on the rising edge, we had to connect the read address port to the immediate value of the
 if/id register.
-\subsubsection*{EX/WB pipeline register (ex_wb_reg.vhd)}
+\subsubsection*{EX/WB pipeline register (ex\_wb\_reg.vhd)}
 As with ID/EX this is just a simple register. Fields are described in the design section.
-\subsubsection*{Register input mux (regfile_mux.vhd)}
+\subsubsection*{Register input mux (regfile\_mux.vhd)}
 Our last component is the muxer choosing what value of the EX/WB register to send to the
 register file. 
 %The status register is just a register with a write enable, and the register 
