@@ -91,8 +91,6 @@ Figure \ref{fig:architecture}.
 % Write somthing about instruction format, implemented functions. Data sizes and so on.
 % Describe computation flow, what happens at each stage
 \subsection*{Instruction format}
-As our instruction format we decided to use a slightly modified version of the
-suggested format from assignment 2, shown in table %insert!
 
 \begin{table}[h]
   \centering
@@ -102,16 +100,22 @@ suggested format from assignment 2, shown in table %insert!
     Bits: 		&	31-29		&	28-24	&	23-20	&	19-12	&	11-8	&	7-4	&	3-0	\\\hline
   \end{tabular}
   \caption{Instruction set format}
+  \label{tab:instformat}
 \end{table}
 
- \begin{itemize}
-\item Opcode: used to determine the control signals in the cpu given different instructions.	
-\item Funct: used for choosing the ALU instruction.
-\item Immediate: used for Load Immediate, load the register with the given value and for branch instruction to set the new value in the programme counter
-\item Rd : number of the register which will be written
-\item Ra : number of register A
-\item Rb : number of register B
-\end{itemize}
+As our instruction format we decided to use a slightly modified version of the
+suggested format from assignment 2, shown in table \ref{tab:instformat}. The only
+difference is that Ra and Rb are swapped. Following is a description of the different
+fields.
+
+\begin{description}
+\item[Opcode] - Used to determine the control signals in the cpu given different instructions.	
+\item[Funct] - Used for choosing the ALU instruction.
+\item[Immediate] - Used in different instructions as a constant value.
+\item[Rd] - Number of the register which will be written
+\item[Ra] - Number of register A
+\item[Rb] - Number of register B
+\end{description}
 
 
 
@@ -276,8 +280,8 @@ value from the register input mux. In addition, the muxes are not asserted when
 the write destination registers are register 0, 
 as this is constant Zero, and when the register write enable signals are deasserted.
 Notice that if for example Ra of an instruction is written by both preceeding 
-instructions, the closest one takes precedence, as the new writeback value overwrites
-the old.
+instructions, the closest one takes precedence, as the writeback value in the
+execute stage overvrites the one from the decode stage.
 
 \begin{table}[htbp]
   \centering
@@ -653,19 +657,22 @@ Usage of selected device:
 % support the documentation. It is also the place to praise or show more
 % critique towards the presented work.
 
-Everything seemed to work after a couple of days work, 
-both simulation and testing on nalle.
+We managed to reach the goals of this assignment without too much trouble.
+All required functionality works, and has passed all our tests, including
+hazard handling in corner cases. We had some problems because of confusion
+of the source register order in our instruction format, and some synchronous
+reset signals that should have been asynchronous, but all our problems were 
+minor and could be resolved quickly. Our approach to this assignment as described
+in the approach section worked really great, and a first solution draft was 
+quickly done without many bugs. 
 
-However, we had previously tried some different solutions
-which did not work, and we realized that we did not understand why they did 
-not work. We first tried to write to the registers on the rising edge of the clock, 
-but this did not work. We then used the write enable signal as the clock 
-on the registers and everything worked great.
-However, we changed this later, when we discovered what we did wrong earlier,
-which was having registers on the output of the control unit. After that
-we removed the registers on the control unit and set the registers to be
-written on the rising edge of the clock, and everything worked the way we
-intended it to.
+We have not implemented anything more than what is proposed in the assignment
+text. More instruction types could have been implemented without very much effort,
+but we felt that spending time on this would give minor pedagogical return, 
+and decided that this time would be better spent on raising the quality of our
+delivery. In addition our time was reduced because of the ongoing computer
+project.
+
 
 \section*{Evaluation}
 
