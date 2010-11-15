@@ -113,6 +113,25 @@ suggested format from assignment 2, shown in table %insert!
 \item Rb : number of register B
 \end{itemize}
 
+
+
+\subsection*{Implemented functions}
+
+The cpu implements the following functions, the opcodes and funct 
+codes are defined in table \ref{tab:opcodes} and table \ref{tab:functcodes}:
+\begin{enumerate}
+  \item BNZ: Branch not zero, executes an absolute jump if the zero flag in the status register is set
+  \item LDI: Load immediate, Loads a register immediately with a value.
+  \item LOAD: Loads a register with a value from memory.
+  \item STORE: Stores a value from register to memory.
+  \item ALU Instructions:
+  \begin{enumerate}
+    \item MOVE: Moves a register value to a target register
+    \item AND: Performs a bitwise and on the registers and stores to a target register.
+    \item ADD: Adds the values from the registers and stores to a target register
+  \end{enumerate}
+\end{enumerate}
+
 \begin{table}[h]
   \centering
   \begin{tabular}{|l|l|l|}
@@ -127,6 +146,7 @@ suggested format from assignment 2, shown in table %insert!
     \hline
   \end{tabular}
   \caption{Instruction set for the ALU, not including the alu functionality}
+  \label{tab:opcodes}
 \end{table}
 
 \begin{table}[h]
@@ -141,10 +161,10 @@ suggested format from assignment 2, shown in table %insert!
     \hline
   \end{tabular}
   \caption{Function set for the ALU}
+  \label{tab:functcodes}
 \end{table}
 
 
-\subsection*{Implemented functions}
 \subsection*{Processor Operation}
 We will here describe the basic flow of operations for an instruction
 through our processor architecture stage by stage without hazards handling.
@@ -446,7 +466,7 @@ The program segment loads two values, 246 and 1. It then adds 1 to 246 and
 branches back to the add instruction until it reaches 255 and then overflows
 to 0. After the overflow add the branch should not be taken and the next instruction
 should be executed. If it fails, the register holding 1 will be loaded with 10
-and the program will net perform as expected. This program is included as a bitfile
+and the program will not perform as expected. This program is included as a bitfile
 ('test\_program\_1.txt') and explained in table \ref{tab:program1table}. It is also the 
 program being run in 'cpu\_testbench.vhd'.
 The waveform of this test can be seen in figure \ref{fig:program1wave}
@@ -515,7 +535,7 @@ The waveform of this test can be seen in figure \ref{fig:program2wave}
 
 This program test if the statusregister is successfully forwarded.
 It first loads 254 to register 1, 2 to register 2 and 1 to register 3.
-It then adds 254 and 1 and writes it to register 4, the result should because
+It then adds 254 and 1 and writes it to register 4, the result should be
 255. It then adds 2 to 254, this operations should overflow and result in zero,
 resulting in the following branch instruction not to be taken. The instructions
 following this test should count upwards in the power of 2 until it overflows
@@ -550,27 +570,61 @@ The waveform of this test can be seen in figure \ref{fig:program3wave}
   \label{fig:program3wave}
 \end{figure}
 
+\subsubsection*{Comparison to the multicycle CPU}
+
+The fibonacci program described in table \ref{tab:fibonacci} simply loads the value 1
+to register 1 and 2. It then adds registers 1 and 2 to register 1 and then it adds
+register 2 and 1 to register 2 and branches back to the first add instruction. The 
+branch instruction used is BNZ (branch not zero), since the second ADD instruction
+will never result in 0 the program will continue forever. We tested the program on
+the multicycle cpu and the pipelined cpu by singlestepping through the program and
+counting the steps required to get to fibonacci number 233 ( E9 in hex ). The result
+was that the multicycle cpu used 36 steps, and the pipelined cpu used 26. This is a
+significant increase in performance.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    Line Nr &	Opcode		&	funct	&	Imm	&	Rd	&	Ra	&	Rb	\\\hline
+    	0	&	LDI			&			&	1	&	1	&		&		\\\hline
+    	1	&	LDI			&			&	1	&	2	&		&		\\\hline
+    	2	&	ALU\_INST	&	ADD		&		&	1	&	2	&	1	\\\hline
+    	3	&	ALU\_INST	&	ADD		&		&	2	&	1	&	2	\\\hline
+    	4	&	BNZ			&			&	2	&		&		&		\\\hline
+  \end{tabular}
+  \caption{Fibonacci program to compare with results from multicycle CPU}
+  \label{tab:fibonacci}
+\end{table}
+
+
+
 
 \subsection*{Synthesis}
 
 From the synthesis report we see that
 \begin{enumerate}
-\item The regfile muxer inferred 8 1-bit multiplexers, this was a
-  little strange as we expected 1 8-bit multiplexer.  This does not
-  matter to the functionality though.
-\item The sr module inferred one D-type flip flop, this is exatly what
-  we wanted.
-\item The pc module inferred one 8-bit counter, this is also exactly
-  what we wanted.
-\item The control module inferred 1 D-type flip flop, this is used to
-  hold the current state (fetch or execute), the rest is
-  combinatorial, so this is also what we wanted.
-\item the toplevel and cpu modules did not infer anything, which was
-  expected as they are simply mapping signals between the other
-  modules.
+
+\item The control unit inferred 4 4-bit comparators, which was expected as they are used 
+to handle various hazards.
+
+\item The pc module inferred 1 8-bit up counter.
+
+\item The mem\_1 module inferred 1 RAM (256x32-bit dual-port RAM) and 8 D-type flip-flops.
+
+\item The mem\_2 module inferred 1 RAM (256x8-bit dual-port RAM) and 8 D-type flip-flops.
+
+\item The if/id register inferred 1 1-bit D-type flip flop. Since the output from the 
+instruction memory is registered, this bit is used to kill an instruction if it is not
+to be executed.
+
+\item The id/ex register inferred 39 D-type flip-flops
+
+\item The ex/wb register inferred 31 D-type flip-flops
+
 \end{enumerate}
 
-The estimated maximum clock frequency was 61.747MHz.
+The estimated maximum clock frequency was 57.511MHz.
 
 Selected Device : v1000efg860-6 
 
@@ -579,19 +633,18 @@ Usage of selected device:
   \centering
   \begin{tabular}{|l|l|l|} 
     \hline
-    Number of Slices:&252 out of 12288&2\% \\ 
-    Number of Slice Flip Flops:&205 out of 24576&0\% \\
-    Number of 4 input LUTs:&454 out of 24576&1\% \\
-    Number of bonded IOBs:&54 out of 664&8\% \\ 
-    Number of BRAMs:&2 out of 16&12\% \\  
-    Number of GCLKs:&2 out of 4&50\% \\
+	Number of Slices:                 &  317  out of  12288 &    2\% \\  
+	Number of Slice Flip Flops:       &  240  out of  24576 &    0\% \\
+	Number of 4 input LUTs:           &  434  out of  24576 &    1\% \\
+	Number of IOs:                    &   54                &        \\
+	Number of bonded IOBs:            &   54  out of    660 &    8\% \\
+	IOB Flip Flops:                   &   29                &        \\
+	Number of BRAMs:                  &    3  out of     96 &    3\% \\
+	Number of GCLKs:                  &    2  out of      4 &   50\% \\
     \hline
   \end{tabular}
 \end{table}
 
-
-We got no errors from the place and route report, all constraints met,
-and all signals routed.
 
 \section*{Result}
 
@@ -634,13 +687,8 @@ making tasks up.
 % Write a bit about what was easy and what not so.
 
 It was easy to map everything together and create most of the components. 
-The difficult part of this assignment was to figure out the timing 
-and syncronization, what signals to register and when they where 
-ready to be read. All in all this was a fun and educational exercise.
-
-\section*{References}
-
-[1] http://en.wikipedia.org/wiki/Mealy\_machine
+The difficult part of this assignment was to correctly handle the hazards
+arising in a pipelined design.
 
 \end{document}
 
