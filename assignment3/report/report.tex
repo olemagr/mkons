@@ -582,7 +582,8 @@ will never result in 0 the program will continue forever. We tested the program 
 the multicycle cpu and the pipelined cpu by singlestepping through the program and
 counting the steps required to get to fibonacci number 233 ( E9 in hex ). The result
 was that the multicycle cpu used 36 steps, and the pipelined cpu used 26. This is a
-significant increase in performance.
+significant increase in performance. This program may however be a poor representation
+of the difference in performance as there are alot of branches being taken.
 
 \begin{table}[htbp]
   \centering
