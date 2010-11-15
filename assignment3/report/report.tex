@@ -352,8 +352,6 @@ a working architecture.
 
 \subsection*{Implementation}
 
-
-
 Our implementation consists of a cpu component composed of
 the following components ordered by their appearance 
 in the pipelining stages as shown in figure \ref{fig:archnumbered}:
@@ -437,7 +435,7 @@ mux control signals is the ex field of the ID/EX register, and the ouput is conn
 to the ALU and Data memory data input.
 
 \subsubsection*{ALU (alu.vhd)}
-The alu is the simple handed out component.
+The ALU used is the one from the support files. It is an 8-bit ALU.
 \subsubsection*{Status Register (sr.vhd)}
 We use our Status Register implementation from the previous assignment, but have
 built in the writeback mux to be controlled by the write status register signal.
@@ -676,10 +674,7 @@ intended it to.
 % compendium, support files, exercise itself or something else which
 % us as teaching staff should see to.
 
-This assignment was very well defined compared to the previous. There was
-alot less guesswork involved during the design process. We found this to
-be more educational as we could focus on the tasks, in contrast to
-making tasks up.
+We thought the assignment was good. We had no problems with the assignment.
 
 \section*{Conclusion}
 
