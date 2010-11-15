@@ -91,8 +91,6 @@ Figure \ref{fig:architecture}.
 % Write somthing about instruction format, implemented functions. Data sizes and so on.
 % Describe computation flow, what happens at each stage
 \subsection*{Instruction format}
-As our instruction format we decided to use a slightly modified version of the
-suggested format from assignment 2, shown in table %insert!
 
 \begin{table}[h]
   \centering
@@ -102,16 +100,22 @@ suggested format from assignment 2, shown in table %insert!
     Bits: 		&	31-29		&	28-24	&	23-20	&	19-12	&	11-8	&	7-4	&	3-0	\\\hline
   \end{tabular}
   \caption{Instruction set format}
+  \label{tab:instformat}
 \end{table}
 
- \begin{itemize}
-\item Opcode: used to determine the control signals in the cpu given different instructions.	
-\item Funct: used for choosing the ALU instruction.
-\item Immediate: used for Load Immediate, load the register with the given value and for branch instruction to set the new value in the programme counter
-\item Rd : number of the register which will be written
-\item Ra : number of register A
-\item Rb : number of register B
-\end{itemize}
+As our instruction format we decided to use a slightly modified version of the
+suggested format from assignment 2, shown in table \ref{tab:instformat}. The only
+difference is that Ra and Rb are swapped. Following is a description of the different
+fields.
+
+\begin{description}
+\item[Opcode] - Used to determine the control signals in the cpu given different instructions.	
+\item[Funct] - Used for choosing the ALU instruction.
+\item[Immediate] - Used in different instructions as a constant value.
+\item[Rd] - Number of the register which will be written
+\item[Ra] - Number of register A
+\item[Rb] - Number of register B
+\end{description}
 
 
 
