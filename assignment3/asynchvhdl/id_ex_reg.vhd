@@ -1,3 +1,11 @@
+-------------------------------------------------------------------------------
+--
+-- ID/EX register component
+--
+-- Simple register containing a record datatype declared in package.vhd
+--
+-------------------------------------------------------------------------------
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use work.dmkons_package.all;

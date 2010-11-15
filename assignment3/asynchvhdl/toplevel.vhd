@@ -5,14 +5,14 @@
 -- File       : toplevel.vhd
 -- Author     : DM
 -- Company    : 
--- Last update: 2008-06-18
+-- Last update: 2010-11-15
 -- Platform   : BenERA, Virtex 1000E
 -------------------------------------------------------------------------------
 -- Description: 
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date        Version  Author  Description
--- 2003/08/07  1.0      djupdal	Created
+-- 2003/08/07  1.0      djupdal Created
 -------------------------------------------------------------------------------
 
 library IEEE;
@@ -42,60 +42,60 @@ end toplevel;
 architecture toplevel_arch of toplevel is
 
 -- signals connecting cpu and cpucom
-	-- imem write port
-   signal imem_w_address_conn : std_logic_vector(IADDR_BUS - 1 downto 0);
-   signal imem_w_data_conn    : std_logic_vector(IDATA_BUS - 1 downto 0);
-   signal imem_w_enable_conn  : std_logic;
+  -- imem write port
+  signal imem_w_address_conn : std_logic_vector(IADDR_BUS - 1 downto 0);
+  signal imem_w_data_conn    : std_logic_vector(IDATA_BUS - 1 downto 0);
+  signal imem_w_enable_conn  : std_logic;
 
-   -- register values in regfile
-   signal reg_values_conn : regfile_type;
+  -- register values in regfile
+  signal reg_values_conn : regfile_type;
 
-   -- clock used for cpu core
-   signal core_clk_conn : std_logic;
-   -- reset used for cpu core
-   signal core_rst_conn : std_logic;
-	
+  -- clock used for cpu core
+  signal core_clk_conn : std_logic;
+  -- reset used for cpu core
+  signal core_rst_conn : std_logic;
+  
 begin
 
-	pipeline_cpu : cpu port map (
-	   -- imem write port
-      imem_w_address_conn,
-      imem_w_data_conn,
-      imem_w_enable_conn,
+  pipeline_cpu : cpu port map (
+    -- imem write port
+    imem_w_address_conn,
+    imem_w_data_conn,
+    imem_w_enable_conn,
 
-      -- register values in regfile
-      reg_values_conn,
+    -- register values in regfile
+    reg_values_conn,
 
-      -- clock used for cpu core
-      core_clk_conn,
-      -- reset used for cpu core
-      core_rst_conn,
-		-- BenERA LEDS
-		led);
-		
-   cpucom1 : cpucom port map (
-      -- signals for communicating with PCI-FPGA
-      -- see BenERA users guide
-      pciBusy,
-      pciEmpty,
-      pciRW,
-      pciEnable,
-      pciData,
+    -- clock used for cpu core
+    core_clk_conn,
+    -- reset used for cpu core
+    core_rst_conn,
+    -- BenERA LEDS
+    led);
 
-      -- imem write port
-      imem_w_address_conn,
-      imem_w_data_conn,
-      imem_w_enable_conn,
+  cpucom1 : cpucom port map (
+    -- signals for communicating with PCI-FPGA
+    -- see BenERA users guide
+    pciBusy,
+    pciEmpty,
+    pciRW,
+    pciEnable,
+    pciData,
 
-      -- register values in regfile
-      reg_values_conn,
+    -- imem write port
+    imem_w_address_conn,
+    imem_w_data_conn,
+    imem_w_enable_conn,
 
-      -- clock used for cpu core
-      core_clk_conn,
-      -- reset used for cpu core
-      core_rst_conn,
+    -- register values in regfile
+    reg_values_conn,
 
-      rst,
-      clk);
+    -- clock used for cpu core
+    core_clk_conn,
+    -- reset used for cpu core
+    core_rst_conn,
+
+    rst,
+    clk);
 
 end toplevel_arch;

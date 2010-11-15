@@ -1,3 +1,8 @@
+-------------------------------------------------------------------------------
+--
+-- CPU - Component sewing together all components. Contains no Logic
+--
+-------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use work.dmkons_package.all;
@@ -69,9 +74,12 @@ begin
   exwb_input.wb    <= idex.wb;
   branch_address   <= ifid.imm;
 
-  ---------------------------------
-  -- Component instantiations
-  ---------------------------------
+-------------------------------------------------------------------------------
+-- Component instantiations, ordered by appearance in pipeline.
+-------------------------------------------------------------------------------
+
+  -----------------------------------------------------------------------------
+  -- Control unit
   control_unit : control
     port map (
       -- Inputs
@@ -95,6 +103,7 @@ begin
       WB              => idex_input.wb
       );
 
+  -----------------------------------------------------------------------------
   -- Program Counter
   progcounter : pc
     port map (
@@ -105,7 +114,8 @@ begin
       core_rst        => core_rst,
       core_clk        => core_clk
       );
-
+  -----------------------------------------------------------------------------
+  -- Instruction memory
   imem : mem
     generic map (
       MEM_ADDR_BUS => IADDR_BUS,
@@ -121,6 +131,8 @@ begin
       core_clk  => core_clk
       );
 
+  -----------------------------------------------------------------------------
+  -- IF/ID pipeline register
   ifidreg : if_id_reg
     port map (
       core_rst  => core_rst,
@@ -130,6 +142,8 @@ begin
       if_id_out => ifid
       );
 
+  -----------------------------------------------------------------------------
+  -- Register file
   registers : regfile port map (
     -- read port A
     reg_a      => ifid.ra,
@@ -147,6 +161,8 @@ begin
     core_clk   => core_clk
     );
 
+  -----------------------------------------------------------------------------
+  -- Decode stage hazard mux
   idopmux : id_operand_mux
     port map (
       op_a_mux   => id_op_a_mux_signal,
@@ -158,6 +174,8 @@ begin
       op_b       => idex_input.b
       );
 
+  -----------------------------------------------------------------------------
+  -- ID/EX pipeline register
   idexreg : id_ex_reg
     port map (
       core_rst => core_rst,
@@ -166,6 +184,8 @@ begin
       reg_out  => idex
       );
 
+  -----------------------------------------------------------------------------
+  -- Execute stage hazard mux
   exmux : ex_operand_mux
     port map(
       op_a_mux    => idex.ex.alu_a_mux,
@@ -177,6 +197,8 @@ begin
       op_b        => alu_b
       );
 
+  -----------------------------------------------------------------------------
+  -- ALU
   alu1 : alu
     port map (
       alu_funct  => idex.funct,
@@ -186,6 +208,8 @@ begin
       alu_status => alu_status_out
       );
 
+  -----------------------------------------------------------------------------
+  -- Status register
   statusreg : sr
     port map (
       sr_in           => alu_status_out,
@@ -195,6 +219,8 @@ begin
       core_clk        => core_clk
       );
 
+  -----------------------------------------------------------------------------
+  -- Data memory
   dmem : mem
     generic map (
       MEM_ADDR_BUS => DADDR_BUS,
@@ -210,6 +236,8 @@ begin
       core_clk  => core_clk
       );
 
+  -----------------------------------------------------------------------------
+  -- EX/WB Pipeline register
   exwbreg : ex_wb_reg
     port map(
       core_rst => core_rst,
@@ -218,6 +246,8 @@ begin
       reg_out  => exwb
       );
 
+  -----------------------------------------------------------------------------
+  -- Register input mux
   regmux1 : regfile_mux port map (
     selector  => exwb.wb.wb_source,
     immediate => exwb.imm,

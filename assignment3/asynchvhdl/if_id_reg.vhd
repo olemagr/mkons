@@ -1,3 +1,11 @@
+-------------------------------------------------------------------------------
+--
+-- IF/ID register component
+--
+-- Convert stored value in instruction memory output to record type. Keep valid
+-- bit in register.
+-------------------------------------------------------------------------------
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use work.dmkons_package.all;

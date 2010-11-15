@@ -9,7 +9,7 @@
 --
 -- Counter keeping track of instruction address. Either increments or sets to  
 -- provided absolute address based on input from control unit and current 
--- instruction.
+-- instruction. Unchanged from assignment 2
 -- 
 -------------------------------------------------------------------------------
 

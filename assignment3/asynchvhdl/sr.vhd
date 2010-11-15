@@ -46,8 +46,9 @@ begin
       end if;
     end if;
   end process;
-  -- BNZ requires newest status. This will be sr_in in case of an active arithmetic operation
-  -- or the stored value if the current executing is something else.
+  -- BNZ requires newest status. This will be sr_in in case of an active
+  -- arithmetic operation or the stored value if the current executing
+  -- is something else.
   sr_out <= sr when sr_write_enable = '0' else
             sr_in;
 

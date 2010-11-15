@@ -1,3 +1,10 @@
+-------------------------------------------------------------------------------
+--
+-- Ex operand mux
+--
+-- Muxes the operands in the execute stage based on output from control unit
+-------------------------------------------------------------------------------
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use work.dmkons_package.all;
@@ -16,6 +23,8 @@ end ex_operand_mux;
 
 architecture Behavioral of ex_operand_mux is
 begin
+  -- Send the standard value through when 0, else send
+  -- writeback value.
   op_a <= idex_data_a WHEN op_a_mux = '0' ELSE
           wb_data;
   op_b <= idex_data_b WHEN op_b_mux = '0' ELSE
