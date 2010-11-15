@@ -57,8 +57,16 @@ all information and control signals needed for later stages. It was also
 necessary to take dependancy hazards into account by writing back results
 to where it is needed in the earlier pipelining stages. 
 
-We used the suggested solution as a starting point. %Meeeeeeer!
+We used the suggested solution in the exercise as a starting point, 
+especially the architecture illustration which we have included in 
+Figure \ref{fig:architecture}.
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.95\linewidth]{toplevel.png} \\
+  \caption{Pipelined CPU architecture from the assignment text}
+  \label{fig:architecture}
+\end{figure}
 
 
 % Present concisely an outline of how the task was solved.  This is
@@ -83,7 +91,7 @@ We used the suggested solution as a starting point. %Meeeeeeer!
 % Describe computation flow, what happens at each stage
 \subsection*{Instruction format}
 As our instruction format we decided to use a slightly modified version of the
-suggested format from assignment 2, shown in figure 1.
+suggested format from assignment 2, shown in table %insert!
 
 \begin{table}[h]
   \centering
@@ -136,9 +144,11 @@ suggested format from assignment 2, shown in figure 1.
 
 
 \subsection*{Implemented functions}
-\subsection*{Instruction flow}
+\subsection*{Processor Operation}
 We will here describe the basic flow of operations for an instruction
 through our processor architecture stage by stage without hazards handling.
+The additions to handle hazards will be described in the hazards section.
+The stages correspond to the stages of Figure \ref{fig:architecture}.
 
 \subsubsection*{Instruction fetch}
 
@@ -152,7 +162,7 @@ In the decode stage the most basic action is the forwarding of the Rd, Immediate
 the function field to the ID/EX register. The Ra and Rb fields are sent to the regfile, 
 and the corresponding outputs are written to the ID/EX A and B field. 
 The immediate field is also connected to the data memory read address, as this value
-needs to be read on a rising edge because of the memory implementation.
+needs to be read on a rising edge because of the delivered memory implementation.
 
 Based on the opcode of the instruction, control has to write several control signals 
 to the ID/EX register. These are divided into control signals for the Execute stage
@@ -210,16 +220,83 @@ We will now describe how both of these hazards are being handled in our architec
 \subsubsection*{Control hazard handling}
 
 To handle the control hazards we have done as the assignment text proposes, and included
-a valid bit for the IF/ID register. This valid bit is written by the control unit as the 
-instruction is being fetched from the instruction memory. Checking the current opcode and the 
-status register is enough to know if the branch is being taken or not. 
+a valid bit for the IF/ID register. This valid bit is written by the control unit in the
+instruction fetch stage. Checking if the current opcode 
+corresponds to a BNZ instruction and that the status register is not zero
+is enough to know if the branch is being taken, and so the valid bit can be deasserted. 
 When the control unit checks the valid bit the next cycle, it knows it is dealing with an 
 invalid operation and can resolve this by deasserting all write enable signals in the 
 ID/EX register.
 
 \subsubsection*{Data hazard handling}
 
-blablabla
+As figure \ref{fig:architecture}
+illustrates, the register file is not written until the end of the 
+writeback stage, but at this stage there are already two following instructions that
+have performed or are performing their register reads, the one in the execute stage, 
+and the one in the 
+decode stage. This means that if these following instructions share a source register
+number with the first instruction's write register number, the data read will be wrong. 
+
+The solution to this problem is to bypass the register file, by connecting the output
+from the register input muxer to four different muxes, one for each input value in both
+the decode and execute stage. These are the red muxes in figure \ref{fig:architecture}
+We will get back to the final red mux by the status register. 
+
+The two muxes in the
+decode stage are directly controlled by the control unit, while the two control signals 
+for the execute stage has to be written to the ID/EX pipeline register to be used at the
+next cycle. One addition to the figure, is that the output from the A operand muxer in 
+the execute stage also is connected to the write data input of the data memory, as the
+same data hazard is valid for memory writes. The control signals are set according to
+Table \ref{tab:demuxes} and Table \ref{tab:exmuxes}, 
+where 0 means the muxes are selecting the standard value, and 1 means selecting the 
+value from the register input mux. In addition, the muxes are not asserted when 
+the write destination registers are register 0, 
+as this is constant Zero, and when the register write enable signals are deasserted.
+Notice that if for example Ra of an instruction is written by both preceeding 
+instructions, the closest one takes precedence, as the new writeback value overwrites
+the old.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    Condition&Decode mux A&Decode mux B \\
+    \hline
+    EX/WB Rd = IF/ID Ra	&1	& 0\\
+    EX/WB Rd = IF/ID Ra	&0	& 1\\
+    None of the above	&0	& 0\\
+    \hline
+    
+  \end{tabular}
+  \caption{Control of the data hazard multiplexors of the decode stage}
+  \label{tab:demuxes}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    Condition&Execute mux A&Execute mux B \\
+    \hline
+    ID/EX Rd = IF/ID Ra	&1	& 0\\
+    ID/EX Rd = IF/ID Ra	&0	& 1\\
+    None of the above	&0	& 0\\
+    \hline
+    
+  \end{tabular}
+  \caption{Control of the data hazard multiplexors of the execute stage}
+  \label{tab:exmuxes}
+\end{table}
+The last hazard is the status register read by our branch if not zero instruction.
+If the instruction preceeding a branch instruction is an ALU instruction, meaning it
+is setting the status register, this status will not be ready in the status register
+until after the branch evaluation has been performed, possibly resulting in an
+erroneous branch. This is solved with the status muxer mentioned earlier, and is the 
+red muxer by the status register in figure %blablabal
+This muxer is simply controlled by the status write enable signal itself, directing the
+newest status to the control unit.
 
 
 \section*{Approach}
@@ -234,9 +311,9 @@ blablabla
 %tested it on nalle running a program calculating fibonacci numbers.
 
 Our approach to the problem in this excercise was to construct all the 
-modules described in the architecture diagram, starting with the simplest.  %DIAGRAM!
+modules described in figure \ref{fig:architecture}, starting with the simplest.  %DIAGRAM!
 This included the writeback muxes between the register file and the id/ex
-pipeline register, and the writeback muxes between the id/ex pipeline 
+pipeline register and the writeback muxes between the id/ex pipeline 
 register and the ALU and data memory as we felt confident we were going 
 to get the hazards handling working. 
 Some of the modules like the program counter and status register 
@@ -254,15 +331,11 @@ a working architecture.
 
 \subsection*{Implementation}
 
-\begin{figure}
-  \centering
-  \includegraphics[width=.95\linewidth]{toplevel.png} \\
-  \caption{Pipelined cpu}
-  \label{fig:pipelinedcpu}
-\end{figure}
 
-Our implementation consists of the following components
-ordered by their appearance in the pipelining stages:
+
+Our implementation consists of a cpu component composed of
+the following components ordered by their appearance 
+in the pipelining stages:
 	
 \begin{enumerate}
 \item Program counter.
@@ -280,8 +353,8 @@ ordered by their appearance in the pipelining stages:
 \item Register input mux.
 \end{enumerate}
 	
-We will now describe the components.
-\subsubsection*{Program Counter}
+We will now describe the implementations of these components.
+\subsubsection*{Program Counter (pc.vhd)}
 %The program counter is initiated to 0 on reset and is updated every control cycle
 %with either an increment or an immediate value from the instruction. 
 %We discussed using a relative jump instead of just loading a value, 
@@ -294,57 +367,62 @@ the current value. It also takes in a write enable that is not needed in
 the current architecture, but that would be if we decided to expand the 
 instruction set in the future.
 
-\subsubsection*{Instruction memory}
-The instruction memory is an instantiation of the provided memory component taking in
-output from the program counter and providing the instruction at the provided
-address.
-\subsubsection*{IF/ID pipeline register}
+\subsubsection*{Instruction memory (mem.vhd)}
+The instruction memory is an instantiation of the provided memory component
+with word size generic set to 32(our instruction size). It takes in
+output from the program counter and fetches the instruction at the provided
+address for the rest of the cpu.
+\subsubsection*{IF/ID pipeline register (if_id_reg.vhd)}
 Since the instruction is stored on the output register of the instruction memory,
 the IF/ID pipeline register component is actually just an abstraction of this, sending 
 most of its input straight through, and only registering the valid bit, provided by
-the control module.
+the control module. For simplicity we created a record holding all the required fields
+to use as output from this component. We did this for the other pipeline registers
+also, and they are all declared in the package.vhd file.
 
-\subsubsection*{Control Unit}
+\subsubsection*{Control Unit (control.vhd)}
 
 The control unit is the most complex component in our design, as all the control
 signals in the decode stage is set here, as well as the future control signals for
 the execute and writeback stage that must be written to the ID/EX pipeline register.
 The component is purely combinatorial, with outputs based on the current instruction in the
 IF/ID register and some fields in the other pipeline registers to handle hazards as
-described in the design section. %OBS!
+described in the hazard section of the report. It's function is described further in the 
+earlier processor operation section.
 
-\subsubsection*{Register file}
+\subsubsection*{Register file (regfile.vhd)}
 The register file is an instantiation of the delivered register file, with 
-2 combinatorial read adresses with corresponding outputs, and one sequential
-write address and data port.
+2 combinatorial read adresses with corresponding 8 bit outputs, and one sequential
+write address and 8 bit data port.
 
-\subsubsection*{Register to ID/EX muxes}
+\subsubsection*{Register to ID/EX muxes (id_operand_mux.vhd)}
 Based on two control signals from the control unit, this double mux combinatorially
 decides the input of the two operand fields of the ID/EX register. It can 
 either be from the register or the writeback signal from the writeback stage.
-\subsubsection*{ID/EX pipeline register}
+
+\subsubsection*{ID/EX pipeline register (id_ex_reg.vhd)}
 This is a simple sequentially written register. The contents are described in the 
-design section. %OBS!! Make it so!
-\subsubsection*{ID/EX to ALU and data memory muxes}
+processor operation and hazards handling sections, and is defined as a record in package.vhd. 
+\subsubsection*{ID/EX to ALU and data memory muxes (ex_operand_mux.vhd)}
 This component works the same way as the Register to ID/EX mux, but the source of the 
 mux control signals is the ex field of the ID/EX register, and the ouput is connected
 to the ALU and Data memory data input.
 
-\subsubsection*{ALU}
+\subsubsection*{ALU (alu.vhd)}
 The alu is the simple handed out component.
-\subsubsection*{Status Register}
+\subsubsection*{Status Register (sr.vhd)}
 We use our Status Register implementation from the previous assignment, but have
 built in the writeback mux to be controlled by the write status register signal.
 When the status write signal is asserted, the mux will also choose the current 
 status signal from the ALU, even before it is written to the register.
-\subsubsection*{Data Memory}
+\subsubsection*{Data Memory (mem.vhd)}
 As with the Instruction memory, this is an instantiation of the handed out memory
 module, only used for data. This implies an 8-bit width. Because it needs the read address
 on the rising edge, we had to connect the read address port to the immediate value of the
 if/id register.
-\subsubsection*{EX/WB pipeline register}
+\subsubsection*{EX/WB pipeline register (ex_wb_reg.vhd)}
 As with ID/EX this is just a simple register. Fields are described in the design section.
-\subsubsection*{Register input mux}
+\subsubsection*{Register input mux (regfile_mux.vhd)}
 Our last component is the muxer choosing what value of the EX/WB register to send to the
 register file. 
 %The status register is just a register with a write enable, and the register 
@@ -389,7 +467,7 @@ The waveform of this test can be seen in figure \ref{fig:program1wave}
 \end{figure}
 
 
-\subsubsection*{Datadependency test}
+\subsubsection*{Data dependency test}
 
 This program tests if the dataforwarding is successfull. The part after 'Test 1' tests data forwarding
 from the writeback- to the execute-stage. The part after 'Test 2' tests data forwarding from the
