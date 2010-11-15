@@ -26,11 +26,11 @@
 
 The task was to implement a simple pipelined CPU. A top level architecture 
 was proposed in the assignment text, we chose to implement the CPU in this way. 
-The CPU should load instructions into memory and execute them. 
+The CPU should load instructions from memory and execute them. 
 A program counter will be used to walk through the 
 instructions. A BNZ (branch if not zero) instruction can also be used, this 
 instruction will load the program counter with a given address if the zero flag
-was set from the previous instruction. Additionally the CPU should implement a 
+was deasserted from the previous ALU instruction. Additionally the CPU should implement a 
 LDI (load immediate) instruction that loads the the register with a value. 
 The CPU should also implement LOAD and STORE instructions to operate on memory.
 We implemented 3 seperate test programs to be simulated and run on the implemented
@@ -113,8 +113,8 @@ fields.
 \item[Funct] - Used for choosing the ALU instruction.
 \item[Immediate] - Used in different instructions as a constant value.
 \item[Rd] - Number of the register which will be written
-\item[Ra] - Number of register A
-\item[Rb] - Number of register B
+\item[Ra] - Number of operand register A
+\item[Rb] - Number of operand register B
 \end{description}
 
 
@@ -124,10 +124,11 @@ fields.
 The cpu implements the following functions, the opcodes and funct 
 codes are defined in table \ref{tab:opcodes} and table \ref{tab:functcodes}:
 \begin{enumerate}
-  \item BNZ: Branch not zero, executes an absolute jump if the zero flag in the status register is set
-  \item LDI: Load immediate, Loads a register immediately with a value.
-  \item LOAD: Loads a register with a value from memory.
-  \item STORE: Stores a value from register to memory.
+  \item BNZ: Branch not zero, executes an absolute jump to the address given by
+the immediate value of the instruction if the zero flag in the status register is deasserted.
+  \item LDI: Load immediate, Loads a register with the immediate value of the instruction.
+  \item LOAD: Loads a register with a value from memory at address given by immediate.
+  \item STORE: Stores a value from register to memory at address given by immediate.
   \item ALU Instructions:
   \begin{enumerate}
     \item MOVE: Moves a register value to a target register
@@ -143,13 +144,13 @@ codes are defined in table \ref{tab:opcodes} and table \ref{tab:functcodes}:
     Name&Opcode&Comment \\
     \hline
     ALU\_INST	&001	&Writes alu result to register\\
-    BNZ			&011	&Loads pc register if zero flag is set\\
+    BNZ			&011	&Loads pc register if zero flag is not set\\
     LDI			&010	&Loads register with value\\
     LOAD		&110	&Writes register Ra to memory at address given by immediate\\
     STORE		&100	&Loads register Rd with memory at address given by immediate\\
     \hline
   \end{tabular}
-  \caption{Instruction set for the ALU, not including the alu functionality}
+  \caption{Instruction set for the CPU, not including the alu functionality}
   \label{tab:opcodes}
 \end{table}
 
@@ -160,8 +161,8 @@ codes are defined in table \ref{tab:opcodes} and table \ref{tab:functcodes}:
     Name&Funct&Comment \\
     \hline
     MOVE	&0000	& sets output of ALU out to input A\\
-    AND		&0001	& Bitwise AND\\
-    ADD		&0111	& Arithmetic ADD\\
+    AND		&0001	& Bitwise AND of input A and B\\
+    ADD		&0111	& Arithmetic ADD of input A and B\\
     \hline
   \end{tabular}
   \caption{Function set for the ALU}
@@ -236,7 +237,7 @@ encountered in pipelining processors. In our architecture there are two potentia
 types of hazards, data hazards and control hazards. The data hazards occur when there 
 are data dependencies between closely following instructions, resulting in the
 early instructions not being able to write their result before the same result is 
-supposed to be read by a following register. The control hazard occur when a branch
+supposed to be read by a following instruction. The control hazard occur when a branch
 is being taken, but the instruction following the branch is already inserted in the pipeline,
 even though it is not supposed to be executed.
 
@@ -265,61 +266,50 @@ number with the first instruction's write register number, the data read will be
 
 The solution to this problem is to bypass the register file, by connecting the output
 from the register input muxer to four different muxes, one for each input value in both
-the decode and execute stage. These are the red muxes in figure \ref{fig:architecture}
+the decode and execute stage. These are the red muxes in figure \ref{fig:architecture}.
 We will get back to the final red mux by the status register. 
 
 The two muxes in the
 decode stage are directly controlled by the control unit, while the two control signals 
-for the execute stage has to be written to the ID/EX pipeline register to be used at the
-next cycle. One addition to the figure, is that the output from the A operand muxer in 
+for the execute stage has to be written to the ID/EX pipeline register to be used in the 
+execute stage. One addition to the figure, is that the output from the A operand muxer in 
 the execute stage also is connected to the write data input of the data memory, as the
-same data hazard is valid for memory writes. The control signals are set according to
-Table \ref{tab:demuxes} and Table \ref{tab:exmuxes}, 
-where 0 means the muxes are selecting the standard value, and 1 means selecting the 
-value from the register input mux. In addition, the muxes are not asserted when 
+same data hazard is valid for memory writes. The control signals are asserted 
+according to table \ref{tab:hazmuxes}. 
+
+In addition, the muxes are not asserted when 
 the write destination registers are register 0, 
 as this is constant Zero, and when the register write enable signals are deasserted.
 Notice that if for example Ra of an instruction is written by both preceeding 
 instructions, the closest one takes precedence, as the writeback value in the
-execute stage overvrites the one from the decode stage.
+execute stage overwrites the one from the decode stage. Also, any number of the 
+muxer controls may be asserted, as in the extreme case where both preceeding instructions
+write the same register, and both read registers of the current instructions are the same.
 
 \begin{table}[htbp]
   \centering
-  \begin{tabular}{|l|l|l|}
+  \begin{tabular}{|l|l|}
     \hline
-    Condition&Decode mux A&Decode mux B \\
+    Condition&Asserted multiplexor \\
     \hline
-    EX/WB Rd = IF/ID Ra	&1	& 0\\
-    EX/WB Rd = IF/ID Ra	&0	& 1\\
-    None of the above	&0	& 0\\
+    EX/WB Rd = IF/ID Ra	& Decode mux A\\
+    EX/WB Rd = IF/ID Rb	& Decode mux B\\
+    ID/EX Rd = IF/ID Ra	& Execute mux A\\
+    ID/EX Rd = IF/ID Rb	& Execute mux B\\
     \hline
     
   \end{tabular}
-  \caption{Control of the data hazard multiplexors of the decode stage}
-  \label{tab:demuxes}
+  \caption{Control of the data hazard multiplexors}
+  \label{tab:hazmuxes}
 \end{table}
 
-\begin{table}[htbp]
-  \centering
-  \begin{tabular}{|l|l|l|}
-    \hline
-    Condition&Execute mux A&Execute mux B \\
-    \hline
-    ID/EX Rd = IF/ID Ra	&1	& 0\\
-    ID/EX Rd = IF/ID Ra	&0	& 1\\
-    None of the above	&0	& 0\\
-    \hline
-    
-  \end{tabular}
-  \caption{Control of the data hazard multiplexors of the execute stage}
-  \label{tab:exmuxes}
-\end{table}
+
 The last hazard is the status register read by our branch if not zero instruction.
 If the instruction preceeding a branch instruction is an ALU instruction, meaning it
 is setting the status register, this status will not be ready in the status register
 until after the branch evaluation has been performed, possibly resulting in an
 erroneous branch. This is solved with the status muxer mentioned earlier, and is the 
-red muxer by the status register in figure %blablabal
+red muxer by the status register in figure \ref{fig:architecture}.
 This muxer is simply controlled by the status write enable signal itself, directing the
 newest status to the control unit.
 
