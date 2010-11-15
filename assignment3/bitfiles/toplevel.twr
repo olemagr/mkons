@@ -1,0 +1,912 @@
+--------------------------------------------------------------------------------
+Release 9.2.04i Trace 
+Copyright (c) 1995-2007 Xilinx, Inc.  All rights reserved.
+
+C:\Xilinx\bin\nt\trce.exe -ise C:/Xilinx/mkons3test/mkons3test.ise -intstyle
+ise -e 3 -s 6 -xml toplevel toplevel.ncd -o toplevel.twr toplevel.pcf -ucf
+pipeline.ucf
+
+Design file:              toplevel.ncd
+Physical constraint file: toplevel.pcf
+Device,package,speed:     xcv1000e,fg860,-6 (PRODUCTION 1.70 2007-04-13)
+Report level:             error report
+
+Environment Variable      Effect 
+--------------------      ------ 
+NONE                      No environment variables were set
+--------------------------------------------------------------------------------
+
+INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths 
+   option. All paths that are not constrained will be reported in the 
+   unconstrained paths section(s) of the report.
+INFO:Timing:3339 - The clock-to-out numbers in this timing report are based on 
+   a 50 Ohm transmission line loading model.  For the details of this model, 
+   and for more information on accounting for different loading conditions, 
+   please see the device datasheet.
+
+================================================================================
+Timing constraint: NET "cpucom1/clk_i1" PERIOD = 25 ns HIGH 50%;
+
+ 0 items analyzed, 0 timing errors detected.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: PERIOD analysis for net "cpucom1/clk_i2" derived from  NET 
+"cpucom1/clk_i1" PERIOD = 25 ns HIGH 50%;  duty cycle corrected to 25 nS  HIGH 
+12.500 nS  
+
+ 439 items analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum period is  15.014ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<31>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is   9.905ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<31>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<30>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is   8.741ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<30>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<29>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is   8.667ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<29>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<28>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.494ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<28>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<27>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is   8.687ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<27>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<26>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is   9.691ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<26>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<25>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is   9.691ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<25>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<24>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.224ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<24>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<23>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.224ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<23>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<22>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.073ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<22>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<21>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.015ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<21>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<20>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.015ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<20>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<19>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.015ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<19>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<18>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.217ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<18>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<17>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.217ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<17>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<16>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.217ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<16>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<15>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.015ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<15>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<14>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.945ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<14>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<13>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.704ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<13>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<12>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.704ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<12>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<11>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  11.334ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<11>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<10>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  11.334ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<10>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<9>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  11.109ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<9>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<8>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  11.109ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<8>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<7>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 3 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  11.532ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<7>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<6>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 3 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  11.337ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<6>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<5>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 3 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.793ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<5>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<4>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 3 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  11.005ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<4>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<3>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 3 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.822ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<3>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 1 item analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   1.700ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<2>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 3 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.493ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<2>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   3.021ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<1>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 3 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  10.015ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<1>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   3.071ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<0>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+
+ 3 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is   8.952ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciData<0>" OFFSET = IN 5 ns BEFORE COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   3.092ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciBusy" OFFSET = IN 9 ns BEFORE COMP "clk";
+
+ 3 items analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   5.155ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciEmpty" OFFSET = IN 9 ns BEFORE COMP "clk";
+
+ 3 items analyzed, 0 timing errors detected. (0 setup errors, 0 hold errors)
+ Minimum allowable offset is   5.982ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciRW" OFFSET = OUT 11 ns AFTER COMP "clk";
+
+ 2 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is   8.332ns.
+--------------------------------------------------------------------------------
+
+================================================================================
+Timing constraint: COMP "pciEnable" OFFSET = OUT 11 ns AFTER COMP "clk";
+
+ 4 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is   8.078ns.
+--------------------------------------------------------------------------------
+
+
+All constraints were met.
+
+
+Data Sheet report:
+-----------------
+All values displayed in nanoseconds (ns)
+
+Setup/Hold to clock clk
+------------+------------+------------+------------------+--------+
+            |  Setup to  |  Hold to   |                  | Clock  |
+Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
+------------+------------+------------+------------------+--------+
+pciBusy     |    5.155(R)|   -2.572(R)|cpucom1/com_clk   |   0.000|
+pciData<0>  |    3.092(R)|   -0.703(R)|cpucom1/com_clk   |   0.000|
+pciData<1>  |    3.071(R)|   -0.658(R)|cpucom1/com_clk   |   0.000|
+pciData<2>  |    3.021(R)|   -0.719(R)|cpucom1/com_clk   |   0.000|
+pciData<3>  |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<4>  |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<5>  |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<6>  |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<7>  |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<8>  |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<9>  |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<10> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<11> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<12> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<13> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<14> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<15> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<16> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<17> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<18> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<19> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<20> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<21> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<22> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<23> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<24> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<25> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<26> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<27> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<28> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<29> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<30> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciData<31> |    1.700(R)|   -0.400(R)|cpucom1/com_clk   |   0.000|
+pciEmpty    |    5.982(R)|   -3.364(R)|cpucom1/com_clk   |   0.000|
+------------+------------+------------+------------------+--------+
+
+Clock clk to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+pciData<0>  |    8.952(R)|cpucom1/com_clk   |   0.000|
+pciData<1>  |   10.015(R)|cpucom1/com_clk   |   0.000|
+pciData<2>  |   10.493(R)|cpucom1/com_clk   |   0.000|
+pciData<3>  |   10.822(R)|cpucom1/com_clk   |   0.000|
+pciData<4>  |   11.005(R)|cpucom1/com_clk   |   0.000|
+pciData<5>  |   10.793(R)|cpucom1/com_clk   |   0.000|
+pciData<6>  |   11.337(R)|cpucom1/com_clk   |   0.000|
+pciData<7>  |   11.532(R)|cpucom1/com_clk   |   0.000|
+pciData<8>  |   11.109(R)|cpucom1/com_clk   |   0.000|
+pciData<9>  |   11.109(R)|cpucom1/com_clk   |   0.000|
+pciData<10> |   11.334(R)|cpucom1/com_clk   |   0.000|
+pciData<11> |   11.334(R)|cpucom1/com_clk   |   0.000|
+pciData<12> |   10.704(R)|cpucom1/com_clk   |   0.000|
+pciData<13> |   10.704(R)|cpucom1/com_clk   |   0.000|
+pciData<14> |   10.945(R)|cpucom1/com_clk   |   0.000|
+pciData<15> |   10.015(R)|cpucom1/com_clk   |   0.000|
+pciData<16> |   10.217(R)|cpucom1/com_clk   |   0.000|
+pciData<17> |   10.217(R)|cpucom1/com_clk   |   0.000|
+pciData<18> |   10.217(R)|cpucom1/com_clk   |   0.000|
+pciData<19> |   10.015(R)|cpucom1/com_clk   |   0.000|
+pciData<20> |   10.015(R)|cpucom1/com_clk   |   0.000|
+pciData<21> |   10.015(R)|cpucom1/com_clk   |   0.000|
+pciData<22> |   10.073(R)|cpucom1/com_clk   |   0.000|
+pciData<23> |   10.224(R)|cpucom1/com_clk   |   0.000|
+pciData<24> |   10.224(R)|cpucom1/com_clk   |   0.000|
+pciData<25> |    9.691(R)|cpucom1/com_clk   |   0.000|
+pciData<26> |    9.691(R)|cpucom1/com_clk   |   0.000|
+pciData<27> |    8.687(R)|cpucom1/com_clk   |   0.000|
+pciData<28> |   10.494(R)|cpucom1/com_clk   |   0.000|
+pciData<29> |    8.667(R)|cpucom1/com_clk   |   0.000|
+pciData<30> |    8.741(R)|cpucom1/com_clk   |   0.000|
+pciData<31> |    9.905(R)|cpucom1/com_clk   |   0.000|
+pciEnable   |    8.078(R)|cpucom1/com_clk   |   0.000|
+pciRW       |    8.332(R)|cpucom1/com_clk   |   0.000|
+------------+------------+------------------+--------+
+
+Clock to Setup on destination clock clk
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |   15.014|         |         |         |
+---------------+---------+---------+---------+---------+
+
+COMP "pciData<31>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.595 ns; Smallest slack: 2.595 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<31>                                    |        2.595|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<30>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 3.759 ns; Smallest slack: 3.759 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<30>                                    |        3.759|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<29>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 3.833 ns; Smallest slack: 3.833 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<29>                                    |        3.833|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<28>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.006 ns; Smallest slack: 2.006 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<28>                                    |        2.006|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<27>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 3.813 ns; Smallest slack: 3.813 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<27>                                    |        3.813|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<26>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.809 ns; Smallest slack: 2.809 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<26>                                    |        2.809|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<25>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.809 ns; Smallest slack: 2.809 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<25>                                    |        2.809|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<24>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.276 ns; Smallest slack: 2.276 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<24>                                    |        2.276|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<23>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.276 ns; Smallest slack: 2.276 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<23>                                    |        2.276|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<22>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.427 ns; Smallest slack: 2.427 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<22>                                    |        2.427|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<21>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.485 ns; Smallest slack: 2.485 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<21>                                    |        2.485|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<20>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.485 ns; Smallest slack: 2.485 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<20>                                    |        2.485|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<19>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.485 ns; Smallest slack: 2.485 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<19>                                    |        2.485|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<18>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.283 ns; Smallest slack: 2.283 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<18>                                    |        2.283|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<17>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.283 ns; Smallest slack: 2.283 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<17>                                    |        2.283|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<16>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.283 ns; Smallest slack: 2.283 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<16>                                    |        2.283|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<15>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.485 ns; Smallest slack: 2.485 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<15>                                    |        2.485|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<14>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 1.555 ns; Smallest slack: 1.555 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<14>                                    |        1.555|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<13>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 1.796 ns; Smallest slack: 1.796 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<13>                                    |        1.796|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<12>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 1.796 ns; Smallest slack: 1.796 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<12>                                    |        1.796|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<11>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 1.166 ns; Smallest slack: 1.166 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<11>                                    |        1.166|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<10>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 1.166 ns; Smallest slack: 1.166 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<10>                                    |        1.166|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<9>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 1.391 ns; Smallest slack: 1.391 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<9>                                     |        1.391|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<8>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 1.391 ns; Smallest slack: 1.391 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<8>                                     |        1.391|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<7>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 0.968 ns; Smallest slack: 0.968 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<7>                                     |        0.968|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<6>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 1.163 ns; Smallest slack: 1.163 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<6>                                     |        1.163|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<5>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 1.707 ns; Smallest slack: 1.707 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<5>                                     |        1.707|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<4>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 1.495 ns; Smallest slack: 1.495 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<4>                                     |        1.495|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<3>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 1.678 ns; Smallest slack: 1.678 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<3>                                     |        1.678|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<2>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.007 ns; Smallest slack: 2.007 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<2>                                     |        2.007|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<1>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 2.485 ns; Smallest slack: 2.485 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<1>                                     |        2.485|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciData<0>" OFFSET = OUT 12.5 ns AFTER COMP "clk";
+Largest slack: 3.548 ns; Smallest slack: 3.548 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciData<0>                                     |        3.548|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciRW" OFFSET = OUT 11 ns AFTER COMP "clk";
+Largest slack: 2.668 ns; Smallest slack: 2.668 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciRW                                          |        2.668|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+COMP "pciEnable" OFFSET = OUT 11 ns AFTER COMP "clk";
+Largest slack: 2.922 ns; Smallest slack: 2.922 ns; Relative Skew: 0.000 ns; 
+-----------------------------------------------+-------------+-------------+
+PAD                                            |    Slack    |Relative Skew|
+-----------------------------------------------+-------------+-------------+
+pciEnable                                      |        2.922|        0.000|
+-----------------------------------------------+-------------+-------------+
+
+
+Timing summary:
+---------------
+
+Timing errors: 0  Score: 0
+
+Constraints cover 558 paths, 0 nets, and 430 connections
+
+Design statistics:
+   Minimum period:  15.014ns   (Maximum frequency:  66.604MHz)
+   Minimum input required time before clock:   5.982ns
+   Minimum output required time after clock:  11.532ns
+
+
+Analysis completed Mon Nov 15 18:18:29 2010 
+--------------------------------------------------------------------------------
+
+Trace Settings:
+-------------------------
+Trace Settings 
+
+Peak Memory Usage: 109 MB
+
+
+
